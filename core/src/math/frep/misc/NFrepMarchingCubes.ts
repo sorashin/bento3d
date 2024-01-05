@@ -5,7 +5,7 @@ import { NMesh } from '../../geometry/mesh/NMesh';
 import { NMathHelper } from '../../NMathHelper';
 import { NFrep } from '../NFrep';
 import { FrepRenderProps, NFrepTexture } from './NFrepTexture';
-import MarchingCubesWorker, { MarchingCubesProps } from '~/src/workers/MarchingCubes.worker';
+import MarchingCubesWorker, { MarchingCubesProps } from '@/src/workers/MarchingCubes.worker';
 
 type MCResult = {
   triangles: Float32Array;

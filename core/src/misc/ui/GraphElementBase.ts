@@ -1,4 +1,4 @@
-import { IDOMHolder } from '~/src/misc/IDOMHolder';
+import { IDOMHolder } from "@/src/misc/IDOMHolder";
 
 export abstract class GraphElementBase implements IDOMHolder {
   public get dom (): HTMLDivElement {
