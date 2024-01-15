@@ -48,7 +48,7 @@ export class DelaunayEdges extends NodeBase {
     const pl = access.getData(1) as NPlane;
 
     const edges: Edge[] = [];
-    const p2d = points.map((p) => {
+    const p2d: [number, number][] = points.map((p) => {
       const v = pl.project(p);
       return [v.x, v.y];
     });

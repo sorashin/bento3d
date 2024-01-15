@@ -36,7 +36,7 @@ export class Voronoi extends NodeBase {
     const surface = access.getData(2) as NSurface;
     const plane = access.getData(3) as NPlane;
 
-    const p2d = points.map((p) => {
+    const p2d: [number, number][] = points.map((p) => {
       const v = plane.project(p);
       return [v.x, v.y];
     });

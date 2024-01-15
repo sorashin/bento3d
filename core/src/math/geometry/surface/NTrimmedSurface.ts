@@ -96,7 +96,7 @@ export class NTrimmedSurface extends NSurface {
 
   private collectFaces (points: Vector3[]): NFace[] {
     const pl = this.plane;
-    const p2d = points.map((p) => {
+    const p2d: [number, number][] = points.map((p) => {
       const projected = p.clone().projectOnPlane(pl.normal);
       return [
         pl.xAxis.dot(projected) - pl.xAxis.dot(pl.origin),
