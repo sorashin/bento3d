@@ -1,70 +1,29 @@
 
 import { Canvas } from '@react-three/fiber'
 import {   GizmoHelper, GizmoViewport, OrbitControls } from '@react-three/drei'
-import { useControls } from "leva";
-import { Suspense } from 'react';
-
+import { Suspense, useEffect } from 'react';
+import Viewer from "assets/scripts/viewer/Viewer";
 
 
 
 function Scene() {
-  const { height, depth, width, radius, splitX, splitY, splitZ, offset, isModel } = useControls({
-    height: {
-      value: .9,
-      min: 0,
-      max: 2,
-      step: .01,
-    },
-    depth: {
-      value: 3.5,
-      min: 0,
-      max: 10,
-      step: .01,
-    },
-    width: {
-      value: 4.5,
-      min: 0,
-      max: 10,
-      step: .01,
-    },
-    radius: {
-      value: .25,
-      min: 0,
-      max: .5,
-      step: .01,
-    },
-    splitX: {
-      value: 3,
-      min: 1,
-      max: 10,
-      step: 1,
-      
-    },
-    splitY: {
-      value: 3,
-      min: 1,
-      max: 10,
-      step: 1,
-    },
-    splitZ: {
-      value: 3,
-      min: 1,
-      max: 10,
-      step: 1,
-    },
-    offset: {
-      value: 0.005,
-      min: 0,
-      max: 1,
-      step: 0.001,
-    },
-    isModel: {
-      value: false,
-    }
-  })
   
+  useEffect(() => {
+    //get the root html element
+    const root = document.getElementById('root');
+    //load Viewer function and pass the root element
+
+
+    new Viewer(root!);
+    // add viewer to the window object
+    
+    
+  }, [])
   return (
     <div className='fixed inset-0'>
+      <div>
+        
+      </div>
     <Canvas camera={{ fov: 50, position: [3, 3, 3] }}>
       <color attach="background" args={['#dadada']} />
       <Suspense fallback={null}>

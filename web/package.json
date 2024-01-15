@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nodi/core": "^1.0.4",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.13",
+    "@tweenjs/tween.js": "^23.0.0",
     "@types/three": "^0.160.0",
     "autoprefixer": "^10.4.16",
     "leva": "^0.9.35",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.33",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
