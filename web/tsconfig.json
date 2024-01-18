@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2018",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable","ES2018","ESNext",
+    "ESNext.AsyncIterable",
+    "WebWorker"],
     "module": "ESNext",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "esModuleInterop": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -26,6 +31,6 @@
       "~/*": ["public/*"]
     },
   },
-  "include": ["src"],
+  "include": ["src", "pages"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -2,28 +2,19 @@
 import { Canvas } from '@react-three/fiber'
 import {   GizmoHelper, GizmoViewport, OrbitControls } from '@react-three/drei'
 import { Suspense, useEffect } from 'react';
-import Viewer from "assets/scripts/viewer/Viewer";
+import * as Graph  from '@nodi/core';
 
 
 
 function Scene() {
-  
   useEffect(() => {
-    //get the root html element
-    const root = document.getElementById('root');
-    //load Viewer function and pass the root element
-
-
-    new Viewer(root!);
-    // add viewer to the window object
-    
-    
+    const graph = Graph;
+    console.log(graph)
   }, [])
+
   return (
     <div className='fixed inset-0'>
-      <div>
-        
-      </div>
+      
     <Canvas camera={{ fov: 50, position: [3, 3, 3] }}>
       <color attach="background" args={['#dadada']} />
       <Suspense fallback={null}>
