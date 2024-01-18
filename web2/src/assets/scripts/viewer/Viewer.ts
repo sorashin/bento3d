@@ -71,7 +71,7 @@ export default class Viewer implements IDisposable {
 
   private tweens: TweenGroup = new TweenGroup();
 
-  private elements: IElementable[] = [];
+  public elements: IElementable[] = [];
   private freps: NVFrep[] = [];
   private listeners: { listener: IDisposable; node: NodeBase; } [] = [];
   private debouncedComputeBoundingBox: DebouncedFunc<() => Box3> = debounce(this.computeBoundingBox, 25);
