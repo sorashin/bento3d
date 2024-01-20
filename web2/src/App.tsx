@@ -15,7 +15,7 @@ import Scene from './components/organisms/Scene';
 function App() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [path, setPath] =useState("TtmQukE3aczIe31dTMbE");
+  const [path, setPath] =useState("hjLz9tMi2I3vDCpSKDk5");
   //get useStateAtom from /store
   const [user, setuser] = useAtom(userStateAtom);
   const [group, setGroup] = useState<THREE.Group>(); //elements for viewer
@@ -64,7 +64,7 @@ function App() {
       graph.onConstructed.on((e) => {
         //TODO
         viewer.update(e.nodes);
-        
+        update(e.nodes);
         console.log("VIEWER", viewer);
         console.log("NODES", e.nodes);
         setNodes(e.nodes);
@@ -155,9 +155,8 @@ function App() {
     // Append Viewer
     const root:HTMLElement|null = document.getElementById('preview');
     viewer = new Viewer(root!);
-    viewer.setRenderingMode(operators.rendering);
+    // viewer.setRenderingMode(operators.rendering);
     
-    const graph = new Graph();
     initializeProject();
   },[]);  
   
@@ -183,7 +182,7 @@ function App() {
           Learn React
         </a>
       </header>
-        <div id="preview" className='fixed inset-y-0 left-0 w-1/2'></div>
+        <div id="preview" className='hidden'></div>
         <Scene  group={group!} />
         {UIs&&<ParametersUIs uis={UIs}/>}
     </div>
