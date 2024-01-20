@@ -110,26 +110,26 @@ function App() {
       
     );
   };
-
+// UIListItemインスタンスを作成します
+const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
+  const div = document.createElement('div');
+    ui.setupGUIElement(div);
+  const instance = <UIListItem
+    key={ui.uuid}
+    uuid={ui.uuid}
+    editor={false}
+    order={order}
+    length={length}
+    
+  >{div}</UIListItem>;
+  return instance;
+  
+};
 //create react FC for UI
   const ParametersUIs: React.FC<{ uis: UINodeBase[] }> = ({ uis }) => {
     const [uiItems, setUiItems] = useState<JSX.Element[]>([]);
 
-    // UIListItemインスタンスを作成します
-    const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
-      const div = document.createElement('div');
-        ui.setupGUIElement(div);
-      const instance = <UIListItem
-        key={ui.uuid}
-        uuid={ui.uuid}
-        editor={false}
-        order={order}
-        length={length}
-        
-      >{div}</UIListItem>;
-      
-      setUiItems(prevItems => [...prevItems, instance]);
-    };
+    
     
     useEffect(() => {
       uis.forEach((ui, order) => {
@@ -137,8 +137,8 @@ function App() {
         if (found !== undefined) {
           return;
         }
-
-        createUIListItem(ui, order, uis.length);
+        const instance = createUIListItem(ui, order, uis.length);
+        setUiItems(prevItems => [...prevItems, instance]);
       });
     }, [uis, uiItems]);
 
@@ -148,6 +148,24 @@ function App() {
       </ul>
     )
   }
+
+  const UIButton: React.FC<{ uis: UINodeBase[] }> = ({ uis }) => {
+    // uisの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
+    const buttonUis = uis.filter(ui => ui.label === 'Download BOX.stl');
+    let buttonJSXs:JSX.Element[] = []
+    buttonUis.forEach((ui,index) => {
+      const button = createUIListItem(ui, index, uis.length)
+      buttonJSXs.push(button)
+    })
+    return(
+      <div className="absolute z-10 bottom-8 inset-x-0 text-center">
+        {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>span]:hidden [&>div>div>button]:px-4 [&>div>div>span]:hidden [&>div>div>button]:py-2 [&>div>div>button]:bg-content-dark [&>div>div>button]:rounded-sm [&>div>div>button]:text-white'>{ui}</span>)}
+      </div>
+    )
+    
+  }
+
+  
   
 
 
@@ -163,9 +181,13 @@ function App() {
   
   useEffect(() => {
     update(nodes);
+    
   }, [nodes]);
   
-
+  
+  useEffect(() => {
+    console.log('App component rendered');
+  });
   return (
     <div className="App">
       <header className="App-header">
@@ -185,6 +207,7 @@ function App() {
         <div id="preview" className='hidden'></div>
         <Scene  group={group!} />
         {UIs&&<ParametersUIs uis={UIs}/>}
+        <UIButton uis={UIs}/>
     </div>
   );
 }
