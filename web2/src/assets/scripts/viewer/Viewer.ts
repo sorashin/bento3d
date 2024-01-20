@@ -45,7 +45,7 @@ export default class Viewer implements IDisposable {
 
   private coordinate: CoordinateMode = CoordinateMode.ZUp;
   private scene: Scene = new Scene();
-  private container: Group = new Group();
+  public container: Group = new Group();
   private renderingMode: RenderingMode = RenderingMode.Standard;
   private cubeMap: GradientCubeTexture = new GradientCubeTexture();
   private ambient: AmbientLight = new AmbientLight(PreviewColors.ambient);
