@@ -1,44 +1,63 @@
 {
-  "name": "web",
+  "name": "web2",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
   "dependencies": {
     "@nodi/core": "link:../core",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.13",
-    "@tweenjs/tween.js": "^23.0.0",
-    "@types/three": "^0.160.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@tweenjs/tween.js": "^18.6.4",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/three": "^0.135.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.5",
-    "firebase": "^10.7.1",
+    "daisyui": "^4.6.0",
+    "firebase": "^9.1.3",
     "jotai": "^2.6.2",
     "leva": "^0.9.35",
     "lodash": "^4.17.21",
     "postcss": "^8.4.33",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
     "tailwindcss": "^3.4.0",
-    "three": "^0.160.0",
-    "vite-tsconfig-paths": "^4.2.3"
+    "three": "^0.135.0",
+    "typescript": "^4.4.2",
+    "uuid": "^8.3.1",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@originjs/vite-plugin-commonjs": "^1.0.3",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "@types/lodash": "^4.14.182",
+    "@types/uuid": "^8.3.4"
   }
 }
