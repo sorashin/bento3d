@@ -324,6 +324,7 @@ export default class Viewer implements IDisposable {
   }
 
   public update (nodes: NodeBase[]): void {
+    console.log('node updated');
     const enabled = nodes.filter(n => n.enabled && n.previewable);
 
     this.clearUnrefChangedElements(enabled);

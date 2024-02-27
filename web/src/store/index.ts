@@ -1,6 +1,7 @@
 // import { getAccessorType, getterTree, mutationTree, actionTree } from 'typed-vuex';
 
 import * as user from './user';
+import { atom } from 'jotai'
 
 export const state = () => ({});
 
@@ -17,3 +18,4 @@ export const state = () => ({});
 //     user
 //   }
 // });
+export const selectedColorAtom = atom<string>('')
