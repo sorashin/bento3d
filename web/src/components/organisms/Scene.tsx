@@ -1,14 +1,14 @@
 
 import { useThree, Canvas, useFrame } from '@react-three/fiber'
 import {   Edges, GizmoHelper, GizmoViewport, OrbitControls, Stage } from '@react-three/drei'
-import { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { IElementable } from '@nodi/core';
 import * as THREE from 'three';
 import { JSX } from 'react/jsx-runtime';
 import { Bounds} from '@react-three/drei'
 import { DoubleSide } from 'three';
 import { Plant } from '../three/Plant';
-import { useAtom, useAtomValue } from 'jotai';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import { selectedColorAtom } from '../../store';
 import { Tray } from '../three/Tray';
 import { elementsAtom } from '../../store/scene';
@@ -37,9 +37,11 @@ const CanvasSetup: React.FC = () => {
 
 const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   const contentRef = useRef<THREE.Group>(null);
-  const elements = useAtomValue(elementsAtom);
+  const [elements,] = useAtom(elementsAtom);
   const [color,] = useAtom(selectedColorAtom);
 
+  
+  
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime();
     const rotationSpeed = 0.2; // 回転速度
@@ -50,21 +52,18 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
     }
   });
   return(
+  <>
+  
     <group ref={contentRef}>
-        {elements.map((element, index) => {
-          //delete element before render
-
+        {group&&group.children.map((element, index) => {
           return(
-            <primitive object={element} key={index} />
+            <primitive object={element} key={element.uuid} />
           )
         })}
-        
               <Tray/>
-            {/* <mesh>
-              <boxGeometry args={[10, 10, 10]} />
-              <meshStandardMaterial color={new THREE.Color(`${color}`)} />
-            </mesh> */}
     </group>
+    
+  </>
   )
 }
 
@@ -73,9 +72,10 @@ interface SceneProps {
 }
 
 export const Scene: React.FC<SceneProps> = ({ group }) => {
+  
   return (
     <div className='fixed inset-0'>
-      <Canvas camera={{ fov: 50, position: [300, 300, 300] }}>
+      <Canvas camera={{ fov: 50, position: [300, 300, 300] }} >
         <CanvasSetup/>
         
             <Content group={group}/>

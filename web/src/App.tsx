@@ -70,6 +70,7 @@ function App() {
         update(e.nodes);
         console.log("VIEWER", viewer);
         console.log("NODES", e.nodes);
+        console.log("ELEMENTS", viewer.elements);
         setNodes(e.nodes);
         setGroup(viewer.container);
         setElements(viewer.elements);
@@ -135,6 +136,7 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     useEffect(() => {
       setSelectedColor(colors[0]);
     }, []);
+    
     const selectedColorIndex = colors.indexOf(selectedColor);
     return(
       <div className='absolute left-1/2 bottom-20 -translate-x-1/2 z-10 flex gap-2 bg-surface-base p-4 rounded-full'>
