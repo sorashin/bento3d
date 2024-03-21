@@ -47,11 +47,7 @@ function BoxApp() {
     const url = 'https://api.openai.com/v1/chat/completions';
     const method = 'POST';
     const headers = {
-<<<<<<< HEAD
-      'Authorization': 'Bearer ',//FIXME
-=======
       'Authorization': `Bearer ${apiKey}`,
->>>>>>> 462b17a (save)
       'Content-Type': 'application/json'
     };
     let body = JSON.stringify(
