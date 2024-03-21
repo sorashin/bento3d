@@ -77,9 +77,7 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
     <div className='fixed inset-0'>
       <Canvas camera={{ fov: 50, position: [300, 300, 300] }} >
         <CanvasSetup/>
-        
             <Content group={group}/>
-            {/* <Plant/> */}
           <ambientLight intensity={0.5}/>
           <hemisphereLight intensity={0.5} groundColor="white" />
           <directionalLight position={[10, 15, -10]} intensity={0.8} />

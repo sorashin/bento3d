@@ -3,19 +3,12 @@
 import * as user from './user';
 import { atom } from 'jotai'
 
-export const state = () => ({});
+
+
 
 // export const getters = getterTree(state, {});
 // export const mutations = mutationTree(state, {});
 // export const actions = actionTree({ state, getters, mutations }, {});
 
-// export const accessorType = getAccessorType({
-//   state,
-//   getters,
-//   mutations,
-//   actions,
-//   modules: {
-//     user
-//   }
-// });
+export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
