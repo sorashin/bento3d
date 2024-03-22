@@ -7,7 +7,7 @@ export type UINodeJSONType = NodeJSONType & {
 };
 
 export abstract class UINodeBase extends NodeBase {
-  private label: string = 'default';
+  public label: string = 'default';
   private order: number = 0;
 
   public get previewable (): boolean {
