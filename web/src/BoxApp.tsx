@@ -1,15 +1,6 @@
-import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { FrepRenderingQuality, Graph, IElementable, NodeBase, RenderingMode, UINodeBase, UINumber } from '@nodi/core';
-import Project from './assets/scripts/service/Project';
-import axios from 'axios';
+import React, { useEffect, useRef} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { userStateAtom } from './store/user';
-import { getProject } from './firebase/firebase';
-import Viewer from './assets/scripts/viewer/Viewer';
-import { boxConfigAtom, gridAtoms, openAIAPIKeyAtom, calculateSizeAction } from './store';
-import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './store/scene';
+import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction } from './store';
 import { KeyManager } from './components/molecules/KeyManager';
 import { ButtonAddRow } from './components/atoms/ButtonAddRow';
 import { motion } from 'framer-motion';
@@ -145,7 +136,7 @@ function BoxApp() {
                       }
                     }
                   >
-                    <img src="/icons/trash.svg"/>
+                    <img src="/icons/trash.svg" alt=''/>
                   </button>
                 </div>
               </motion.div>
