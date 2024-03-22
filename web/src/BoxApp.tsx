@@ -157,6 +157,7 @@ function BoxApp() {
           );
         })}
       </motion.div>
+      <button>Preview</button>
     </div>
   );
 }
