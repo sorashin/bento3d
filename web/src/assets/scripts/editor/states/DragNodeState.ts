@@ -1,12 +1,11 @@
-import { Vector2 } from 'three';
-import Editor, { EditorMouseInput } from '../Editor';
+import * as THREE from 'three';import Editor, { EditorMouseInput } from '../Editor';
 import { MoveNodesOperation } from '../operations';
 import DragOutScreenStateBase from './DragOutScreenStateBase';
 import IdleState from './IdleState';
 import StateBase from './StateBase';
 
 export default class DragNodeState extends DragOutScreenStateBase {
-  protected prevMousePosition: Vector2;
+  protected prevMousePosition: THREE.Vector2;
   protected interval: NodeJS.Timeout | null = null;
 
   constructor (context: Editor, input: EditorMouseInput) {
@@ -32,7 +31,7 @@ export default class DragNodeState extends DragOutScreenStateBase {
     return new IdleState(context);
   }
 
-  protected onDragOut (context: Editor, _input: EditorMouseInput, delta: Vector2): void {
+  protected onDragOut (context: Editor, _input: EditorMouseInput, delta: THREE.Vector2): void {
     context.selectedNodes.forEach((node) => {
       node.move(delta.x, delta.y);
     });

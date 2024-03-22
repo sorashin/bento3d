@@ -1,5 +1,5 @@
 
-import { Vector2 } from 'three';
+import * as THREE from 'three';
 import IOView from './IOView';
 import EdgeViewBase from './EdgeViewBase';
 
@@ -15,14 +15,14 @@ export default class ConnectingEdgeView extends EdgeViewBase {
   }
 
   public getIOView (): IOView {
-    return this.io.deref() as IOView;
+    return this.io.deref()  as IOView;
   }
 
   public IsDestinationNode (): boolean {
     return this.isDestination;
   }
 
-  public updatePath (p: Vector2): void {
+  public updatePath (p: THREE.Vector2): void {
     if (this.isDestination) {
       this.handlePointToDest(p);
     } else {
@@ -30,12 +30,12 @@ export default class ConnectingEdgeView extends EdgeViewBase {
     }
   }
 
-  protected handleSourceToPoint (p: Vector2): void {
+  protected handleSourceToPoint (p: THREE.Vector2): void {
     const source = this.getIOView().getWorldPosition();
     this.updateBezier(source.x, source.y, p.x, p.y);
   }
 
-  protected handlePointToDest (p: Vector2): void {
+  protected handlePointToDest (p: THREE.Vector2): void {
     const dest = this.getIOView().getWorldPosition();
     this.updateBezier(p.x, p.y, dest.x, dest.y);
   }

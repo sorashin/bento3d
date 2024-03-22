@@ -1,15 +1,14 @@
 
-import { Vector2 } from 'three';
-import { NodeBase } from '@nodi/core';
+import * as THREE from 'three';import { NodeBase } from '@nodi/core';
 import Editor from '../Editor';
 import NodeView from '../views/NodeView';
 import Operation from './Operation';
 
 class Translation {
   uuid: string;
-  from: Vector2;
-  to: Vector2;
-  constructor (uuid: string, from: Vector2, to: Vector2) {
+  from: THREE.Vector2;
+  to: THREE.Vector2;
+  constructor (uuid: string, from: THREE.Vector2, to: THREE.Vector2) {
     this.uuid = uuid;
     this.from = from;
     this.to = to;

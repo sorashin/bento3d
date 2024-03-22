@@ -1,11 +1,10 @@
-import { Vector2 } from 'three';
-import Editor, { EditorMouseInput } from '../Editor';
+import * as THREE from 'three';import Editor, { EditorMouseInput } from '../Editor';
 import StateBase from './StateBase';
 
 export default abstract class DragOutScreenStateBase extends StateBase {
   protected interval: NodeJS.Timeout | null = null;
 
-  protected abstract onDragOut(context: Editor, input: EditorMouseInput, delta: Vector2): void;
+  protected abstract onDragOut(context: Editor, input: EditorMouseInput, delta: THREE.Vector2): void;
 
   public mouseOut (context: Editor, input: EditorMouseInput): StateBase {
     const r = input.rect;
@@ -13,7 +12,7 @@ export default abstract class DragOutScreenStateBase extends StateBase {
     const dx = (input.position.x < offset) ? -1 : ((input.position.x > r.width - offset) ? 1 : 0);
     const dy = (input.position.y < offset) ? -1 : ((input.position.y > r.height - offset) ? 1 : 0);
     const scale = context.scale;
-    const dir = new Vector2(dx, dy).multiplyScalar(scale * 5.0);
+    const dir = new THREE.Vector2(dx, dy).multiplyScalar(scale * 5.0);
 
     this.clearInterval();
     this.interval = setInterval(

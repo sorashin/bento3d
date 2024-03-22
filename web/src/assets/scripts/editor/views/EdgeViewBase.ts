@@ -1,5 +1,4 @@
-import { Vector2 } from 'three';
-import { NBezier, NSegment2D } from '@nodi/core';
+import * as THREE from 'three';import { NBezier, NSegment2D } from '@nodi/core';
 import View from './View';
 
 export default abstract class EdgeViewBase extends View {
@@ -61,7 +60,7 @@ export default abstract class EdgeViewBase extends View {
     this.path.classList.remove('selected');
   }
 
-  public move (p: Vector2): void {
+  public move (p: THREE.Vector2): void {
     this.svg.setAttribute('x', `${p.x}`);
     this.svg.setAttribute('y', `${p.y}`);
   }

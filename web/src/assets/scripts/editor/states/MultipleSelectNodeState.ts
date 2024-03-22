@@ -1,5 +1,4 @@
-import { Vector2 } from 'three';
-import Editor, { EditorMouseInput } from '../Editor';
+import * as THREE from 'three';import Editor, { EditorMouseInput } from '../Editor';
 import RectFigure from '../figures/RectFigure';
 import NodeView from '../views/NodeView';
 import IdleState from './IdleState';
@@ -7,7 +6,7 @@ import SelectKeepNodeState from './SelectKeepNodeState';
 import StateBase from './StateBase';
 
 export default class MultipleSelectNodeState extends StateBase {
-  private start: Vector2;
+  private start: THREE.Vector2;
   private rect: RectFigure = new RectFigure();
 
   constructor (context: Editor, input: EditorMouseInput) {

@@ -1,7 +1,5 @@
 
-import { Vector2 } from 'three';
-
-import {
+import * as THREE from 'three';import {
   NodeConnectEventArg, NodeEventArg,
   Graph, IO, NodeBase, GroupElement,
   Input, Output
@@ -184,7 +182,7 @@ export default class GraphView extends View {
     this.updateConnectableIOViews(edgeView);
   }
 
-  public updateConnectingEdge (wp: Vector2): void {
+  public updateConnectingEdge (wp: THREE.Vector2): void {
     if (this.connectingEdge === null) { return; }
 
     this.connectingEdge.updatePath(wp);
@@ -249,7 +247,7 @@ export default class GraphView extends View {
     this.connectableIOViews = [];
   }
 
-  public checkNearestIO (p: Vector2, threshold = 10000): NodeIOView | undefined {
+  public checkNearestIO (p: THREE.Vector2, threshold = 10000): NodeIOView | undefined {
     let nearest;
     let distance = threshold;
 
@@ -275,7 +273,7 @@ export default class GraphView extends View {
     if (notify) { graph?.notifyGraphConstructed(); }
   }
 
-  connectIOWithNearest (wp: Vector2): ConnectOperationArg | boolean {
+  connectIOWithNearest (wp: THREE.Vector2): ConnectOperationArg | boolean {
     const nearest = this.checkNearestIO(wp);
     if (nearest === undefined) { return false; }
     if (this.connectingEdge === null) { return false; }

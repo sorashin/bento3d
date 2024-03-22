@@ -21,7 +21,7 @@ export const ButtonAddRow = () => {
     }
   return (
     <button 
-        className="group absolute inset-y-0 right-0 w-12 flex items-center cursor-pointer "
+        className="group absolute inset-y-0 right-0 w-1/5 flex items-center cursor-pointer "
         onClick={addRow}
     >
         <span 
