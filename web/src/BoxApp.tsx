@@ -8,15 +8,19 @@ import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from './store/user';
 import { getProject } from './firebase/firebase';
 import Viewer from './assets/scripts/viewer/Viewer';
-import { gridAtoms, openAIAPIKeyAtom } from './store';
+import { boxConfigAtom, gridAtoms, openAIAPIKeyAtom, calculateSizeAction } from './store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './store/scene';
 import { KeyManager } from './components/molecules/KeyManager';
+import { ButtonAddRow } from './components/atoms/ButtonAddRow';
+import { motion } from 'framer-motion';
 
 
 
 function BoxApp() { 
   const [gridState, setGridState] = useAtom(gridAtoms);
+  const [{totalWidth, mm2pixel}, calculateSize] = useAtom(calculateSizeAction);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
+  const outerElement = useRef<HTMLDivElement>(null);
   // gridAtomsの0番目の要素のwidthを変更する関数
   const updateSize = (gridIndex:number,newWidth:number, newHeight:number) => {
     setGridState((prevGridState) => {
@@ -40,7 +44,19 @@ function BoxApp() {
     });
   };
   const getSize = async (gridIndex:number) => {
-    
+  
+    if (gridState[gridIndex].label === '') {
+      alert('OPENAIのAPIキーを入力してください');
+      return;
+    };
+    // if gridState[gridIndex].label was Number + " "+Number format, then return
+    if (gridState[gridIndex].label.match(/^\d+\s\d+$/)) {
+      console.log('size set');
+      const size = gridState[gridIndex].label.split(' ');
+      updateSize(gridIndex, Number(size[0]), Number(size[1]));
+      return;
+    }
+
     
     //API呼び出し用の情報定義
     
@@ -56,7 +72,7 @@ function BoxApp() {
         "messages": [
           {
             "role": "system",
-            "content": "Return a typical size(Height(mm), Width(mm), Depth(mm)) of a certain object input by user. When you have specific size value, return them with the following json format `{height:value, width:value, depth:value}`"
+            "content": "Return a typical size(Height(mm), Width(mm), Depth(mm)) and image url of a certain object input by user. When you have specific size value, return them with the following json format `{height:value, width:value, depth:value, image:imageURL}`. Only number is allowed on value. Only valid image URL searched on wikipedia is allewed on imageURL"
           },
           {
             "role": "user",
@@ -79,28 +95,68 @@ function BoxApp() {
     
   }
 
+    useEffect(()=>{
+      //get pixel width of outerElement
+      if(outerElement.current){
+        calculateSize(outerElement.current.clientWidth);
+      }
+      console.log(gridState)
+    },[gridState])
+  
+
   return (
-    <div className="App absolute inset-0 bg-surface-base">
-      <header className="align-center">
+    <div className="App absolute inset-0 bg-surface-base flex items-center justify-center">
+      <header className="absolute top-0">
         Generate BOX
         <KeyManager/>
       </header>
-      <div>
-        {gridState.map((grid, index) => {
+      <motion.div layout className='relative flex flex-row gap-4 p-4 w-10/12 rounded-md bg-content-extra-light-a' ref={outerElement}>
+        <p className='absolute -top-8 text-center'>{totalWidth} mm</p>
+        {gridState.map((row, index) => {
           return (
-            <div key={index}>
-              <input
-                type="text"
-                value={grid.label}
-                onChange={(e) => updateLabel(index,e.target.value)}
-              />
-              <button onClick={()=>getSize(index)}>生成</button>
-              <p>{grid.width}</p>
-              <p>{grid.height}</p>
+            <div key={index} className='relative rounded-md flex flex-col gap-4'>
+              <motion.div 
+                className='group relative bg-emSecondary rounded-md'
+                initial={false}
+                animate={{ width: row.width*mm2pixel, height: row.height*mm2pixel}}
+              >
+                <div className="w-full h-full invisible flex flex-col justify-center items-center group-hover:visible">
+                  <input
+                    type="text"
+                    value={row.label}
+                    onChange={(e) => updateLabel(index,e.target.value)}
+                    className='rounded-sm w-2/3 bg-[rgba(255,255,255,.16)] p-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-20'
+                    //trigger getSize(index) on press Enter key
+                    onKeyPress={(e) => e.key === 'Enter' && getSize(index)}
+                  />
+                  <button onClick={()=>getSize(index)}>生成</button>
+                  <p className='absolute top-4 left-auto right-auto'>{row.width}mm</p>
+                  <p className='absolute right-4 top-auto bottom-auto'>{row.height}mm</p>
+                  
+                  <button
+                    onClick={
+                      //remove gridState[index]
+                      ()=>{
+                        setGridState((prevGridState) => {
+                          const updatedGrid = [...prevGridState];
+                          updatedGrid.splice(index, 1);
+                          return updatedGrid;
+                        });
+                      }
+                    }
+                  >
+                    <img src="/icons/trash.svg"/>
+                  </button>
+                </div>
+              </motion.div>
+              <div className='w-full bg-content-light flex-1 rounded-md'>
+                
+              </div>
+              <ButtonAddRow/>
             </div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }
