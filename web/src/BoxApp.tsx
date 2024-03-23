@@ -4,6 +4,7 @@ import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction } from './store';
 import { KeyManager } from './components/molecules/KeyManager';
 import { ButtonAddRow } from './components/atoms/ButtonAddRow';
 import { motion } from 'framer-motion';
+import './App.css';
 
 
 
