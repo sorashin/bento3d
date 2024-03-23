@@ -1,13 +1,11 @@
 // import { getAccessorType, getterTree, mutationTree, actionTree } from 'typed-vuex';
 
-import { off } from 'process';
-import * as user from './user';
 import { atom } from 'jotai'
 export type BoxConfig = {
     totalWidth:number,
 	totalHeight:number,
 	totalDimension:number,
-	offset:number,
+	padding:number,
 	colorMode:number,
 	partitionThickness:number,
     mm2pixel:number
@@ -17,9 +15,9 @@ export const boxConfigAtom = atom<BoxConfig>({
     totalWidth: 100,
     totalHeight: 100,
     totalDimension: 100,
-    offset: 3,
+    padding: 3,
     colorMode: 0,
-    partitionThickness: 1,
+    partitionThickness: 2,
     mm2pixel:0.01
 })
 
@@ -27,8 +25,8 @@ export type Grid = {
     index:number,
 	label:string,
 	width:number,
-	height:number,
-	grid:number,
+    height:number,
+	division:number,
 }
 
 export const gridAtoms = atom<Grid[]>([
@@ -36,8 +34,8 @@ export const gridAtoms = atom<Grid[]>([
         index: 0,
         label: '',
         width: 100,
-        height: 100,
-        grid: 1
+        height:100,
+        division: 1
     }
 ])
 
@@ -51,7 +49,7 @@ export const calculateSizeAction = atom(
     // 非同期もOK
     
     async (get, set, pixelSize:number) => {
-    const w = get(gridAtoms).reduce((acc, grid) => acc + grid.width + get(boxConfigAtom).offset*2, 0)
+    const w = get(gridAtoms).reduce((acc, grid) => acc + grid.width + get(boxConfigAtom).padding*2, 0)
       set(boxConfigAtom, {
         ...get(boxConfigAtom),
         totalWidth:w,

@@ -14,7 +14,7 @@ export const ButtonAddRow = () => {
                 label: '',
                 width: 100,
                 height: 100,
-                grid: 1
+                division: 1
             });
             return updatedGrid;
           });
