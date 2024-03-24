@@ -7,10 +7,10 @@ import * as THREE from 'three';
 import { JSX } from 'react/jsx-runtime';
 import { Bounds} from '@react-three/drei'
 import { DoubleSide } from 'three';
-import { Plant } from '../three/Plant';
+import { Plant } from './Plant';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { selectedColorAtom } from '../../store';
-import { Tray } from '../three/Tray';
+import { Tray } from './Tray';
 import { elementsAtom } from '../../store/scene';
 
 const CanvasSetup: React.FC = () => {

@@ -1,14 +1,13 @@
 import React, { useEffect, useRef} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction } from './store';
-import { KeyManager } from './components/molecules/KeyManager';
-import { ButtonAddRow } from './components/atoms/ButtonAddRow';
+import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction } from '../../store';
+import { KeyManager } from '../molecules/KeyManager';
+import { ButtonAddRow } from '../atoms/ButtonAddRow';
 import { motion } from 'framer-motion';
-import './App.css';
 
 
 
-function BoxApp() { 
+export const GridView = () => {
   const [gridState, setGridState] = useAtom(gridAtoms);
   const [{totalWidth, mm2pixel}, calculateSize] = useAtom(calculateSizeAction);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
@@ -149,9 +148,7 @@ function BoxApp() {
           );
         })}
       </motion.div>
-      <button>Preview</button>
     </div>
   );
 }
 
-export default BoxApp;

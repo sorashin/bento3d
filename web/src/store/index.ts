@@ -41,6 +41,7 @@ export const gridAtoms = atom<Grid[]>([
 
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
+export const screenModeAtom = atom<number>(0)
 
 //update totalwidth along with length of gridAtoms
 export const calculateSizeAction = atom(
