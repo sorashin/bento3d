@@ -1,14 +1,13 @@
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
 import logo from './logo.svg';
-import { FrepRenderingQuality, Graph, IElementable, NodeBase, RenderingMode, UINodeBase } from '@nodi/core';
+import { FrepRenderingQuality, Graph, IElementable, NodeBase, RenderingMode, UINodeBase, UIText, UINumber } from '@nodi/core';
 import Project from '../../assets/scripts/service/Project';
 import axios from 'axios';
 import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from '../../store/user';
 import { getProject } from '../../firebase/firebase';
 import Viewer from '../../assets/scripts/viewer/Viewer';
-
-import { selectedColorAtom } from '../../store';
+import { BoxConfig, Grid, boxConfigAtom, gridAtoms, selectedColorAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import Editor from '../../assets/scripts/editor/Editor';
 
@@ -24,6 +23,8 @@ export const PreviewView = () => {
   const [elements, setElements] = useAtom(elementsAtom); //elements for viewer
   const [UIs, setUIs] = useAtom(UIsAtom); //elements for viewer
   const [nodes, setNodes] = useAtom(nodesAtom); //elements for viewer 
+  const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
+  const [grid, setGrid] = useAtom(gridAtoms);
   const SceneComponent = React.lazy(() => import(`../../components/three/Scene`));
 
 
@@ -194,17 +195,42 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     )
     
   })
-  const UIText: React.FC<{ nodes: NodeBase[] }> = ({ nodes }) => {
-    // nodesの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
-    // const textUiNodes = nodes.filter(node => node.filename! === 'baseShape');
-
+  const UIText: React.FC<{ uis: UINodeBase[], label:string, object:BoxConfig|Grid[] }> = React.memo(({ uis, label, object }) => {
+    // nodesの中から、labelが"XX"の要素を取り出し、JSXとしてreturnする
+    const textUiNodes = uis.filter(ui => ui.label === label);
+    let textJSXs:JSX.Element[] = []
+    textUiNodes.forEach((ui,index) => {
+      const slider = createUIListItem(ui, index, uis.length)
+      const textUI = ui as UIText;
+      
+      textUI.setTextValue(JSON.stringify(object!));
+      textJSXs.push(slider)
+    })
     return(
-      <div className="absolute z-10 bottom-8 right-16 text-center">
-        
+      <div className="">
+        {textJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
       </div>
     )
     
-  }
+  })
+  const UINumber: React.FC<{ uis: UINodeBase[], label:string}> = React.memo(({ uis, label }) => {
+    // nodesの中から、labelが"XX"の要素を取り出し、JSXとしてreturnする
+    const numberUiNodes = uis.filter(ui => ui.label === label);
+    let numberJSXs:JSX.Element[] = []
+    numberUiNodes.forEach((ui,index) => {
+      const number = createUIListItem(ui, index, uis.length)
+      const numberUI = ui as UINumber;
+      
+      // numberUI.setNumberValue(100);
+      numberJSXs.push(number)
+    })
+    return(
+      <div className="">
+        {numberJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
+      </div>
+    )
+    
+  })
 
   
   
@@ -224,8 +250,12 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
   
   useEffect(() => {
     update(nodes);
-    
   }, []);
+  useEffect(()=>{
+    console.log("GRID",grid)
+    console.log("boxConfig",boxConfig)
+    
+  },[grid, boxConfig])
 
 
 
@@ -236,12 +266,15 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group!}></SceneComponent>
         </Suspense>
-        <UIButton uis={UIs}/>
-        <div className='absolute bottom-40 left-1/2 -translate-x-1/2 flex items-center'>
-          <UISlider uis={UIs}/>
-          <UIGraph uis={UIs}/>
-          {/* <UIText nodes={nodes}/> */}
-        </div>
+          <div className='fixed z-10 bottom-8 flex flex-row gap-4'>
+            <UIButton uis={UIs}/>
+            <UISlider uis={UIs}/>
+            <UIGraph uis={UIs}/>
+            <UIText uis={UIs} label={'config'} object={boxConfig}/>
+            <UIText uis={UIs} label={'gridConfig'} object={grid}/>
+            {/* <UINumber uis={UIs} label={'fillet'}/> */}
+            <UINumber uis={UIs} label={'depth'}/>
+          </div>
     </>
         
   );
