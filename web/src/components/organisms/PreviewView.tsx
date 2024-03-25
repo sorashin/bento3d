@@ -7,8 +7,10 @@ import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from '../../store/user';
 import { getProject } from '../../firebase/firebase';
 import Viewer from '../../assets/scripts/viewer/Viewer';
+
 import { selectedColorAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
+import Editor from '../../assets/scripts/editor/Editor';
 
 
 export const PreviewView = () => {
@@ -26,6 +28,7 @@ export const PreviewView = () => {
 
 
   let viewer: Viewer;
+  let editor: Editor;
   const initializeProject = async() => {
     //get current path
     const pathMatch = window.location.pathname.match(/^\/([^\/]+)\/([^\/]+)$/);
@@ -43,6 +46,7 @@ export const PreviewView = () => {
   };
 
   const loadProject = async (project: Project, doc: any) => {
+    const { jsonUrl } = project;
     if (project.canView(user.uid ?? '')) {
       const graph = new Graph();
       graph.onStartProcess.on(() => {
@@ -61,14 +65,19 @@ export const PreviewView = () => {
         setNodes(e.nodes);
         setGroup(viewer.container);
         setElements(viewer.elements);
-      });
-
-      const { jsonUrl } = project;
-      if (jsonUrl !== undefined) {
+    });
+    
+    if (jsonUrl !== undefined) {
         const { data } = await axios.get(jsonUrl);
         graph.fromJSON(data);
+        editor.loadGraph(data);
+        console.log("EDITOR" , editor.nodes);
+        
+
       } else {
         graph.fromJSON(doc.json ?? {});
+        editor.loadGraph(doc.json ?? {});
+        
       }
 
       return Promise.resolve();
@@ -168,8 +177,8 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       </div>
 
     )
-    
   })
+
   const UIGraph: React.FC<{ uis: UINodeBase[] }> = React.memo(({ uis }) => {
     const sliderUiNodes = uis.filter(ui => ui.label === 'baseShape');
     let sliderJSXs:JSX.Element[] = []
@@ -185,6 +194,17 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     )
     
   })
+  const UIText: React.FC<{ nodes: NodeBase[] }> = ({ nodes }) => {
+    // nodesの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
+    // const textUiNodes = nodes.filter(node => node.filename! === 'baseShape');
+
+    return(
+      <div className="absolute z-10 bottom-8 right-16 text-center">
+        
+      </div>
+    )
+    
+  }
 
   
   
@@ -193,7 +213,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
   useEffect(() => {
     // Append Viewer
     const root:HTMLElement|null = document.getElementById('preview');
+    const editorRoot:HTMLElement|null = document.getElementById('editor');
     viewer = new Viewer(root!);
+    editor = new Editor(editorRoot!);
     // viewer.setRenderingMode(operators.rendering);
     
     initializeProject();
@@ -210,6 +232,7 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
   return (
     <>
     <div id="preview" className='hidden'></div>
+    <div id="editor" className='hidden'></div>
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group!}></SceneComponent>
         </Suspense>
@@ -217,8 +240,8 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
         <div className='absolute bottom-40 left-1/2 -translate-x-1/2 flex items-center'>
           <UISlider uis={UIs}/>
           <UIGraph uis={UIs}/>
+          {/* <UIText nodes={nodes}/> */}
         </div>
-        <UIColorSwitch />
     </>
         
   );

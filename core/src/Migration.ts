@@ -6,6 +6,7 @@ import { ExpressionJSONType } from './nodes/math/Expression';
 import { NodeJSONType } from './nodes/NodeBase';
 import { UIGraphMapperJSONType } from './nodes/params/ui/UIGraphMapper';
 import { UINumberJSONType } from './nodes/params/ui/UINumber';
+import { UITextJSONType } from './nodes/params/ui/UIText';
 import { UIToggleJSONType } from './nodes/params/ui/UIToggle';
 import { UIValueListJSONType } from './nodes/params/ui/UIValueList';
 import { CommentJSONType } from './nodes/params/utils/Comment';
@@ -67,6 +68,7 @@ const convertNodeJSON = function (json: NodeJSONTypeV0):
   VariableInputNodeJSONType |
   VariableOutputNodeJSONType |
   UINumberJSONType |
+  UITextJSONType |
   UIValueListJSONType |
   UIToggleJSONType |
   UIGraphMapperJSONType |

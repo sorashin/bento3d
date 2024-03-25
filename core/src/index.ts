@@ -263,6 +263,7 @@ export * from "./nodes/params/ui/UINodeBase";
 export * from "./nodes/params/ui/UINumber";
 export * from "./nodes/params/ui/UINumberSlider";
 export * from "./nodes/params/ui/UIToggle";
+export * from "./nodes/params/ui/UIText";
 export * from "./nodes/params/ui/UIValueList";
 export * from "./nodes/params/utils/Comment";
 export * from "./nodes/params/utils/Panel";

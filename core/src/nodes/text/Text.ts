@@ -13,7 +13,7 @@ export type TextJSONType = NodeJSONType & {
 };
 
 export class Text extends NodeBase {
-  private fileName: string = 'download.txt';
+  public fileName: string = 'download.txt';
   private _text: string = '';
   private onTextChanged: TypedEvent<{ text: string }> = new TypedEvent();
 
