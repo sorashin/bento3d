@@ -14,7 +14,8 @@ function App() {
   return (
     <>
     <Header/>
-      {screenMode === 0 ? <PreviewView/> : <GridView/>}
+    <PreviewView/>
+    {screenMode === 0 ? null : <GridView/>}
     </>
   );
 }

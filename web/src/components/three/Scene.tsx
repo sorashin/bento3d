@@ -1,17 +1,12 @@
 
 import { useThree, Canvas, useFrame } from '@react-three/fiber'
-import {   Edges, GizmoHelper, GizmoViewport, OrbitControls, Stage } from '@react-three/drei'
+import {   Edges, GizmoHelper, GizmoViewport, Html, OrbitControls, Stage } from '@react-three/drei'
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { IElementable } from '@nodi/core';
 import * as THREE from 'three';
-import { JSX } from 'react/jsx-runtime';
-import { Bounds} from '@react-three/drei'
-import { DoubleSide } from 'three';
-import { Plant } from './Plant';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { selectedColorAtom } from '../../store';
-import { Tray } from './Tray';
+import { boxConfigAtom, screenModeAtom, selectedColorAtom } from '../../store';
 import { elementsAtom } from '../../store/scene';
+import { THREEGridEditor } from '../molecules/THREEGridEditor';
 
 const CanvasSetup: React.FC = () => {
   const { camera } = useThree();
@@ -34,33 +29,65 @@ const CanvasSetup: React.FC = () => {
     </>
   )
 }
+const GridEditView: React.FC = () => {
+  const { totalWidth, totalHeight } = useAtomValue(boxConfigAtom);
+  return (
+    <group>
+      <Html
+      position={[0, 0, totalHeight]}
+      rotation={[0, 0, 0]}
+      transform
+      scale={1.0}
+      // occlude="blending"
+    >
+      <THREEGridEditor/>
+    </Html>
+    </group>
+  )
+
+}
+const Annotation: React.FC<{ children: React.ReactNode, position: [number, number, number], onClick: () => void }> = ({ children, position, onClick, ...props }) => {
+  
+  return (
+    <Html
+      {...props}
+      position={position}
+      rotation={[Math.PI/2, 0, 0]}
+      transform
+      scale={20}
+      // occlude="blending"
+    >
+      <div className="annotation px-4 py-2 rounded-lg text-white bg-content-dark cursor-pointer" onClick={onClick}>
+        {children}
+      </div>
+    </Html>
+  )
+}
 
 const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   const contentRef = useRef<THREE.Group>(null);
-  const [elements,] = useAtom(elementsAtom);
-  const [color,] = useAtom(selectedColorAtom);
-
+  const [, setScreenMode] = useAtom(screenModeAtom);
+  const {totalWidth, totalHeight} = useAtomValue(boxConfigAtom)
   
-  
-  useFrame(({ clock }) => {
-    const elapsedTime = clock.getElapsedTime();
-    const rotationSpeed = 0.2; // 回転速度
-
-    // Z軸周りに回転
-    if (contentRef.current) {
-      contentRef.current.rotation.z = elapsedTime * rotationSpeed;
-    }
-  });
   return(
   <>
   
+      <GridEditView/>
     <group ref={contentRef}>
+      {/* <Annotation position={[0, 0, totalHeight]} onClick={()=>setScreenMode(1)}>グリッド</Annotation> */}
+      {/* <Annotation position={[totalWidth/2, 0, totalHeight/2]} onClick={()=>setScreenMode(2)}>高さ</Annotation> */}
         {group&&group.children.map((element, index) => {
           return(
-            <primitive object={element} key={element.uuid} />
+            <primitive object={element} key={element.uuid} >
+              <Edges
+                // linewidth={4}
+                scale={1.0}
+                threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
+                color="#cccccc"
+              />
+            </primitive>
           )
         })}
-              <Tray/>
     </group>
     
   </>
@@ -78,6 +105,7 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
       <Canvas camera={{ fov: 50, position: [300, 300, 300] }} >
         <CanvasSetup/>
             <Content group={group}/>
+            
           <ambientLight intensity={0.5}/>
           <hemisphereLight intensity={0.5} groundColor="white" />
           <directionalLight position={[10, 15, -10]} intensity={0.8} />

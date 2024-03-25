@@ -18,7 +18,7 @@ export const boxConfigAtom = atom<BoxConfig>({
     padding: 3,
     colorMode: 0,
     partitionThickness: 2,
-    mm2pixel:0.01
+    mm2pixel:3
 })
 
 export type Grid = {
@@ -42,6 +42,9 @@ export const gridAtoms = atom<Grid[]>([
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)
+// 0: Preview
+// 1: Grid
+// 2: Height
 
 //update totalwidth along with length of gridAtoms
 export const calculateSizeAction = atom(
@@ -50,11 +53,18 @@ export const calculateSizeAction = atom(
     // 非同期もOK
     
     async (get, set, pixelSize:number) => {
-    const w = get(gridAtoms).reduce((acc, grid) => acc + grid.width + get(boxConfigAtom).padding*2, 0)
+    
+    const sumOfWidth = get(gridAtoms).reduce((acc, grid) => acc + grid.width, 0)
+    const w = sumOfWidth + get(boxConfigAtom).partitionThickness*(get(gridAtoms).length +1);
+    //get the max value from gridAtoms.height
+    const h = Math.max(...get(gridAtoms).map(grid=>grid.height));
       set(boxConfigAtom, {
         ...get(boxConfigAtom),
         totalWidth:w,
+        totalHeight:h,
         mm2pixel:pixelSize/w
+        
       });
     },
   );
+  
