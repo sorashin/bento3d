@@ -12,7 +12,7 @@ export const GridView = () => {
   
 
   return (
-    <div className="absolute inset-y-0 right-0 w-1/2 flex flex-col items-center justify-center">
+    <div className="absolute inset-y-0 right-0 w-2/3 px-4 flex flex-col items-center justify-center bg-[#dadada]">
       <div className="mb-4">
         グリッドの設定
         <KeyManager/>

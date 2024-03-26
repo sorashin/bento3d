@@ -6,7 +6,7 @@ import { ButtonAddRow } from "../atoms/ButtonAddRow";
 
 export const GridEditor: React.FC = () => {
     const [gridState, setGridState] = useAtom(gridAtoms);
-  const [{totalWidth, mm2pixel,totalHeight}, calculateSize] = useAtom(calculateSizeAction);
+  const [{totalWidth, mm2pixel,totalHeight, fillet}, calculateSize] = useAtom(calculateSizeAction);
   const [,setScreenMode] = useAtom(screenModeAtom);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
   const outerElement = useRef<HTMLDivElement>(null);
@@ -88,17 +88,24 @@ export const GridEditor: React.FC = () => {
     },[gridState])
   
     return(
-        <motion.div layout className='relative flex flex-row gap-4 p-4 w-10/12 rounded-md bg-content-extra-light-a' ref={outerElement}>
-        <p className='absolute -top-8 text-center'>{totalWidth} mm</p>
+        <motion.div 
+          layout 
+          className='relative flex flex-row gap-4 p-4 w-full rounded-md bg-content-extra-light-a' 
+          ref={outerElement}
+          style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
+        >
+        {/* <p className='absolute -top-8 text-center'>{totalWidth} mm</p>
         <p className='absolute -left-8 top-1/2'>{totalHeight} mm</p>
-        <p className='absolute -left-8 -top-8'>縮尺 {mm2pixel}</p>
+        <p className='absolute -left-8 -top-8'>縮尺 {mm2pixel}</p> */}
         {gridState.map((row, index) => {
           return (
-            <div key={index} className='relative rounded-md flex flex-col gap-4'>
+            <div key={index} className='relative flex flex-col gap-4'>
               <motion.div 
                 className='group relative bg-emSecondary rounded-md'
+                layout
                 initial={false}
                 animate={{ width: row.width*mm2pixel, height: row.height*mm2pixel}}
+                style={{ borderRadius: fillet*mm2pixel}} 
               >
                 <div className="w-full h-full invisible flex flex-col justify-center items-center group-hover:visible">
                   <input
@@ -129,9 +136,6 @@ export const GridEditor: React.FC = () => {
                   </button>
                 </div>
               </motion.div>
-              <div className='w-full bg-content-light flex-1 rounded-md'>
-                
-              </div>
               <ButtonAddRow/>
             </div>
           );

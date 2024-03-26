@@ -8,7 +8,8 @@ export type BoxConfig = {
 	padding:number,
 	colorMode:number,
 	partitionThickness:number,
-    mm2pixel:number
+    mm2pixel:number,
+    fillet:number
 }
 
 export const boxConfigAtom = atom<BoxConfig>({
@@ -18,7 +19,8 @@ export const boxConfigAtom = atom<BoxConfig>({
     padding: 3,
     colorMode: 0,
     partitionThickness: 2,
-    mm2pixel:3
+    mm2pixel:3,
+    fillet:2
 })
 
 export type Grid = {

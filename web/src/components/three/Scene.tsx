@@ -29,23 +29,7 @@ const CanvasSetup: React.FC = () => {
     </>
   )
 }
-const GridEditView: React.FC = () => {
-  const { totalWidth, totalHeight } = useAtomValue(boxConfigAtom);
-  return (
-    <group>
-      <Html
-      position={[0, 0, totalHeight]}
-      rotation={[0, 0, 0]}
-      transform
-      scale={1.0}
-      // occlude="blending"
-    >
-      <THREEGridEditor/>
-    </Html>
-    </group>
-  )
 
-}
 const Annotation: React.FC<{ children: React.ReactNode, position: [number, number, number], onClick: () => void }> = ({ children, position, onClick, ...props }) => {
   
   return (
@@ -72,7 +56,6 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   return(
   <>
   
-      <GridEditView/>
     <group ref={contentRef}>
       {/* <Annotation position={[0, 0, totalHeight]} onClick={()=>setScreenMode(1)}>グリッド</Annotation> */}
       {/* <Annotation position={[totalWidth/2, 0, totalHeight/2]} onClick={()=>setScreenMode(2)}>高さ</Annotation> */}
@@ -101,7 +84,7 @@ interface SceneProps {
 export const Scene: React.FC<SceneProps> = ({ group }) => {
   
   return (
-    <div className='fixed inset-0'>
+    <div className='fixed inset-y-0 left-0 w-1/3'>
       <Canvas camera={{ fov: 50, position: [300, 300, 300] }} >
         <CanvasSetup/>
             <Content group={group}/>
