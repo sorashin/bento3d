@@ -10,6 +10,8 @@ import Viewer from '../../assets/scripts/viewer/Viewer';
 import { BoxConfig, Grid, boxConfigAtom, gridAtoms, selectedColorAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import Editor from '../../assets/scripts/editor/Editor';
+import {ConfigView} from './ConfigView';
+
 
 
 export const PreviewView = () => {
@@ -121,33 +123,11 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     editor={false}
     order={order}
     length={length}
-    
   >{div}</UIListItem>;
   return instance;
   
 };
 //create react FC for UI
-  const UIColorSwitch: React.FC<{}> = ({  }) => {
-    const colors = ['#f5f5f5','#5c932e', '#e0b68c', '#788caf', '#C85458', '#E69F41', '#3A3A3A']
-    const [selectedColor, setSelectedColor] = useAtom(selectedColorAtom);
-    useEffect(() => {
-      setSelectedColor(colors[0]);
-    }, []);
-    
-    const selectedColorIndex = colors.indexOf(selectedColor);
-    return(
-      <div className='absolute left-1/2 bottom-20 -translate-x-1/2 z-10 flex gap-2 bg-surface-base p-4 rounded-full'>
-        {colors.map((color, index) => <span key={index} className={`block w-8 h-8 rounded-full shadow-inner before:block before:rounded-full before:w-full before:h-full before:border-solid before:border-2 before:border-content-middle before:drop-shadow-md ${selectedColorIndex===index?'before:border-2 before:border-white':''}`} 
-        style={{backgroundColor: color}}
-        onClick={() => {
-          setSelectedColor(colors[index]);
-          console.log(colors[index])
-        }}
-        ></span>)}
-      </div>
-    )
-  }
-
   const UIButton: React.FC<{ uis: UINodeBase[] }> = ({ uis }) => {
     // uisの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
     
@@ -158,9 +138,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       buttonJSXs.push(button)
     })
     return(
-      <div className="absolute z-10 bottom-8 right-16 text-center">
-        {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>button]:px-8 [&>div>div>span]:hidden [&>div>div>button]:py-4 [&>div>div>button]:bg-content-dark [&>div>div>button]:rounded-sm [&>div>div>button]:text-xl [&>div>div>button]:text-white'>{ui}</span>)}
-      </div>
+      <>
+        {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>button]:px-4 [&>div>div>span]:hidden [&>div>div>button]:py-2 [&>div>div>button]:bg-content-dark [&>div>div>button]:rounded-sm [&>div>div>button]:text-base [&>div>div>button]:text-white'>{ui}</span>)}
+      </>
     )
     
   }
@@ -173,9 +153,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       sliderJSXs.push(slider)
     })
     return(
-      <div className="relative z-10 w-fit">
+      <>
         {sliderJSXs.map((ui, index) => <span key={index} className='block mb-4 [&>div>div]:inline-flex [&>div>div]:items-center [&>div>div>input]:range [&>div>div>input]:range-accent [&>div>div>span]:text-content-dark [&>div>div>input]:text-lg'>{ui}</span>)}
-      </div>
+      </>
 
     )
   })
@@ -188,9 +168,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       sliderJSXs.push(slider)
     })
     return(
-      <div className="relative z-10 w-fit">
+      <>
         {sliderJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
-      </div>
+      </>
 
     )
     
@@ -207,9 +187,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       textJSXs.push(slider)
     })
     return(
-      <div className="">
+      <>
         {textJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
-      </div>
+      </>
     )
     
   })
@@ -225,9 +205,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       numberJSXs.push(number)
     })
     return(
-      <div className="">
+      <>
         {numberJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
-      </div>
+      </>
     )
     
   })
@@ -266,8 +246,8 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group!}></SceneComponent>
         </Suspense>
-          <div className='fixed z-10 bottom-8 flex flex-row gap-4'>
-            <UIButton uis={UIs}/>
+        <ConfigView downloadButtonJSX={<UIButton uis={UIs}/>}/>
+          <div className='fixed z-10 bottom-8 flex flex-cols gap-4'>
             <UISlider uis={UIs}/>
             <UIGraph uis={UIs}/>
             <UIText uis={UIs} label={'config'} object={boxConfig}/>

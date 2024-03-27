@@ -66,7 +66,7 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
                 // linewidth={4}
                 scale={1.0}
                 threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
-                color="#cccccc"
+                color="#aaaaaa"
               />
             </primitive>
           )
@@ -84,15 +84,15 @@ interface SceneProps {
 export const Scene: React.FC<SceneProps> = ({ group }) => {
   
   return (
-    <div className='fixed inset-y-0 left-0 w-1/3'>
+    <div className='fixed inset-y-0 left-0 w-1/2'>
       <Canvas camera={{ fov: 50, position: [300, 300, 300] }} >
         <CanvasSetup/>
             <Content group={group}/>
             
           <ambientLight intensity={0.5}/>
           <hemisphereLight intensity={0.5} groundColor="white" />
-          <directionalLight position={[10, 15, -10]} intensity={0.8} />
-          <spotLight position={[5, 10, -15]} intensity={1} angle={0.1} penumbra={1} castShadow shadow-mapSize={[1024, 1024]} shadow-bias={-0.000001} />
+          <directionalLight position={[100, 150, 1000]} intensity={0.5} />
+          <spotLight position={[5000, 1000, 1500]} intensity={.1} angle={0.8} penumbra={1} castShadow shadow-mapSize={[1024, 1024]} shadow-bias={-0.000001} />
         
         {/* <ArcballControls  enablePan={false} makeDefault /> */}
       </Canvas>
