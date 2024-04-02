@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction, screenModeAtom } from '../../store';
+import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction, screenModeAtom, boxConfigAtom } from '../../store';
 import { KeyManager } from '../molecules/KeyManager';
 
 import { GridEditor } from '../molecules/GridEditor';
@@ -32,18 +32,21 @@ export type ConfigViewProps = {
 }
 
 export const ConfigView: FC<ConfigViewProps> = ({ downloadButtonJSX }) => {
-  const screenMode = useAtomValue(screenModeAtom);
+  const [boxConfig,setBoxConfig] = useAtom(boxConfigAtom);
   const [openList, setOpenList] = useState<boolean[]>([]);
   const title = ['色', 'サイズ'];
 
   useEffect(() => {
     setOpenList(() => {
-      return [...Array(title.length)].map((v, i) => i === screenMode ? true : false)
+      return [...Array(title.length)].map((v, i) => i === boxConfig.viewMode ? true : false)
     })
-  }, [screenMode])
+  }, [boxConfig.viewMode])
   const onClickHandler = (index: number) => {
     setOpenList(openList.map((open, i) => i === index ? !open : false));
-    console.log(openList);
+    //update boxConfig.viewMode adn set index number
+    setBoxConfig({...boxConfig, viewMode: index});
+
+    
   };
 
   return (

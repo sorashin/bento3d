@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { calculateSizeAction, gridAtoms, openAIAPIKeyAtom, screenModeAtom } from "../../store";
+import { calculateSizeAction, gridAtoms, openAIAPIKeyAtom} from "../../store";
 import { ButtonAddRow } from "../atoms/ButtonAddRow";
 
 export const THREEGridEditor: React.FC = () => {
     const [gridState, setGridState] = useAtom(gridAtoms);
   const [{totalWidth, mm2pixel, totalHeight}, calculateSize] = useAtom(calculateSizeAction);
-  const [,setScreenMode] = useAtom(screenModeAtom);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
   const outerElement = useRef<HTMLDivElement>(null);
   // gridAtomsの0番目の要素のwidthを変更する関数

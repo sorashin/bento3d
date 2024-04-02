@@ -7,6 +7,7 @@ export type BoxConfig = {
 	totalDimension:number,
 	padding:number,
 	colorMode:number,
+    viewMode:number,
 	partitionThickness:number,
     mm2pixel:number,
     fillet:number
@@ -18,9 +19,10 @@ export const boxConfigAtom = atom<BoxConfig>({
     totalDimension: 100,
     padding: 3,
     colorMode: 0,
+    viewMode:0,
     partitionThickness: 2,
     mm2pixel:3,
-    fillet:2
+    fillet:2,
 })
 
 export type Grid = {
@@ -44,9 +46,28 @@ export const gridAtoms = atom<Grid[]>([
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)
-// 0: default
-// 1: Grid
-// 2: Height
+
+export type ColorPalette = {
+    label:string,
+    primary:string,
+    secondary:string,
+}
+export const colorPaletteAtom = atom<ColorPalette[]>([
+    {
+        label: 'きなこ',
+        primary: '#A29672',
+        secondary: '#5f6527'
+    },
+    {
+        label: 'ごまどうふ',
+        primary: '#606D84',
+        secondary: '#ffffff'
+    },
+    {
+        label: '黒糖',
+        primary: '#505050',
+        secondary: '#ffffff'
+    }])
 
 //update totalwidth along with length of gridAtoms
 export const calculateSizeAction = atom(

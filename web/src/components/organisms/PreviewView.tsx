@@ -7,7 +7,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from '../../store/user';
 import { getProject } from '../../firebase/firebase';
 import Viewer from '../../assets/scripts/viewer/Viewer';
-import { BoxConfig, Grid, boxConfigAtom, gridAtoms, selectedColorAtom } from '../../store';
+import { BoxConfig, Grid, boxConfigAtom, gridAtoms } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import Editor from '../../assets/scripts/editor/Editor';
 import {ConfigView} from './ConfigView';
@@ -231,6 +231,7 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
   useEffect(() => {
     update(nodes);
   }, []);
+
   useEffect(()=>{
     console.log("GRID",grid)
     console.log("boxConfig",boxConfig)

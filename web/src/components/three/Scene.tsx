@@ -4,7 +4,7 @@ import {   Edges, GizmoHelper, GizmoViewport, Html, OrbitControls, Stage } from 
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { boxConfigAtom, screenModeAtom, selectedColorAtom } from '../../store';
+import { boxConfigAtom, colorPaletteAtom } from '../../store';
 import { elementsAtom } from '../../store/scene';
 import { THREEGridEditor } from '../molecules/THREEGridEditor';
 
@@ -50,8 +50,8 @@ const Annotation: React.FC<{ children: React.ReactNode, position: [number, numbe
 
 const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   const contentRef = useRef<THREE.Group>(null);
-  const [, setScreenMode] = useAtom(screenModeAtom);
-  const {totalWidth, totalHeight} = useAtomValue(boxConfigAtom)
+  const boxConfig = useAtomValue(boxConfigAtom);
+  const colorPalette = useAtomValue(colorPaletteAtom);
   
   return(
   <>
@@ -61,14 +61,27 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
       {/* <Annotation position={[totalWidth/2, 0, totalHeight/2]} onClick={()=>setScreenMode(2)}>高さ</Annotation> */}
         {group&&group.children.map((element, index) => {
           return(
-            <primitive object={element} key={element.uuid} >
-              <Edges
-                // linewidth={4}
-                scale={1.0}
-                threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
-                color="#aaaaaa"
-              />
-            </primitive>
+            <>
+              {
+
+                !((boxConfig.viewMode===1)&&(index === 0||index === 3))&&<primitive object={element} key={element.uuid} >
+                {/* 0 : lid */}
+                {/* 1 : BODY */}
+                {/* 2 : sikiri */}
+                {/* 3 : latch */}
+                
+                {(index === 0||index === 1)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`}/>}
+                {(index === 2)&&<Edges
+                  // linewidth={4}
+                  scale={1.0}
+                  threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
+                  color="#aaaaaa"
+                />}
+                {(index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].secondary}`} />}
+
+              </primitive>
+              }
+            </>
           )
         })}
     </group>
