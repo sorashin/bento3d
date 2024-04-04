@@ -89,5 +89,3 @@ sw.*
 # Vim swap files
 *.swp
 
-wasm/marching-cubes/target
-wasm/marching-cubes/pkg
