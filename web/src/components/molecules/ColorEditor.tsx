@@ -3,12 +3,12 @@ import { boxConfigAtom, colorPaletteAtom } from "../../../src/store"
 
 
 export const ColorEditor = () => {
-    const [, setBoxConfig] = useAtom(boxConfigAtom);
+    const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
 
 
     const colors = useAtomValue(colorPaletteAtom);
     return(
-        <div className="flex gap-4">
+        <div className="flex gap-4 text-center">
             {colors.map((color,index) => {
                 return <p onClick={()=>(
                     setBoxConfig((prevBoxConfig) => {
@@ -17,7 +17,13 @@ export const ColorEditor = () => {
                             colorMode: index
                         }
                     })
-                )}>{color.label}</p>
+                )}>
+                    <img 
+                        src={`/images/cases/00${index}.jpg`} 
+                        className={`${boxConfig.colorMode===index?'border-2':'border-0'} w-24 h-24 rounded-md border-white`}
+                        alt="" />
+                    {color.label}
+                </p>
             })}
         </div>
     )

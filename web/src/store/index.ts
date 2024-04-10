@@ -55,19 +55,19 @@ export type ColorPalette = {
 }
 export const colorPaletteAtom = atom<ColorPalette[]>([
     {
-        label: 'きなこ',
-        primary: '#A29672',
-        secondary: '#5f6527'
+        label: 'しらたま',
+        primary: '#F4EFE4',
+        secondary: '#B4AFA2'
     },
     {
-        label: 'ごまどうふ',
+        label: 'ネイビー',
         primary: '#606D84',
-        secondary: '#ffffff'
+        secondary: '#606D84'
     },
     {
-        label: '黒糖',
-        primary: '#505050',
-        secondary: '#ffffff'
+        label: 'テラコッタ',
+        primary: '#A06351',
+        secondary: '#915646'
     }])
 
 //update totalwidth along with length of gridAtoms
