@@ -7,7 +7,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from '../../store/user';
 import { getProject } from '../../firebase/firebase';
 import Viewer from '../../assets/scripts/viewer/Viewer';
-import { BoxConfig, Grid, boxConfigAtom, gridAtoms } from '../../store';
+import { BoxConfig, Grid, boxConfigAtom, gridAtoms, isDebugAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import Editor from '../../assets/scripts/editor/Editor';
 import {ConfigView} from './ConfigView';
@@ -18,6 +18,7 @@ export const PreviewView = () => {
   
     const [isProcessing, setIsProcessing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isDebug = useAtomValue(isDebugAtom);
   const path = useAtomValue(projectPathAtom);
   //get useStateAtom from /store
   const [user, setuser] = useAtom(userStateAtom);
@@ -187,8 +188,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
       textJSXs.push(slider)
     })
     return(
+      
       <>
-        {textJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
+        {textJSXs.map((ui, index) => <span key={index} className= {`${!isDebug&&'hidden'} block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden`}>{ui}</span>)}
       </>
     )
     
@@ -206,7 +208,7 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     })
     return(
       <>
-        {numberJSXs.map((ui, index) => <span key={index} className= 'block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden'>{ui}</span>)}
+        {numberJSXs.map((ui, index) => <span key={index} className= {`${!isDebug&&'hidden'} block w-fit [&>div]:w-fit [&>div>div]:w-fit [&>div>div>span]:hidden`}>{ui}</span>)}
       </>
     )
     

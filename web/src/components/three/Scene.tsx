@@ -97,7 +97,7 @@ interface SceneProps {
 export const Scene: React.FC<SceneProps> = ({ group }) => {
   
   return (
-    <div className='fixed inset-y-0 left-0 w-1/2'>
+    <div className='fixed inset-x-0 h-1/2 top-0 lg:inset-y-0 lg:w-1/2 lg:left-0 lg:h-full'>
       <Canvas camera={{ fov: 50, position: [300, 300, 300] }} >
         <CanvasSetup/>
             <Content group={group}/>

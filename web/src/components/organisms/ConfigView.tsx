@@ -50,7 +50,7 @@ export const ConfigView: FC<ConfigViewProps> = ({ downloadButtonJSX }) => {
   };
 
   return (
-    <div className="absolute inset-y-0 right-0 w-1/2 px-4 flex flex-col items-center justify-center">
+    <div className="absolute bottom-0 h-1/2 w-full lg:h-full lg:inset-y-0 lg:right-0 lg:w-1/2 px-4 py-4 flex flex-col items-center justify-end lg:justify-center">
       <div className='border-t-[1px] border-content-dark mb-16 w-full'>
         <Menu title={title[0]} index={0} isOpen={openList[0]} onClick={()=> onClickHandler(0)}>
           <div className='px-2 py-8'>

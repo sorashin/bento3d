@@ -46,6 +46,7 @@ export const gridAtoms = atom<Grid[]>([
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)
+export const isDebugAtom = atom<boolean>(false)
 
 export type ColorPalette = {
     label:string,
