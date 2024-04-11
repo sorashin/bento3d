@@ -34,7 +34,7 @@ export type ConfigViewProps = {
 export const ConfigView: FC<ConfigViewProps> = ({ downloadButtonJSX }) => {
   const [boxConfig,setBoxConfig] = useAtom(boxConfigAtom);
   const [openList, setOpenList] = useState<boolean[]>([]);
-  const title = ['色', 'サイズ'];
+  const title = ['色', 'サイズ','高さ'];
 
   useEffect(() => {
     setOpenList(() => {
@@ -61,6 +61,11 @@ export const ConfigView: FC<ConfigViewProps> = ({ downloadButtonJSX }) => {
           <div className='px-2 py-16'>
             <GridEditor/>
             {/* <HeightEditor/> */}
+          </div>
+        </Menu>
+        <Menu title={title[2]} index={2} isOpen={openList[2]} onClick={()=> onClickHandler(2)}>
+          <div className='px-2 py-16'>
+            <HeightEditor/>
           </div>
         </Menu>
       </div>

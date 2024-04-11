@@ -1,12 +1,24 @@
 import { useAtom } from "jotai";
-import { screenModeAtom } from "../../../src/store"
+import { boxConfigAtom, screenModeAtom } from "../../../src/store"
 
 
 export const HeightEditor = () => {
-    const [screenMode, setScreenMode] = useAtom(screenModeAtom);
+    const [boxConfig,setBoxConfig] = useAtom(boxConfigAtom);
     return(
         <div className="flex gap-4">
-            豆乳　抹茶　黒糖
+            <input 
+                type="number"
+                value={boxConfig.depth}
+                onChange={(e)=>(
+                    setBoxConfig((prevBoxConfig) => {
+                        return {
+                            ...prevBoxConfig,
+                            depth: Number(e.target.value)
+                        }
+                    })
+                )
+                }
+                />
         </div>
     )
 }

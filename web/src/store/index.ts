@@ -4,7 +4,7 @@ import { atom } from 'jotai'
 export type BoxConfig = {
     totalWidth:number,
 	totalHeight:number,
-	totalDimension:number,
+	depth:number,
 	padding:number,
 	colorMode:number,
     viewMode:number,
@@ -16,7 +16,7 @@ export type BoxConfig = {
 export const boxConfigAtom = atom<BoxConfig>({
     totalWidth: 100,
     totalHeight: 100,
-    totalDimension: 100,
+    depth: 100,
     padding: 3,
     colorMode: 0,
     viewMode:0,
