@@ -11,6 +11,8 @@ import { BoxConfig, Grid, boxConfigAtom, gridAtoms, isDebugAtom } from '../../st
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import Editor from '../../assets/scripts/editor/Editor';
 import {ConfigView} from './ConfigView';
+import { ButtonElementsProps } from '~/src/types';
+import { DialogDownload } from '../molecules/DialogDownload';
 
 
 
@@ -128,21 +130,25 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
   return instance;
   
 };
+
 //create react FC for UI
-  const UIButton: React.FC<{ uis: UINodeBase[] }> = ({ uis }) => {
+  const UIButtonElements = (uis: UINodeBase[]) => {
     // uisの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
     
-    const buttonUis = uis.filter(ui => ui.label === 'Download');
-    let buttonJSXs:JSX.Element[] = []
+    const buttonUis = uis.filter(ui => ui.label === '本体'||ui.label === 'フタ'||ui.label === '留め具'||ui.label === '仕切り');
+    
+    let buttonElements:ButtonElementsProps[] = []
     buttonUis.forEach((ui,index) => {
-      const button = createUIListItem(ui, index, uis.length)
-      buttonJSXs.push(button)
+      const pname = ui.label === '本体' ? 'box' : ui.label === 'フタ' ? 'lid' : ui.label === '留め具' ? 'latch' : 'partition';
+      const path = "/images/parts/"+pname+".png"
+      const b:ButtonElementsProps = {
+        jsx: createUIListItem(ui, index, uis.length),
+        label: ui.label,
+        path:path
+      };
+      buttonElements.push(b);
     })
-    return(
-      <>
-        {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>button]:px-4 [&>div>div>span]:hidden [&>div>div>button]:py-2 [&>div>div>button]:bg-content-dark [&>div>div>button]:rounded-sm [&>div>div>button]:text-base [&>div>div>button]:text-white'>{ui}</span>)}
-      </>
-    )
+    return buttonElements
     
   }
 
@@ -249,7 +255,8 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group!}></SceneComponent>
         </Suspense>
-        <ConfigView downloadButtonJSX={<UIButton uis={UIs}/>}/>
+        <ConfigView/>
+        <DialogDownload elements={UIButtonElements(UIs)}/>
           <div className='fixed z-10 bottom-8 flex flex-cols gap-4'>
             <UISlider uis={UIs}/>
             <UIGraph uis={UIs}/>

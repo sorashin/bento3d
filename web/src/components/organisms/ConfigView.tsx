@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction, screenModeAtom, boxConfigAtom } from '../../store';
+import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction, screenModeAtom, boxConfigAtom, isDownloadDialogOpenAtom } from '../../store';
 import { KeyManager } from '../molecules/KeyManager';
 
 import { GridEditor } from '../molecules/GridEditor';
@@ -28,12 +28,12 @@ const Menu: FC<{children:React.ReactNode, index:number, title:string, onClick:()
 
 //define type of ConfigView
 export type ConfigViewProps = {
-  downloadButtonJSX: React.ReactNode;
 }
 
-export const ConfigView: FC<ConfigViewProps> = ({ downloadButtonJSX }) => {
+export const ConfigView: FC<ConfigViewProps> = () => {
   const [boxConfig,setBoxConfig] = useAtom(boxConfigAtom);
   const [openList, setOpenList] = useState<boolean[]>([]);
+  const [isDialogDownloadOpen, setIsDialogDownloadOpen] = useAtom(isDownloadDialogOpenAtom);
   const title = ['色', 'サイズ','高さ'];
 
   useEffect(() => {
@@ -69,9 +69,11 @@ export const ConfigView: FC<ConfigViewProps> = ({ downloadButtonJSX }) => {
           </div>
         </Menu>
       </div>
-
+      <button
+        onClick={()=>setIsDialogDownloadOpen(true)}
+        className='w-fit bg-content-dark text-white font-medium text-lg px-4 py-2 rounded-sm cursor-pointer hover:bg-content-dark-a transition'
+      >DOWNLOAD</button>
       
-      <div>{downloadButtonJSX}</div>
     </div>
   );
 }

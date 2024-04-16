@@ -4,8 +4,6 @@ import { useAtom } from "jotai";
 import { AnimatePresence, animate, motion, useAnimation } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../../tailwind.config.js";
-import { useWindowSize } from "@/src/hooks/useWindowSize";
 
 
 interface DialogProps {
@@ -15,10 +13,6 @@ interface DialogProps {
 }
 
 export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
-  const { height, width } = useWindowSize();
-  const fullConfig = resolveConfig(tailwindConfig);
-  const screens = fullConfig?.theme?.screens as { [key: string]: string };
-  const isMobile = width < parseInt(screens.lg);
 
   // OUTSIDE_CLICK
   const dialogRef = useRef<HTMLDivElement>(null);
