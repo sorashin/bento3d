@@ -1,5 +1,6 @@
 // import { getAccessorType, getterTree, mutationTree, actionTree } from 'typed-vuex';
 
+import { View } from '@react-three/drei'
 import { atom } from 'jotai'
 export type BoxConfig = {
     totalWidth:number,
@@ -43,11 +44,28 @@ export const gridAtoms = atom<Grid[]>([
     }
 ])
 
+export type PhantomSize = {
+    width:number,
+    height:number,
+    depth:number
+
+}
+export const phantomSizeAtom = atom<PhantomSize>({
+    width: 100,
+    height:100,
+    depth: 60
+})
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)
 export const isDebugAtom = atom<boolean>(false)
 export const isDownloadDialogOpenAtom = atom<boolean>(false)
+export const cameraModeAtom = atom<number>(0)
+// 0:default
+// 1:Front View/高さ
+// 2:Top View/奥行き
+
+
 
 export type ColorPalette = {
     label:string,

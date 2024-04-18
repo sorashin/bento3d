@@ -1,5 +1,5 @@
 import './App.css';
-import { PreviewView } from './components/organisms/PreviewView';
+import { OnboardingView } from './components/organisms/OnboardingView';
 import { Header } from './components/molecules/Header';
 
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <Header/>
-    <PreviewView/>
+    <OnboardingView/>
     </>
   );
 }

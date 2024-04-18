@@ -7,16 +7,14 @@ import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from '../../store/user';
 import { getProject } from '../../firebase/firebase';
 import Viewer from '../../assets/scripts/viewer/Viewer';
-import { BoxConfig, Grid, boxConfigAtom, gridAtoms, isDebugAtom } from '../../store';
+import { BoxConfig, Grid, boxConfigAtom, cameraModeAtom, gridAtoms, isDebugAtom, phantomSizeAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
-import Editor from '../../assets/scripts/editor/Editor';
 import {ConfigView} from './ConfigView';
-import { ButtonElementsProps } from '~/src/types';
-import { DialogDownload } from '../molecules/DialogDownload';
+import {RangeSlider} from '../atoms/RangeSlider';
 
 
 
-export const PreviewView = () => {
+export const OnboardingView = () => {
   
     const [isProcessing, setIsProcessing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +28,8 @@ export const PreviewView = () => {
   const [nodes, setNodes] = useAtom(nodesAtom); //elements for viewer 
   const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
   const [grid, setGrid] = useAtom(gridAtoms);
-  const SceneComponent = React.lazy(() => import(`../../components/three/Scene`));
+  const SceneComponent = React.lazy(() => import(`../three/OnboardingScene`));
+  const [cameraMode, setCameraMode] = useAtom(cameraModeAtom);
 
 
   let viewer: Viewer;
@@ -127,25 +126,21 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
   return instance;
   
 };
-
 //create react FC for UI
-  const UIButtonElements = (uis: UINodeBase[]) => {
+  const UIButton: React.FC<{ uis: UINodeBase[] }> = ({ uis }) => {
     // uisの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
     
-    const buttonUis = uis.filter(ui => ui.label === '本体'||ui.label === 'フタ'||ui.label === '留め具'||ui.label === '仕切り');
-    
-    let buttonElements:ButtonElementsProps[] = []
+    const buttonUis = uis.filter(ui => ui.label === 'Download');
+    let buttonJSXs:JSX.Element[] = []
     buttonUis.forEach((ui,index) => {
-      const pname = ui.label === '本体' ? 'box' : ui.label === 'フタ' ? 'lid' : ui.label === '留め具' ? 'latch' : 'partition';
-      const path = "/images/parts/"+pname+".png"
-      const b:ButtonElementsProps = {
-        jsx: createUIListItem(ui, index, uis.length),
-        label: ui.label,
-        path:path
-      };
-      buttonElements.push(b);
+      const button = createUIListItem(ui, index, uis.length)
+      buttonJSXs.push(button)
     })
-    return buttonElements
+    return(
+      <>
+        {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>button]:px-4 [&>div>div>span]:hidden [&>div>div>button]:py-2 [&>div>div>button]:bg-content-dark [&>div>div>button]:rounded-sm [&>div>div>button]:text-base [&>div>div>button]:text-white'>{ui}</span>)}
+      </>
+    )
     
   }
 
@@ -251,16 +246,11 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group!}></SceneComponent>
         </Suspense>
-        <ConfigView/>
-        <DialogDownload elements={UIButtonElements(UIs)}/>
-          <div className='fixed z-10 bottom-8 flex flex-cols gap-4'>
-            <UISlider uis={UIs}/>
-            <UIGraph uis={UIs}/>
-            <UIText uis={UIs} label={'config'} object={boxConfig}/>
-            <UIText uis={UIs} label={'gridConfig'} object={grid}/>
-            {/* <UINumber uis={UIs} label={'fillet'}/> */}
-            <UINumber uis={UIs} label={'depth'}/>
-          </div>
+        <div className='z-10 absolute'>
+          <RangeSlider max={200} min={0} label='Height'/>
+          
+          
+        </div>
     </>
         
   );
