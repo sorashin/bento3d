@@ -10,7 +10,10 @@ import Viewer from '../../assets/scripts/viewer/Viewer';
 import { BoxConfig, Grid, boxConfigAtom, cameraModeAtom, gridAtoms, isDebugAtom, phantomSizeAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import {ConfigView} from './ConfigView';
-import {RangeSlider} from '../atoms/RangeSlider';
+import {RangeSliderHeight} from '../atoms/RangeSliderHeight';
+import { Toast } from '../atoms/Toaster';
+import { RangeSliderWidth } from '../atoms/RangeSliderWidth';
+import { RangeSliderDepth } from '../atoms/RangeSliderDepth';
 
 
 
@@ -247,9 +250,9 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
           <SceneComponent group={group!}></SceneComponent>
         </Suspense>
         <div className='z-10 absolute'>
-          <RangeSlider max={200} min={0} label='Height'/>
-          
-          
+          <RangeSliderWidth max={200} min={50} label='Width'/>
+          <RangeSliderHeight max={250} min={50} label='Height'/>
+          <RangeSliderDepth max={250} min={50} label='Depth'/>
         </div>
     </>
         

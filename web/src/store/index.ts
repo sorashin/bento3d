@@ -52,8 +52,8 @@ export type PhantomSize = {
 }
 export const phantomSizeAtom = atom<PhantomSize>({
     width: 100,
-    height:100,
-    depth: 60
+    height:60,
+    depth: 100
 })
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')

@@ -138,8 +138,8 @@ export const OnboardingScene: React.FC<OnboardingSceneProps> = ({ group }) => {
       <Canvas orthographic camera={{ fov: 50, position: [cameraX.get(), cameraY.get(), cameraZ.get()] }}  >
         <CameraPositionUpdater x={cameraX} y={cameraY} z={cameraZ} />
         <CanvasSetup/>
-            <Box args={[100, 100, phantomSize.depth]} position={[0, 0, 0]} />
-            
+            <Box args={[phantomSize.depth, phantomSize.width, phantomSize.height]} position={[0, 0, 0]} />
+
           <ambientLight intensity={0.5}/>
           <hemisphereLight intensity={0.5} groundColor="white" />
           <directionalLight position={[100, 150, 1000]} intensity={0.5} />
