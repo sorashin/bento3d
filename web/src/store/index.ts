@@ -26,6 +26,8 @@ export const boxConfigAtom = atom<BoxConfig>({
     fillet:2,
 })
 
+// boxConfigAtom.totalWidthが更新されたらgridAtomsのwidthを更新し、
+
 export type Grid = {
     index:number,
 	label:string,
@@ -65,7 +67,29 @@ export const cameraModeAtom = atom<number>(0)
 // 1:Front View/高さ
 // 2:Top View/奥行き
 
-
+export const stepAtom=atom<number>(0)
+//set same value as stepAtom to boxconfig.viewMode when stepAtom changes
+// stepAtomの値が変更されたときにboxConfig.viewModeを更新するatom
+export const syncViewModeWithStep = atom(
+    null, // このatomはgetを使用しません。
+    (get, set, update: number) => {
+      // stepAtomが更新されるたびにこの関数がトリガーされます。
+      const currentBoxConfig = get(boxConfigAtom)
+      set(boxConfigAtom, {
+        ...currentBoxConfig,
+        viewMode: update // stepAtomの最新値でviewModeを更新
+      })
+    }
+  )
+  
+  // stepAtomが更新されるたびにsyncViewModeWithStepを更新するatom
+  export const stepSyncAtom = atom(
+    (get) => get(stepAtom),
+    (get, set, update: number) => {
+      set(stepAtom, update) // stepAtomを更新
+      set(syncViewModeWithStep, update) // syncViewModeWithStepをトリガーしてboxConfigAtomを更新
+    }
+  )
 
 export type ColorPalette = {
     label:string,

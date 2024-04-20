@@ -253,14 +253,14 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
         </Suspense>
         <ConfigView/>
         <DialogDownload elements={UIButtonElements(UIs)}/>
-          <div className='fixed z-10 bottom-8 flex flex-cols gap-4'>
+        <div className='fixed bottom-8 flex flex-cols gap-4'>
             <UISlider uis={UIs}/>
             <UIGraph uis={UIs}/>
             <UIText uis={UIs} label={'config'} object={boxConfig}/>
             <UIText uis={UIs} label={'gridConfig'} object={grid}/>
             {/* <UINumber uis={UIs} label={'fillet'}/> */}
             <UINumber uis={UIs} label={'depth'}/>
-          </div>
+        </div>
     </>
         
   );

@@ -4,7 +4,7 @@ import {   Box, Edges, GizmoHelper, GizmoViewport, Html, OrbitControls, Stage } 
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { boxConfigAtom, cameraModeAtom, colorPaletteAtom, phantomSizeAtom } from '../../store';
+import { boxConfigAtom, cameraModeAtom, colorPaletteAtom, phantomSizeAtom, stepAtom } from '../../store';
 import { elementsAtom } from '../../store/scene';
 import { THREEGridEditor } from '../molecules/THREEGridEditor';
 import { MotionValue, animate, useMotionValue } from 'framer-motion';
@@ -53,19 +53,20 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   const contentRef = useRef<THREE.Group>(null);
   const boxConfig = useAtomValue(boxConfigAtom);
   const colorPalette = useAtomValue(colorPaletteAtom);
+  const phantomSize = useAtomValue(phantomSizeAtom);
   
   return(
   <>
-  
+    {boxConfig.viewMode===0&&<Box args={[phantomSize.depth, phantomSize.width, phantomSize.height]} position={[0, 0, 0]} />}
+    {boxConfig.viewMode===2&&(
+
     <group ref={contentRef}>
       {/* <Annotation position={[0, 0, totalHeight]} onClick={()=>setScreenMode(1)}>グリッド</Annotation> */}
       {/* <Annotation position={[totalWidth/2, 0, totalHeight/2]} onClick={()=>setScreenMode(2)}>高さ</Annotation> */}
         {group&&group.children.map((element, index) => {
           return(
-            <>
-              {
 
-                !((boxConfig.viewMode===1)&&(index === 0||index === 3))&&<primitive object={element} key={element.uuid} >
+            <primitive object={element} key={element.uuid} >
                 {/* 0 : lid */}
                 {/* 1 : BODY */}
                 {/* 2 : sikiri */}
@@ -81,18 +82,19 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
                 {(index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].secondary}`} />}
 
               </primitive>
-              }
-            </>
           )
+
+
         })}
     </group>
+    )}
     
   </>
   )
 }
 
 interface OnboardingSceneProps {
-  group: THREE.Group;
+  group?: THREE.Group;
 }
 
 export const OnboardingScene: React.FC<OnboardingSceneProps> = ({ group }) => {
@@ -120,9 +122,11 @@ export const OnboardingScene: React.FC<OnboardingSceneProps> = ({ group }) => {
     }
   }, [cameraMode]);
 
+  
+  const step =useAtomValue(stepAtom);
   const CameraPositionUpdater = ({ x, y, z }: { x: MotionValue, y: MotionValue, z: MotionValue }) => {
     const { camera } = useThree();
-  
+    
     useFrame(() => {
       camera.position.x = x.get();
       camera.position.y = y.get();
@@ -134,12 +138,13 @@ export const OnboardingScene: React.FC<OnboardingSceneProps> = ({ group }) => {
   };
   
   return (
-    <div className='fixed inset-0 top-0 left-0'>
+    <div className={`fixed  top-0 left-0 ${boxConfig.viewMode===2?'inset-y-0 w-1/2':'inset-0'}`}>
       <Canvas orthographic camera={{ fov: 50, position: [cameraX.get(), cameraY.get(), cameraZ.get()] }}  >
         <CameraPositionUpdater x={cameraX} y={cameraY} z={cameraZ} />
         <CanvasSetup/>
-            <Box args={[phantomSize.depth, phantomSize.width, phantomSize.height]} position={[0, 0, 0]} />
-
+        <Content group={group!}/>
+        
+            
           <ambientLight intensity={0.5}/>
           <hemisphereLight intensity={0.5} groundColor="white" />
           <directionalLight position={[100, 150, 1000]} intensity={0.5} />
