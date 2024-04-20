@@ -6,8 +6,8 @@ import { ButtonAddRow } from "../atoms/ButtonAddRow";
 import { ButtonAddColumn } from "../atoms/ButtonAddColumn";
 import { DimElement } from "../atoms/DimElement";
 
-export const OnboardingGridEditor: React.FC = () => {
-  const [gridState, setGridState] = useAtom(gridAtoms);
+export const GridEditor: React.FC = () => {
+    const [gridState, setGridState] = useAtom(gridAtoms);
   const [{totalWidth, mm2pixel,totalHeight, fillet, partitionThickness}, calculateSize] = useAtom(calculateSizeAction);
   const [,setScreenMode] = useAtom(screenModeAtom);
   const apiKey = useAtomValue(openAIAPIKeyAtom);

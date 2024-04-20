@@ -1,5 +1,5 @@
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
-import { GridEditor } from '../molecules/GridEditor';
+import { GridEditor } from '../molecules/GridEditorClassic';
 
 
 

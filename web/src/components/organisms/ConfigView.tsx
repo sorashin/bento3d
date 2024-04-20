@@ -3,7 +3,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction, screenModeAtom, boxConfigAtom, isDownloadDialogOpenAtom } from '../../store';
 import { KeyManager } from '../molecules/KeyManager';
 
-import { GridEditor } from '../molecules/GridEditor';
+import { GridEditor } from '../molecules/GridEditorClassic';
 import { motion } from 'framer-motion';
 import { ColorEditor } from '../molecules/ColorEditor';
 import { HeightEditor } from '../molecules/HeightEditor';

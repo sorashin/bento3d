@@ -1,5 +1,5 @@
 import './App.css';
-import { OnboardingView } from './components/organisms/OnboardingView';
+import { OnboardingView } from './components/organisms/SizeView';
 import { GridView } from './components/organisms/GridView';
 import { DownloadView } from './components/organisms/DownloadView';
 import { Header } from './components/molecules/Header';
