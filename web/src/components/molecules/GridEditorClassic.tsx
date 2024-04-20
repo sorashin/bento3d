@@ -8,7 +8,7 @@ import { DimElement } from "../atoms/DimElement";
 
 export const GridEditor: React.FC = () => {
     const [gridState, setGridState] = useAtom(gridAtoms);
-  const [{totalWidth, mm2pixel,totalHeight, fillet, partitionThickness}, calculateSize] = useAtom(calculateSizeAction);
+  const [{totalWidth, mm2pixel,totalDepth, fillet, partitionThickness}, calculateSize] = useAtom(calculateSizeAction);
   const [,setScreenMode] = useAtom(screenModeAtom);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
   const outerElement = useRef<HTMLDivElement>(null);
@@ -19,7 +19,7 @@ export const GridEditor: React.FC = () => {
       updatedGrid[gridIndex] = {
         ...updatedGrid[gridIndex],
         width: newWidth,
-        height: newHeight,
+        depth: newHeight,
       };
       return updatedGrid;
     });
@@ -97,7 +97,7 @@ export const GridEditor: React.FC = () => {
           style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
           <DimElement 
-                    value={totalHeight} 
+                    value={totalDepth} 
                     onChange={function (e: any): void {
                       gridState.map((row, index) => {
                         updateSize(index,row.width,Number(e.target.value))
@@ -107,7 +107,7 @@ export const GridEditor: React.FC = () => {
                     />
         
         {/* 
-        <p className='absolute -left-8 top-1/2'>{totalHeight} mm</p>
+        <p className='absolute -left-8 top-1/2'>{totalDepth} mm</p>
         <p className='absolute -left-8 -top-8'>縮尺 {mm2pixel}</p> */}
         {gridState.map((row, index) => {
           return (
@@ -116,12 +116,12 @@ export const GridEditor: React.FC = () => {
                 className='relative flex flex-col'
                 layout
                 initial={false}
-                animate={{ width: row.width*mm2pixel, height: (totalHeight-2*partitionThickness)*mm2pixel}}
+                animate={{ width: row.width*mm2pixel, height: (totalDepth-2*partitionThickness)*mm2pixel}}
                 style={{ borderRadius: fillet*mm2pixel, gap: 2*mm2pixel}} 
               >
                   <DimElement 
                     value={row.width} 
-                    onChange={function (e: any): void {updateSize(index,Number(e.target.value),row.height)} } 
+                    onChange={function (e: any): void {updateSize(index,Number(e.target.value),row.depth)} } 
                     isVertical={false}                    
                     />
                     
@@ -130,7 +130,7 @@ export const GridEditor: React.FC = () => {
                     <motion.div 
                       key={i} 
                       initial={false}
-                      animate={{ height: (totalHeight-(2+row.division-1)*partitionThickness)/row.division*mm2pixel,borderRadius: fillet*mm2pixel} }
+                      animate={{ height: (totalDepth-(2+row.division-1)*partitionThickness)/row.division*mm2pixel,borderRadius: fillet*mm2pixel} }
                       className="group w-full flex flex-col justify-center items-center border-[1px] border-content-dark"
                     >
                       {/* <input

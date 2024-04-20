@@ -30,7 +30,7 @@ export const PreviewView = () => {
   const [nodes, setNodes] = useAtom(nodesAtom); //elements for viewer 
   const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
   const [grid, setGrid] = useAtom(gridAtoms);
-  const SceneComponent = React.lazy(() => import(`../../components/three/Scene`));
+  const SceneComponent = React.lazy(() => import(`../three/SceneClassic`));
 
 
   let viewer: Viewer;

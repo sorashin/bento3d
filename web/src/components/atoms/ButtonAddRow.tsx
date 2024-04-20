@@ -13,7 +13,7 @@ export const ButtonAddRow = () => {
                 index: updatedGrid.length,
                 label: '',
                 width: 100,
-                height: 100,
+                depth: 100,
                 division: 1
             });
             return updatedGrid;

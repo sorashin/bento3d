@@ -4,7 +4,7 @@ import { View } from '@react-three/drei'
 import { atom } from 'jotai'
 export type BoxConfig = {
     totalWidth:number,
-	totalHeight:number,
+	totalDepth:number,
 	depth:number,
 	padding:number,
 	colorMode:number,
@@ -16,7 +16,7 @@ export type BoxConfig = {
 
 export const boxConfigAtom = atom<BoxConfig>({
     totalWidth: 100,
-    totalHeight: 100,
+    totalDepth: 100,
     depth: 100,
     padding: 3,
     colorMode: 0,
@@ -32,7 +32,7 @@ export type Grid = {
     index:number,
 	label:string,
 	width:number,
-    height:number,
+    depth:number,
 	division:number,
 }
 
@@ -41,7 +41,7 @@ export const gridAtoms = atom<Grid[]>([
         index: 0,
         label: '',
         width: 100,
-        height:100,
+        depth:100,
         division: 1
     }
 ])
@@ -124,11 +124,11 @@ export const calculateSizeAction = atom(
     const sumOfWidth = get(gridAtoms).reduce((acc, grid) => acc + grid.width, 0)
     const w = sumOfWidth + get(boxConfigAtom).partitionThickness*(get(gridAtoms).length +1);
     //get the max value from gridAtoms.height
-    const h = Math.max(...get(gridAtoms).map(grid=>grid.height));
+    const d = Math.max(...get(gridAtoms).map(grid=>grid.depth));
       set(boxConfigAtom, {
         ...get(boxConfigAtom),
         totalWidth:w,
-        totalHeight:h,
+        totalDepth:d,
         mm2pixel:pixelSize/w
         
       });

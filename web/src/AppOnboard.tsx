@@ -237,7 +237,7 @@ function AppOnboard() {
     })
   
     
-    const SceneComponent = React.lazy(() => import(`./components/three/OnboardingScene`));
+    const SceneComponent = React.lazy(() => import(`./components/three/Scene`));
   
   
     useEffect(() => {
@@ -269,7 +269,7 @@ function AppOnboard() {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group}></SceneComponent>
         </Suspense>
-        <div className='fixed z-15 bottom-8 flex flex-cols gap-4'>
+        <div className='fixed z-15 left-0 bottom-8 flex flex-cols gap-4'>
             <UISlider uis={UIs}/>
             <UIGraph uis={UIs}/>
             <UIText uis={UIs} label={'config'} object={boxConfig}/>
