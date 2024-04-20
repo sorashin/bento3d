@@ -1,5 +1,5 @@
 import './App.css';
-import { OnboardingView } from './components/organisms/SizeView';
+import { SizeView } from './components/organisms/SizeView';
 import { GridView } from './components/organisms/GridView';
 import { DownloadView } from './components/organisms/DownloadView';
 import { Header } from './components/molecules/Header';
@@ -260,15 +260,14 @@ function AppOnboard() {
       console.log("boxConfig",boxConfig)
       
     },[grid, boxConfig])
+    
+
     return (
         <> 
         <div id="preview" className='hidden'></div>
         <div id="editor" className='hidden'></div>
         <Header/>
-        {step===0?<OnboardingView/>:step===1?<GridView/>:step===2?<DownloadView elements={UIButtonElements(UIs)}/>:null}
-        <Suspense fallback={"loading..."}>
-          <SceneComponent group={group}></SceneComponent>
-        </Suspense>
+        {step===0?<SizeView/>:step===1?<GridView/>:step===2?(<DownloadView elements={UIButtonElements(UIs)}>
         <div className='fixed z-15 left-0 bottom-8 flex flex-cols gap-4'>
             <UISlider uis={UIs}/>
             <UIGraph uis={UIs}/>
@@ -277,6 +276,11 @@ function AppOnboard() {
             {/* <UINumber uis={UIs} label={'fillet'}/> */}
             <UINumber uis={UIs} label={'depth'}/>
           </div>
+        </DownloadView>):null}
+        <Suspense fallback={"loading..."}>
+          <SceneComponent group={group}></SceneComponent>
+        </Suspense>
+        
         </>
     );
 }

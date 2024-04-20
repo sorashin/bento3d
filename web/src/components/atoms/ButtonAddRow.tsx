@@ -1,24 +1,30 @@
-import { useAtom } from "jotai";
-import { gridAtoms, openAIAPIKeyAtom } from "../../store";
-import { useMemo, useState } from "react";
+import { useAtom, useAtomValue } from "jotai";
+import { boxConfigAtom, gridAtoms, openAIAPIKeyAtom, updateGridAtomsAction } from "../../store";
+import { useEffect, useMemo, useState } from "react";
 
 
 
 export const ButtonAddRow = () => {
-    const [gridState, setGridState] = useAtom(gridAtoms);
+    const boxConfig = useAtomValue(boxConfigAtom);
+    const [, setGridState] = useAtom(gridAtoms);
+    const [, calculateSize] = useAtom(updateGridAtomsAction);
     const addRow =()=>{
         setGridState((prevGridState) => {
             const updatedGrid = [...prevGridState];
+
             updatedGrid.push({
                 index: updatedGrid.length,
                 label: '',
                 width: 100,
                 depth: 100,
-                division: 1
+                division: 1,
+                wFixed: false
             });
             return updatedGrid;
           });
+          calculateSize(boxConfig);
     }
+    
   return (
     <button 
         className="group absolute inset-y-0 right-0 w-1/5 flex items-center cursor-pointer "
@@ -30,3 +36,4 @@ export const ButtonAddRow = () => {
           </button>
   );
 };
+

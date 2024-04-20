@@ -5,7 +5,7 @@ import { atom } from 'jotai'
 export type BoxConfig = {
     totalWidth:number,
 	totalDepth:number,
-	depth:number,
+	height:number,
 	padding:number,
 	colorMode:number,
     viewMode:number,
@@ -17,7 +17,7 @@ export type BoxConfig = {
 export const boxConfigAtom = atom<BoxConfig>({
     totalWidth: 100,
     totalDepth: 100,
-    depth: 100,
+    height: 100,
     padding: 3,
     colorMode: 0,
     viewMode:0,
@@ -26,13 +26,13 @@ export const boxConfigAtom = atom<BoxConfig>({
     fillet:2,
 })
 
-// boxConfigAtom.totalWidthが更新されたらgridAtomsのwidthを更新し、
 
 export type Grid = {
     index:number,
 	label:string,
 	width:number,
     depth:number,
+    wFixed:boolean,
 	division:number,
 }
 
@@ -42,6 +42,7 @@ export const gridAtoms = atom<Grid[]>([
         label: '',
         width: 100,
         depth:100,
+        wFixed:false,
         division: 1
     }
 ])
@@ -60,7 +61,7 @@ export const phantomSizeAtom = atom<PhantomSize>({
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)
-export const isDebugAtom = atom<boolean>(false)
+export const isDebugAtom = atom<boolean>(true)
 export const isDownloadDialogOpenAtom = atom<boolean>(false)
 export const cameraModeAtom = atom<number>(0)
 // 0:default
@@ -114,13 +115,14 @@ export const colorPaletteAtom = atom<ColorPalette[]>([
     }])
 
 //update totalwidth along with length of gridAtoms
-export const calculateSizeAction = atom(
+
+export const updateBoxConfigAtomsAction = atom(//グリッドを変更したときに全体サイズを更新する
     // 同じコンポーネント内でデータも扱うなら一緒にした方がimportを減らせます
     (get) => get(boxConfigAtom),
     // 非同期もOK
     
     async (get, set, pixelSize:number) => {
-    
+        
     const sumOfWidth = get(gridAtoms).reduce((acc, grid) => acc + grid.width, 0)
     const w = sumOfWidth + get(boxConfigAtom).partitionThickness*(get(gridAtoms).length +1);
     //get the max value from gridAtoms.height
@@ -132,6 +134,32 @@ export const calculateSizeAction = atom(
         mm2pixel:pixelSize/w
         
       });
+      
     },
   );
   
+  export const updateGridAtomsAction = atom(//全体サイズを変更した際にグリッドを更新する
+    (get) => get(gridAtoms),
+    async (get, set, boxConfig:BoxConfig) => {
+      const sum = get(gridAtoms).reduce((acc, grid) => !grid.wFixed?acc:(acc + grid.width), 0)
+      let newAutoWidth = 0;
+      if(boxConfig.totalWidth - sum>0){
+        console.log('  0以上です','boxConfig.totalWidth',boxConfig.totalWidth,'sum',sum)
+          newAutoWidth = (boxConfig.totalWidth - sum - boxConfig.partitionThickness * (get(gridAtoms).length + 1))/(get(gridAtoms).filter((grid) => !grid.wFixed).length);
+          set(gridAtoms, get(gridAtoms).map(grid=>grid.wFixed?grid:{
+            ...grid,
+            width:newAutoWidth
+            }))
+      }else if(boxConfig.totalWidth - sum===0){
+        return
+      }else{
+        console.log('0以下になるので全てのグリッドを同じ幅にします')
+            newAutoWidth = (boxConfig.totalWidth - boxConfig.partitionThickness * (get(gridAtoms).length + 1))/(get(gridAtoms).length);
+            // set newAutoWidth to all gridAtoms.width
+            set(gridAtoms, get(gridAtoms).map(grid=>({
+                ...grid,
+                width:newAutoWidth
+            })))
+      }
+    },
+  );

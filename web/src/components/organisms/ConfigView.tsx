@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useRef, useState} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { gridAtoms, openAIAPIKeyAtom, calculateSizeAction, screenModeAtom, boxConfigAtom, isDownloadDialogOpenAtom } from '../../store';
+import { gridAtoms, openAIAPIKeyAtom, updateBoxConfigAtomsAction, screenModeAtom, boxConfigAtom, isDownloadDialogOpenAtom } from '../../store';
 import { KeyManager } from '../molecules/KeyManager';
 
-import { GridEditor } from '../molecules/GridEditorClassic';
+import { GridEditorClassic } from '../molecules/GridEditorClassic';
 import { motion } from 'framer-motion';
 import { ColorEditor } from '../molecules/ColorEditor';
 import { HeightEditor } from '../molecules/HeightEditor';
@@ -59,7 +59,7 @@ export const ConfigView: FC<ConfigViewProps> = () => {
         </Menu>
         <Menu title={title[1]} index={1} isOpen={openList[1]} onClick={()=> onClickHandler(1)}>
           <div className='px-2 py-16'>
-            <GridEditor/>
+            <GridEditorClassic/>
             {/* <HeightEditor/> */}
           </div>
         </Menu>

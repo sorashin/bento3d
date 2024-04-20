@@ -4,7 +4,9 @@ import { RangeSliderDepth } from '../atoms/RangeSliderDepth';
 
 
 
-export const OnboardingView = () => {
+
+export const SizeView = () => {
+  
   return (
     <>  
         <div className='z-10 absolute'>

@@ -8,12 +8,12 @@ export const HeightEditor = () => {
         <div className="flex gap-4">
             <input 
                 type="number"
-                value={boxConfig.depth}
+                value={boxConfig.height}
                 onChange={(e)=>(
                     setBoxConfig((prevBoxConfig) => {
                         return {
                             ...prevBoxConfig,
-                            depth: Number(e.target.value)
+                            height: Number(e.target.value)
                         }
                     })
                 )

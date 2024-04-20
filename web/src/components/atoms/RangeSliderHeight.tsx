@@ -43,7 +43,7 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
     setBoxConfig((prevBoxConfig) => {
         return {
             ...prevBoxConfig,
-            depth: Number(value)
+            height: Number(value)
         }
       })
   }

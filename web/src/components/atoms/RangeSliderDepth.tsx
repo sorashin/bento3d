@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import React, { useState, useEffect, useRef } from 'react';
-import { boxConfigAtom, cameraModeAtom, phantomSizeAtom } from '../../store';
+import { boxConfigAtom, cameraModeAtom, gridAtoms, phantomSizeAtom } from '../../store';
 import { set } from 'lodash';
 import { Toast } from './Toaster';
 
@@ -19,6 +19,7 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
   const [yPos, setYPos] = useState(defaultDepth); // 現在のボーダー幅
   const [boxConfig,setBoxConfig] = useAtom(boxConfigAtom);
   const [phantomSize,setPhantomSize] = useAtom(phantomSizeAtom);
+  const [grid, setGrid] = useAtom(gridAtoms);
   const [,setCameraMode] = useAtom(cameraModeAtom);
 
   const unitRef = useRef<HTMLDivElement>(null);
@@ -39,11 +40,21 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
     setYPos(newYPos);
   };
 
-  const updateBoxConfig = (value:number) => {
+  const updateGrid = (value:number) => {
+    // apply value to each grid.depth
+    setGrid((prevGrid) => {
+        return prevGrid.map((grid) => {
+            return {
+                ...grid,
+                depth: Number(value-boxConfig.partitionThickness*2)
+            }
+        })
+    })
+    // update totalDepth with value
     setBoxConfig((prevBoxConfig) => {
         return {
             ...prevBoxConfig,
-            depth: Number(value)
+            totalDepth: Number(value)
         }
       })
   }
@@ -109,7 +120,7 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
             }}
             onMouseUp={() => {
               setIsDragging(false)
-              updateBoxConfig(value)
+              updateGrid(value)
               setCameraMode(0)
           }}
             onTouchStart={(e) => {
@@ -127,7 +138,7 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
             }}
             onTouchEnd={() => {
               setIsDragging(false)
-              updateBoxConfig(value)
+              updateGrid(value)
           }}
           />
           <p className='absolute inset-0 leading-[56px] text-center h-full text-white text-base pointer-events-none'>{label}</p>

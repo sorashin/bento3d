@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { boxConfigAtom, calculateSizeAction, gridAtoms, openAIAPIKeyAtom, screenModeAtom } from "../../store";
+import { boxConfigAtom, updateBoxConfigAtomsAction, gridAtoms, openAIAPIKeyAtom, screenModeAtom } from "../../store";
 import { ButtonAddRow } from "../atoms/ButtonAddRow";
 import { ButtonAddColumn } from "../atoms/ButtonAddColumn";
 import { DimElement } from "../atoms/DimElement";
 
-export const GridEditor: React.FC = () => {
+export const GridEditorClassic: React.FC = () => {
     const [gridState, setGridState] = useAtom(gridAtoms);
-  const [{totalWidth, mm2pixel,totalDepth, fillet, partitionThickness}, calculateSize] = useAtom(calculateSizeAction);
+  const [{totalWidth, mm2pixel,totalDepth, fillet, partitionThickness}, calculateSize] = useAtom(updateBoxConfigAtomsAction);
   const [,setScreenMode] = useAtom(screenModeAtom);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
   const outerElement = useRef<HTMLDivElement>(null);

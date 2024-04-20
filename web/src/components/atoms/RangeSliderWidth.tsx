@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import React, { useState, useEffect, useRef } from 'react';
-import { boxConfigAtom, cameraModeAtom, phantomSizeAtom } from '../../store';
+import { boxConfigAtom, cameraModeAtom, phantomSizeAtom, updateGridAtomsAction } from '../../store';
 import { set } from 'lodash';
 import { Toast } from './Toaster';
 
@@ -20,6 +20,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
   const [boxConfig,setBoxConfig] = useAtom(boxConfigAtom);
   const [phantomSize,setPhantomSize] = useAtom(phantomSizeAtom);
   const [,setCameraMode] = useAtom(cameraModeAtom);
+  const [width, calculateSize] = useAtom(updateGridAtomsAction);
 
   const unitRef = useRef<HTMLDivElement>(null);
   const length = max - min;
@@ -42,7 +43,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
     setBoxConfig((prevBoxConfig) => {
         return {
             ...prevBoxConfig,
-            depth: Number(value)
+            totalWidth: Number(value)
         }
       })
   }
@@ -63,6 +64,11 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
   useEffect(() => {
     calculatexPos(0)
   }, []);
+  useEffect(()=>{
+    //get pixel width of outerElement
+    calculateSize(boxConfig);
+    console.log('RangeSliderでcalculateSizeを実行')
+  },[boxConfig, calculateSize])
 
   
   return (
