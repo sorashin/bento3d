@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@nodi/core": "link:../core",
+    "@react-three/csg": "^3.2.0",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.13",
     "@testing-library/jest-dom": "^5.14.1",

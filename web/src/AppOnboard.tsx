@@ -4,7 +4,7 @@ import { GridView } from './components/organisms/GridView';
 import { DownloadView } from './components/organisms/DownloadView';
 import { Header } from './components/molecules/Header';
 import { stepAtom } from './store';
-import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FrepRenderingQuality, Graph, IElementable, NodeBase, RenderingMode, UINodeBase, UIText, UINumber } from '@nodi/core';
 import Project from './assets/scripts/service/Project';
 import axios from 'axios';
@@ -240,7 +240,7 @@ function AppOnboard() {
     const SceneComponent = React.lazy(() => import(`./components/three/Scene`));
   
   
-    useEffect(() => {
+    useLayoutEffect(() => {
       // Append Viewer
       const root:HTMLElement|null = document.getElementById('preview');
       const editorRoot:HTMLElement|null = document.getElementById('editor');
@@ -251,11 +251,11 @@ function AppOnboard() {
     },[]);  
     
     
-    useEffect(() => {
+    useLayoutEffect(() => {
       update(nodes);
     }, []);
   
-    useEffect(()=>{
+    useLayoutEffect(()=>{
       console.log("GRID",grid)
       console.log("boxConfig",boxConfig)
       

@@ -7,11 +7,12 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import { boxConfigAtom, cameraModeAtom, colorPaletteAtom, phantomSizeAtom, stepAtom } from '../../store';
 import { elementsAtom } from '../../store/scene';
 import { MotionValue, animate, useMotionValue } from 'framer-motion';
+import { PartitionBox } from './PartitionBox';
 
 const CanvasSetup: React.FC = () => {
   const { camera } = useThree();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     camera.up.set(0, 0, 1);
   }, [camera]);
 
@@ -56,7 +57,7 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   
   return(
   <>
-    {(boxConfig.viewMode===0||boxConfig.viewMode===1)&&<Box args={[phantomSize.depth, phantomSize.width, phantomSize.height]} position={[0, 0, 0]} />}
+    {(boxConfig.viewMode===0||boxConfig.viewMode===1)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height}/>}
     {boxConfig.viewMode===2&&(
 
     <group ref={contentRef}>
@@ -104,22 +105,19 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   const cameraX = useMotionValue(300);
   const cameraY = useMotionValue(300);
   const cameraZ = useMotionValue(300);
-  const cameraRotZ = useMotionValue(0);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(cameraMode === 0){
       animate(cameraX, 300, {duration: .2});
       animate(cameraY, 300, {duration: .2});
       animate(cameraZ, 300, {duration: .2});
-      animate(cameraRotZ, 0, {duration: .2});
     }else if(cameraMode === 1){//Front View
       animate(cameraX, 300, {duration: .2});
       animate(cameraY, 0, {duration: .2});
       animate(cameraZ, 0, {duration: .2});
-    }else if(cameraMode === 2){//TopView
+    }else if(cameraMode === 2){//SideView
       animate(cameraX, 0, {duration: .2});
-      animate(cameraY, 0, {duration: .2});
-      animate(cameraZ, 300, {duration: .2});
-      animate(cameraRotZ, Math.PI / 2, {duration: .2});
+      animate(cameraY, 300, {duration: .2});
+      animate(cameraZ, 0, {duration: .2});
     }
   }, [cameraMode]);
 
@@ -136,16 +134,14 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   useEffect(() => {
     syncPhantomSize()
   }, [boxConfig.viewMode]);
-  const CameraPositionUpdater = ({ x, y, z, rotZ }: { x: MotionValue, y: MotionValue, z: MotionValue, rotZ:MotionValue }) => {
+  const CameraPositionUpdater = ({ x, y, z }: { x: MotionValue, y: MotionValue, z: MotionValue }) => {
     const { camera } = useThree();
     
     useFrame(() => {
       camera.position.x = x.get();
       camera.position.y = y.get();
       camera.position.z = z.get();
-      if (cameraMode === 2) {
-        camera.rotation.z =  rotZ.get();
-      }
+      
       camera.updateProjectionMatrix();
     });
   
@@ -154,9 +150,9 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   
   
   return (
-    <div className={`fixed  top-0 left-0 ${boxConfig.viewMode===2?'inset-y-0 ':'inset-0'}`}>
+    <div className={`fixed  top-0 left-0 ${boxConfig.viewMode===2?'inset-y-0 w-1/2':'inset-0'}`}>
       <Canvas orthographic camera={{ fov: 50, position: [cameraX.get(), cameraY.get(), cameraZ.get()] }}  >
-        <CameraPositionUpdater x={cameraX} y={cameraY} z={cameraZ} rotZ={cameraRotZ} />
+        <CameraPositionUpdater x={cameraX} y={cameraY} z={cameraZ}  />
         <CanvasSetup/>
         <Content group={group!}/>
         
