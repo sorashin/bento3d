@@ -7,11 +7,11 @@ import { useAtom, useAtomValue } from 'jotai';
 import { userStateAtom } from '../../store/user';
 import { getProject } from '../../firebase/firebase';
 import Viewer from '../../assets/scripts/viewer/Viewer';
-import { BoxConfig, Grid, boxConfigAtom, gridAtoms, isDebugAtom } from '../../store';
+import { BoxConfig, ButtonElements, Grid, boxConfigAtom, gridAtoms, isDebugAtom } from '../../store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from '../../store/scene';
 import Editor from '../../assets/scripts/editor/Editor';
 import {ConfigView} from './ConfigView';
-import { ButtonElementsProps } from '~/src/types';
+
 import { DialogDownload } from '../molecules/DialogDownload';
 
 
@@ -134,14 +134,15 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     
     const buttonUis = uis.filter(ui => ui.label === '本体'||ui.label === 'フタ'||ui.label === '留め具'||ui.label === '仕切り');
     
-    let buttonElements:ButtonElementsProps[] = []
+    let buttonElements:ButtonElements[] = []
     buttonUis.forEach((ui,index) => {
       const pname = ui.label === '本体' ? 'box' : ui.label === 'フタ' ? 'lid' : ui.label === '留め具' ? 'latch' : 'partition';
       const path = "/images/parts/"+pname+".png"
-      const b:ButtonElementsProps = {
+      const b:ButtonElements = {
         jsx: createUIListItem(ui, index, uis.length),
         label: ui.label,
-        path:path
+        path:path,
+        visible:true
       };
       buttonElements.push(b);
     })

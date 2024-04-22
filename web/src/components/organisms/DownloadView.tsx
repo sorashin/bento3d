@@ -1,31 +1,42 @@
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
-import { ButtonElementsProps } from '~/src/types';
 import { useAtom } from 'jotai';
-import { cameraModeAtom } from '../../store';
+import { ButtonElements, DLButtonElementsAtom, cameraModeAtom } from '../../store';
 
 
 interface DownloadViewProps {
-  elements: ButtonElementsProps[];
+  elements: ButtonElements[];
   children?: ReactNode;
 }
 
 export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) => {
   
-  
+  const [DLButtonElements,setDLButtonElements] = useAtom(DLButtonElementsAtom)
+  setDLButtonElements(elements)
+  const toggleVisible = (index:number) => {
+    setDLButtonElements(prevElements => prevElements.map((element, i) => {
+      if(i === index){
+        return {...element, visible: !element.visible}
+        console.log(DLButtonElements)
+      }
+      return element
+    }))
+  }
   return (
     <>
-      <div className='absolute inset-y-0 right-0 w-1/3 flex flex-col justify-center px-16 z-10'>
+      <div className='absolute inset-y-0 right-0 w-1/2 flex flex-col justify-center px-16 z-10'>
         
-        {elements.map((element, index) => (
-            <div key={index} className='flex justify-between items-center w-full relative px-4 py-2 [&>div>div>span]:hidden [&>div>div>button]:absolute [&>div>div>button]:inset-0 [&>div>div>button]:rounded-sm [&>div>div>button]:text-[0px] [&>div>div>button]:hover:bg-content-extra-light-a [&>div>div>button]:transition'>
+        {DLButtonElements.map((element, index) => (
+            <div key={index} className='flex justify-between items-center w-full relative px-4 py-2 [&>div>div>span]:hidden [&>div>div>button]:w-12 [&>div>div>button]:h-12 [&>div>div>button]:rounded-sm [&>div>div>button]:text-[0px] [&>div>div>button]:bg-content-dark-a [&>div>div>button]:hover:bg-content-middle-a [&>div>div>button]:transition'>
+              <input type="checkbox" defaultChecked className="checkbox" onClick={()=>toggleVisible(index)}/>
               <img 
                 src={element.path} alt=''
                 className="w-20 h-20 object-contain rounded-md"
                 />
               <p className="grow ml-2">{element.label}</p>
-              <span className="w-12 h-12 flex items-center justify-center rounded-sm bg-content-dark-a">
+              
+              {/* <span className="w-12 h-12 flex items-center justify-center rounded-sm bg-content-dark-a">
                 <img src="/icons/download.svg" alt="" />
-              </span>
+              </span> */}
               {/* span + button */}
               {element.jsx}
             </div>

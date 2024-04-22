@@ -19,7 +19,7 @@ export const boxConfigAtom = atom<BoxConfig>({
     totalDepth: 100,
     height: 100,
     padding: 3,
-    colorMode: 0,
+    colorMode: 1,
     viewMode:0,
     partitionThickness: 2,
     mm2pixel:3,
@@ -58,6 +58,16 @@ export const phantomSizeAtom = atom<PhantomSize>({
     height:60,
     depth: 100
 })
+
+
+export type ButtonElements ={
+  jsx: JSX.Element
+  label:string
+  path:string
+  visible:boolean
+}
+export const DLButtonElementsAtom = atom<ButtonElements[]>([])
+
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)

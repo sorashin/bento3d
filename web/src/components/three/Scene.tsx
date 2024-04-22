@@ -20,7 +20,7 @@ const CanvasSetup: React.FC = () => {
     <>
     <color attach="background" args={['#dadada']} />
     {/* <primitive object={new THREE.AxesHelper(10)} /> */}
-    <GizmoHelper alignment="bottom-left" margin={[80, 80]} onUpdate={() => {}}>
+    <GizmoHelper alignment="bottom-left" margin={[80, 80]} onUpdate={() => {}} renderOrder={2}>
           <GizmoViewport axisColors={['#FD5B5D', '#38E2B3', '#2B99FF']} labelColor="#fff" />
         </GizmoHelper>
         <group rotation={[Math.PI/2,0,0]} scale={10}>
@@ -68,18 +68,17 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
 
             <primitive object={element} key={element.uuid} >
                 {/* 0 : lid */}
-                {/* 1 : BODY */}
-                {/* 2 : sikiri */}
+                {/* 1 : box */}
+                {/* 2 : shikiri */}
                 {/* 3 : latch */}
                 
-                {(index === 0||index === 1)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`}/>}
+                {(index === 0||index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`}/>}
                 {(index === 2)&&<Edges
                   // linewidth={4}
                   scale={1.0}
                   threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
                   color="#aaaaaa"
                 />}
-                {(index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].secondary}`} />}
 
               </primitive>
           )

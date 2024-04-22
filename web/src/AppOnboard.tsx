@@ -3,7 +3,7 @@ import { SizeView } from './components/organisms/SizeView';
 import { GridView } from './components/organisms/GridView';
 import { DownloadView } from './components/organisms/DownloadView';
 import { Header } from './components/molecules/Header';
-import { stepAtom } from './store';
+import { ButtonElements, DLButtonElementsAtom, stepAtom } from './store';
 import React, { ReactNode, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FrepRenderingQuality, Graph, IElementable, NodeBase, RenderingMode, UINodeBase, UIText, UINumber } from '@nodi/core';
 import Project from './assets/scripts/service/Project';
@@ -14,7 +14,6 @@ import { getProject } from './firebase/firebase';
 import Viewer from './assets/scripts/viewer/Viewer';
 import { BoxConfig, Grid, boxConfigAtom, cameraModeAtom, gridAtoms, isDebugAtom, phantomSizeAtom } from './store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './store/scene';
-import { ButtonElementsProps } from './types';
 
 
 function AppOnboard() {
@@ -32,7 +31,6 @@ function AppOnboard() {
     const [nodes, setNodes] = useAtom(nodesAtom); //elements for viewer 
     const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
     const [grid, setGrid] = useAtom(gridAtoms);
-    
     const [cameraMode, setCameraMode] = useAtom(cameraModeAtom);
   
   
@@ -148,19 +146,20 @@ function AppOnboard() {
       
     }
 
-    const UIButtonElements = (uis: UINodeBase[]) => {
+    const CreateButtonElements = (uis: UINodeBase[]) => {
         // uisの中から、labelが"Download BOX.stl"の要素を取り出し、JSXとしてreturnする
         
         const buttonUis = uis.filter(ui => ui.label === '本体'||ui.label === 'フタ'||ui.label === '留め具'||ui.label === '仕切り');
         
-        let buttonElements:ButtonElementsProps[] = []
+        let buttonElements:ButtonElements[] = []
         buttonUis.forEach((ui,index) => {
           const pname = ui.label === '本体' ? 'box' : ui.label === 'フタ' ? 'lid' : ui.label === '留め具' ? 'latch' : 'partition';
           const path = "/images/parts/"+pname+".png"
-          const b:ButtonElementsProps = {
+          const b:ButtonElements = {
             jsx: createUIListItem(ui, index, uis.length),
             label: ui.label,
-            path:path
+            path:path,
+            visible:true
           };
           buttonElements.push(b);
         })
@@ -258,7 +257,6 @@ function AppOnboard() {
     useLayoutEffect(()=>{
       console.log("GRID",grid)
       console.log("boxConfig",boxConfig)
-      
     },[grid, boxConfig])
     
 
@@ -267,7 +265,7 @@ function AppOnboard() {
         <div id="preview" className='hidden'></div>
         <div id="editor" className='hidden'></div>
         <Header/>
-        {step===0?<SizeView/>:step===1?<GridView/>:step===2?(<DownloadView elements={UIButtonElements(UIs)}>
+        {step===0?<SizeView/>:step===1?<GridView/>:step===2?(<DownloadView elements={CreateButtonElements(UIs)}>
         <div className='fixed z-15 left-0 bottom-8 flex flex-cols gap-4'>
             <UISlider uis={UIs}/>
             <UIGraph uis={UIs}/>

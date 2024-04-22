@@ -2,12 +2,11 @@
 import { UINodeBase } from "@nodi/core";
 import { Dialog } from "../atoms/Dialog";
 import { useAtom } from "jotai";
-import { isDownloadDialogOpenAtom } from "../../store";
-import { ButtonElementsProps } from "~/src/types";
+import { ButtonElements, isDownloadDialogOpenAtom } from "../../store";
 import { FC } from "react";
 
 interface DialogDownloadProps {
-    elements: ButtonElementsProps[];
+    elements: ButtonElements[];
 }
 
 
