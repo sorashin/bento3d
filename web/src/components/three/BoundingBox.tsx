@@ -28,7 +28,7 @@ const Size: FC<SizeProps> = ({ label, sublabel, posX, posY, posZ, color1,color2,
         >
           {label}
           <span
-            className="absolute -bottom-6 text-xs"
+            className="absolute -bottom-6 text-xs text-nowrap"
             style={{color:`${color2}`}}
             >
             {sublabel}
@@ -106,7 +106,7 @@ const box = useMemo(() => {
             posZ={box!.bbox.min.z}
             color1={color1}
             color2={color2}
-            sublabel={`${phantomSize.depth+3.5*2+6*2}mm`}
+            sublabel={`外寸：${phantomSize.depth+3.5*2+6*2}mm`}
             visible={cameraMode!==1&&!edgeOnly}
           />
           <Size
@@ -116,7 +116,7 @@ const box = useMemo(() => {
             posZ={box!.bbox.min.z}
             color1={color1}
             color2={color2}
-            sublabel={`${phantomSize.width+3.5*2}mm`}
+            sublabel={`外寸：${phantomSize.width+3.5*2}mm`}
             visible={cameraMode!==2&&!edgeOnly}
           />
           <Size
@@ -126,7 +126,7 @@ const box = useMemo(() => {
             posZ={box!.bCenter.z}
             color1={color1}
             color2={color2}
-            sublabel={`${phantomSize.height+6+2}mm`}
+            sublabel={`外寸：${phantomSize.height+6+2}mm`}
             visible={!edgeOnly}
           />
     </group>
