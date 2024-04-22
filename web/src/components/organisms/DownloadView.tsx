@@ -13,13 +13,15 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
   const [DLButtonElements,setDLButtonElements] = useAtom(DLButtonElementsAtom)
   setDLButtonElements(elements)
   const toggleVisible = (index:number) => {
-    setDLButtonElements(prevElements => prevElements.map((element, i) => {
-      if(i === index){
-        return {...element, visible: !element.visible}
-        console.log(DLButtonElements)
-      }
-      return element
-    }))
+    setDLButtonElements((prevDLButtonElements) => {
+      return prevDLButtonElements.map((element,i) => {
+          return {
+              ...element,
+              visible: i===index? false : false
+          }
+      })
+    })
+    console.log(DLButtonElements)
   }
   return (
     <>
