@@ -133,7 +133,7 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   }
   useEffect(() => {
     syncPhantomSize()
-  }, [boxConfig.viewMode]);
+  }, [boxConfig.totalDepth, boxConfig.totalWidth, boxConfig.height]);
   const CameraPositionUpdater = ({ x, y, z }: { x: MotionValue, y: MotionValue, z: MotionValue }) => {
     const { camera } = useThree();
     

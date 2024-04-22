@@ -71,7 +71,7 @@ const box = useMemo(() => {
     );
 
     return { geometry, bCenter, dimensions, bbox };
-  }, [target.current, phantomSize]);
+  }, [target.current, phantomSize.width, phantomSize.height, phantomSize.depth]);
   if (!box) {
     return null;
   }

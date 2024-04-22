@@ -99,8 +99,10 @@ export const GridEditor: React.FC = () => {
           ref={outerElement}
           style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
+          <p className="absolute left-1/2 -top-8 text-content-light text-xs">{`totalWidth:${totalWidth}mm`}</p>
+          <p className="absolute -left-8 top-1/2 text-content-light text-xs">{`totalDepth:${totalDepth}mm`}</p>
           <DimElement 
-                    value={totalDepth} 
+                    value={totalDepth-partitionThickness*2} 
                     onChange={function (e: any): void {
                       gridState.map((row, index) => {
                         updateSize(index,row.width,Number(e.target.value))
