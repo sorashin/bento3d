@@ -87,14 +87,15 @@ export const GridEditor: React.FC = () => {
     useEffect(()=>{
       //get pixel width of outerElement
       if(outerElement.current){
-        calculateSize(outerElement.current.clientWidth);
+        
+        calculateSize(outerElement.current.clientWidth, outerElement.current.clientHeight);
       }
-    },[gridState])
+    },[gridState,totalDepth,totalWidth])
   
     return(
         <motion.div 
           layout 
-          className='relative flex flex-row gap-4 p-4 w-full rounded-md bg-content-extra-light-a border-[1px] border-content-dark' 
+          className={`relative flex flex-row gap-4 p-4 ${totalWidth-totalDepth>0?'w-full h-fit':'w-fit h-full'} rounded-md bg-content-extra-light-a border-[1px] border-content-dark`} 
           ref={outerElement}
           style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
@@ -108,12 +109,10 @@ export const GridEditor: React.FC = () => {
                     isVertical={true}
                     />
         
-        {/* 
-        <p className='absolute -left-8 top-1/2'>{totalDepth} mm</p>
-        <p className='absolute -left-8 -top-8'>縮尺 {mm2pixel}</p> */}
+        
         {gridState.map((row, index) => {
           return (
-            <div key={index} className='relative flex flex-col gap-4 '>
+            <div key={index} className='relative flex flex-col gap-4 w-full'>
               <motion.div 
                 className='relative flex flex-col'
                 layout

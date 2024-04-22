@@ -85,7 +85,7 @@ export const GridEditorClassic: React.FC = () => {
     useEffect(()=>{
       //get pixel width of outerElement
       if(outerElement.current){
-        calculateSize(outerElement.current.clientWidth);
+        calculateSize(outerElement.current.clientWidth,outerElement.current.clientHeight);
       }
     },[gridState])
   

@@ -121,17 +121,18 @@ export const updateBoxConfigAtomsAction = atom(//グリッドを変更したと�
     (get) => get(boxConfigAtom),
     // 非同期もOK
     
-    async (get, set, pixelSize:number) => {
+    async (get, set, pixelSizeW:number, pixelSizeD:number) => {
         
     const sumOfWidth = get(gridAtoms).reduce((acc, grid) => acc + grid.width, 0)
     const w = sumOfWidth + get(boxConfigAtom).partitionThickness*(get(gridAtoms).length +1);
     //get the max value from gridAtoms.height
-    const d = Math.max(...get(gridAtoms).map(grid=>grid.depth));
+    const d = Math.max(...get(gridAtoms).map(grid=>grid.depth))+get(boxConfigAtom).partitionThickness*2;
+    
       set(boxConfigAtom, {
         ...get(boxConfigAtom),
         totalWidth:w,
         totalDepth:d,
-        mm2pixel:pixelSize/w
+        mm2pixel:w-d>0?pixelSizeW/w:pixelSizeD/d
         
       });
       
