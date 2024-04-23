@@ -130,7 +130,7 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
               updateBoxConfig(value)
           }}
           />
-          <p className='absolute inset-0 leading-[56px] text-center h-full text-white text-base pointer-events-none'>{label}</p>
+          <p className='absolute inset-0 leading-[56px] text-center h-full text-white text-base pointer-events-none font-display'>{label}</p>
         </div>
         <Toast isOpen={isDragging} value={`${label} : ${value.toString()}`} />
         {/* <div

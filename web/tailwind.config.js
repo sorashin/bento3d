@@ -39,6 +39,7 @@ const config = {
     },
     fontFamily: {
       sans: ["Inter", "sans-serif"],
+      'display': ['"F5.6"','sans-serif'],
     },
     fontSize: {
       xs: [
