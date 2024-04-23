@@ -60,6 +60,7 @@ export const phantomSizeAtom = atom<PhantomSize>({
 })
 
 
+
 export type ButtonElements ={
   jsx: JSX.Element
   label:string
@@ -67,7 +68,7 @@ export type ButtonElements ={
   visible:boolean
 }
 export const DLButtonElementsAtom = atom<ButtonElements[]>([])
-export const opacityAtom = atom<number>(0.5)
+export const showCaseAtom = atom<boolean>(true)
 
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
@@ -109,11 +110,7 @@ export type ColorPalette = {
     secondary:string,
 }
 export const colorPaletteAtom = atom<ColorPalette[]>([
-    {
-        label: 'しらたま',
-        primary: '#F4EFE4',
-        secondary: '#B4AFA2'
-    },
+    
     {
         label: 'ネイビー',
         primary: '#606D84',
@@ -123,7 +120,13 @@ export const colorPaletteAtom = atom<ColorPalette[]>([
         label: 'テラコッタ',
         primary: '#A06351',
         secondary: '#915646'
-    }])
+    },
+    {
+      label: 'しらたま',
+      primary: '#F4EFE4',
+      secondary: '#B4AFA2'
+  },
+  ])
 
 //update totalwidth along with length of gridAtoms
 

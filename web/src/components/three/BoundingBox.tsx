@@ -2,7 +2,7 @@ import { Edges, Html } from "@react-three/drei";
 import { useAtom, useAtomValue } from "jotai";
 import { FC, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { cameraModeAtom, phantomSizeAtom } from "../../store";
+import { cameraModeAtom, phantomSizeAtom, showCaseAtom } from "../../store";
 
 interface SizeProps {
   label: string;
@@ -16,23 +16,22 @@ interface SizeProps {
 }
 //選択してるmeshの寸法を表示するコンポーネント
 const Size: FC<SizeProps> = ({ label, sublabel, posX, posY, posZ, color1,color2,visible }) => {
+  const cameraMode = useAtomValue(cameraModeAtom);
+  const showCase = useAtomValue(showCaseAtom);
+  // const typeを定義
+  // labelに"W"が含まれれば0、"H"が含まれれば1、"D"が含まれれば2
+  const type = label.includes("W") ? 0 : label.includes("H") ? 1 : 2;
     if(!visible){
         return null
     }
   return (
     <group position={[posX, posY, posZ]}>
-      <Html center zIndexRange={[0, 5]}>
+      <Html center zIndexRange={[0, 5]} transform={cameraMode===0} rotation={[type===1?-Math.PI*.5:0,0,type===0?Math.PI*.5:Math.PI*1]} position={[type===1?30:type===0?10:0,type===2?10:0,0]} scale={20}>
         <p 
-        className="flex flex-col items-center rounded-sm  px-2 text-center text-xs text-white"
-        style={{backgroundColor:`${color1}`}}
+        className="flex flex-col items-center rounded-sm  px-2 text-center text-xs text-white text-nowrap"
+        style={{color:`${color2}`}}
         >
-          {label}
-          <span
-            className="absolute -bottom-6 text-xs text-nowrap"
-            style={{color:`${color2}`}}
-            >
-            {sublabel}
-        </span>
+          {showCase?sublabel:label}
         </p>
         
       </Html>
@@ -80,7 +79,7 @@ const box = useMemo(() => {
   
   return (
     <group>
-      <mesh
+      {/* <mesh
         scale={1.0}
         geometry={box!.geometry}
         // rotation={rotation}
@@ -96,37 +95,37 @@ const box = useMemo(() => {
           threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
           color={color1}
         />
-      </mesh>
+      </mesh> */}
       
       
           <Size
-            label={`${phantomSize.depth}mm`}
+            label={`D:${phantomSize.depth}mm`}
             posX={box!.bCenter.x}
             posY={box!.bbox.max.y}
             posZ={box!.bbox.min.z}
             color1={color1}
             color2={color2}
-            sublabel={`外寸：${phantomSize.depth+3.5*2+6*2}mm`}
+            sublabel={`Case D：${phantomSize.depth+3.5*2+6*2}mm`}
             visible={cameraMode!==1&&!edgeOnly}
           />
           <Size
-            label={`${phantomSize.width}mm`}
-            posX={box!.bbox.min.x}
+            label={`W:${phantomSize.width}mm`}
+            posX={box!.bbox.max.x}
             posY={box!.bCenter.y}
             posZ={box!.bbox.min.z}
             color1={color1}
             color2={color2}
-            sublabel={`外寸：${phantomSize.width+3.5*2}mm`}
+            sublabel={`Case W：${phantomSize.width+3.5*2}mm`}
             visible={cameraMode!==2&&!edgeOnly}
           />
           <Size
-            label={`${phantomSize.height}mm`}
+            label={`H:${phantomSize.height}mm`}
             posX={box!.bbox.max.x}
-            posY={box!.bbox.max.y}
+            posY={box!.bbox.min.y}
             posZ={box!.bCenter.z}
             color1={color1}
             color2={color2}
-            sublabel={`外寸：${phantomSize.height+6+2}mm`}
+            sublabel={`Case H：${phantomSize.height+6+2}mm`}
             visible={!edgeOnly}
           />
     </group>

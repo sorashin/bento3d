@@ -8,7 +8,7 @@ import { Toast } from './Toaster';
 type RangeSliderWidthProps = {
     max: number;
     min: number;    
-    label:string
+    label:string;
 }
 export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label}) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -75,8 +75,8 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
     <>
       
         
-        <div className={'group fixed left-1/2 bottom-32 -translate-x-1/2 w-[128px] transition'}>
-          <div className={'fixed inset-x-0 flex flex-row justify-center h-4 -bottom-32 translate-y-[500%] group-hover:translate-y-0 transition-all'}>
+        <div className={'group fixed left-1/2 bottom-16 -translate-x-1/2 w-[128px] transition'}>
+          <div className={'fixed inset-x-0 flex flex-row justify-center h-4 -bottom-16 translate-y-[500%] group-hover:translate-y-0 transition-all'}>
             <div 
                 className={`h-4 flex flex-row items-end`}
                 style={{ height: 16,width: `${rulerRange*2}px`}}
@@ -87,7 +87,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
                   <div key={index} className={`relative block min-w-[1px] ${index % 10 === 0 ?'h-6':index % 5 === 0 ? 'h-4' : 'h-2'} bg-content-dark-a`}
                     style={{marginRight:`${(rulerRange*2-length)/(length-1)}px`}}
                     >
-                      {index % 10 === 0&&<p className='absolute text-sm text-center left-1/2 -translate-x-1/2 -top-8'>{min+index}</p>}
+                      {index % 10 === 0&&<p className='absolute text-overline text-center left-1/2 -translate-x-1/2 -top-4'>{min+index}</p>}
                     </div>
                 ))}
             </div>
@@ -133,9 +133,13 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
               updateBoxConfig(value)
           }}
           />
-          <p className='absolute inset-0 leading-[56px] text-center h-full text-white text-base pointer-events-none'>{label}</p>
+          <div className='absolute inset-0 flex flex-col justify-center text-center h-full  pointer-events-none text-white '>
+            <p className='text-sm'>{label}</p>
+            <p>
+            <span className='ml-[16px] text-lg'>{phantomSize.width}</span><span className='text-xs'>mm</span>
+            </p>
+          </div>
         </div>
-        <Toast isOpen={isDragging} value={`${label} : ${value.toString()}`} />
         {/* <div
             className="fixed right-24 bottom-24 z-10 bg-transparent"
         >

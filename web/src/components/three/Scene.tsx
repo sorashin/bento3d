@@ -4,7 +4,7 @@ import {   Box, Edges, GizmoHelper, GizmoViewport, Html, OrbitControls, Presenta
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { DLButtonElementsAtom, boxConfigAtom, cameraModeAtom, colorPaletteAtom, opacityAtom, phantomSizeAtom, stepAtom } from '../../store';
+import { DLButtonElementsAtom, boxConfigAtom, cameraModeAtom, colorPaletteAtom, phantomSizeAtom, stepAtom } from '../../store';
 import { elementsAtom } from '../../store/scene';
 import { MotionValue, animate, useMotionValue } from 'framer-motion';
 import { PartitionBox } from './PartitionBox';
@@ -21,11 +21,11 @@ const CanvasSetup: React.FC = () => {
     <>
     <color attach="background" args={['#cccccc']} />
     {/* <primitive object={new THREE.AxesHelper(10)} /> */}
-    <GizmoHelper alignment="bottom-left" margin={[80, 80]} onUpdate={() => {}} renderOrder={2}>
+    {boxConfig.viewMode===2&&<GizmoHelper alignment="bottom-left" margin={[80, 80]} onUpdate={() => {}} renderOrder={2}>
           <GizmoViewport axisColors={['#FD5B5D', '#38E2B3', '#2B99FF']} labelColor="#fff" />
-        </GizmoHelper>
-        <group rotation={[Math.PI/2,0,0]} scale={10}>
-        <gridHelper args={[20, 20, 0xbbbbbb, 0xcccccc]} />
+        </GizmoHelper>}
+        <group position={[0,0,-50]} rotation={[Math.PI/2,0,0]} scale={10}>
+          <gridHelper args={[20, 20, 0xbbbbbb, 0xcccccc]} />
         </group>
         <OrbitControls enablePan={false} enableZoom={true} enableRotate={boxConfig.viewMode===2?true: false} makeDefault dampingFactor={0.3} />
     </>
@@ -60,7 +60,7 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   <>
     {(boxConfig.viewMode===0||boxConfig.viewMode===1)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height}/>}
     {boxConfig.viewMode===2&&(
-      <group ref={contentRef}>
+      <group ref={contentRef} position={[0,0,-50]}>
       
       {/* <Annotation position={[0, 0, totalHeight]} onClick={()=>setScreenMode(1)}>グリッド</Annotation> */}
       {/* <Annotation position={[totalWidth/2, 0, totalHeight/2]} onClick={()=>setScreenMode(2)}>高さ</Annotation> */}
@@ -101,7 +101,6 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
   const [phantomSize, setPhantomSize] = useAtom(phantomSizeAtom);
   const [cameraMode, setCameraMode] = useAtom(cameraModeAtom);
-  const [opacity, setOpacity] = useAtom(opacityAtom);
   // motionValueを作成
   const cameraX = useMotionValue(300);
   const cameraY = useMotionValue(300);
@@ -154,7 +153,7 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   
   
   return (
-    <div className={`fixed  top-0 left-0 ${boxConfig.viewMode===2?'inset-y-0 w-1/2':'inset-0'}`}>
+    <div className={`fixed  top-0 left-0 ${boxConfig.viewMode===2?'inset-y-0 w-2/3':'inset-0'}`}>
       <Canvas orthographic camera={{ fov: 50, position: [cameraX.get(), cameraY.get(), cameraZ.get()] }}  >
         <CameraPositionUpdater x={cameraX} y={cameraY} z={cameraZ}  />
         <CanvasSetup/>

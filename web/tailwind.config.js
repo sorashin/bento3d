@@ -42,6 +42,14 @@ const config = {
       'display': ['"F5.6"','sans-serif'],
     },
     fontSize: {
+      "overline": [
+        ".625rem",
+        {
+          //12px
+          letterSpacing: "0em",
+          lineHeight: "120%",
+        },
+      ],
       xs: [
         ".75rem",
         {
