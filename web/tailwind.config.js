@@ -34,7 +34,7 @@ const config = {
         base: "#E7E7E7",
         ev1: "#35383B",
         ev2: "#000000",
-        sheet: "rgba(255,255,255,.86)",
+        sheet: "rgba(255,255,255,.64)",
       },
     },
     fontFamily: {

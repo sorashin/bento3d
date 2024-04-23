@@ -242,7 +242,6 @@ function AppOnboard() {
     useLayoutEffect(() => {
       // Append Viewer
       const root:HTMLElement|null = document.getElementById('preview');
-      const editorRoot:HTMLElement|null = document.getElementById('editor');
       viewer = new Viewer(root!);
       // viewer.setRenderingMode(operators.rendering);
       
@@ -253,6 +252,12 @@ function AppOnboard() {
     useLayoutEffect(() => {
       update(nodes);
     }, []);
+
+    useEffect(() => {
+      if (!group) {
+        initializeProject()
+      }
+    }, [group]);
   
     useLayoutEffect(()=>{
       console.log("GRID",grid)

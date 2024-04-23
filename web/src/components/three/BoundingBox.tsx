@@ -92,7 +92,7 @@ const box = useMemo(() => {
           visible={false}
         ></meshBasicMaterial>
         <Edges
-          scale={1.0}
+          scale={1.001}
           threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
           color={color1}
         />
