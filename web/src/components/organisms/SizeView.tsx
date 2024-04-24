@@ -13,7 +13,7 @@ export const SizeView = () => {
     <>  
         <div className='z-10 absolute'>
           <RangeSliderWidth max={200} min={50} label='Width' />
-          <RangeSliderHeight max={250} min={30} label='Height' />
+          <RangeSliderHeight max={250} min={10} label='Height' />
           <RangeSliderDepth max={250} min={50} label='Depth'/>
           <div className='fixed flex gap-2 items-center bottom-8 right-8 text-xs text-content-light-a'>
             <label>Partition</label>

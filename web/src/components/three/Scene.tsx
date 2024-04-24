@@ -58,7 +58,7 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   
   return(
   <>
-    {(boxConfig.viewMode===0||boxConfig.viewMode===1)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height}/>}
+    {(boxConfig.viewMode===0)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height}/>}
     {boxConfig.viewMode===2&&(
       <group ref={contentRef} position={[0,0,-50]}>
       

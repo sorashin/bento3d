@@ -7,20 +7,24 @@ const NavButton: React.FC<{ label: string,step:number }> = ({ label,step }) => {
     const [currentStep,setStep] = useAtom(stepSyncAtom)
     const isActive = currentStep === step
     return (
-        <button className={`w-12 h-12 flex justify-center items-center rounded-lg ${isActive?'bg-emSecondary':'bg-content-light-a'} text-white text-lg font-bold`} onClick={()=>setStep(step)}>
-            {step+1}<span className="absolute -bottom-1 text-base text-center text-content-middle-a font-normal">{label}</span>
+        <button className={`w-fit p-2 flex justify-center items-center gap-2 rounded-sm ${isActive?'bg-[rgba(255,255,255,.56)] shadow-sm':'transparent shadow-none hover:bg-[rgba(255,255,255,.16)]'} text-content-dark text-xs  transition-all`} onClick={()=>setStep(step)}>
+            <img src={`/icons/step00${step}.svg`} alt="" className="w-6 h-6"/>
+            {label}
         </button>
     )
 }
 
 
+
 export const Header = () => {
     return(
-        <header className="absolute inset-x-0 top-0 py-8 z-20 flex justify-center gap-16">
+        <header className="absolute inset-x-0 top-0 py-8 z-20 flex justify-center items-center gap-2">
             {/* <KeyManager/> */}
-            <NavButton label={'サイズ'} step={0}/>
-            <NavButton label={'グリッド'} step={1}/>
-            <NavButton label={'ダウンロード'} step={2}/>
+            <NavButton label={'Size'} step={0}/>
+            <img src='/icons/chevron-right.svg' alt="" className="w-4 h-4"></img>
+            <NavButton label={'Grid'} step={1}/>
+            <img src='/icons/chevron-right.svg' alt="" className="w-4 h-4"></img>
+            <NavButton label={'Download'} step={2}/>
         </header>
     )
 }
