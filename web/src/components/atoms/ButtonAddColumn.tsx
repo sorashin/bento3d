@@ -16,6 +16,7 @@ export const ButtonAddColumn:FC<{index:number}> = (index) => {
             };
             return updatedGrid;
         })
+        
     }
   return (
     <button 
@@ -23,7 +24,7 @@ export const ButtonAddColumn:FC<{index:number}> = (index) => {
         onClick={addRow}
     >
         <span 
-        className="absolute w-12 h-12 scale-0 -bottom-6 flex justify-center items-center rounded-lg text-lg bg-white group-hover:scale-100 transition"
+        className="absolute w-12 h-12 -bottom-6 lg:scale-0 flex justify-center items-center rounded-lg text-lg bg-white group-hover:scale-95 transition"
         >+</span>
           </button>
   );

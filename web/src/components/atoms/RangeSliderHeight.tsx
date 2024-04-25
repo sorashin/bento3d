@@ -71,8 +71,8 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
     <>
       
         
-        <div className={'group fixed top-1/2 right-16 -translate-y-1/2 h-14 transition'}>
-          <div className={'fixed inset-y-0 flex flex-col justify-center z-10 w-4 -right-16 translate-x-[500%] group-hover:translate-x-0 transition-all'}//
+        <div className={'group fixed top-3/4 lg:top-1/2 lg:right-16 right-8 -translate-y-1/2 h-14 transition'}>
+          <div className={'fixed inset-y-0 flex flex-col justify-center z-10 w-4 lg:-right-16 -right-8 translate-x-[500%] group-hover:translate-x-0 transition-all'}//
       >
         <div 
             className={`w-4 flex flex-col items-end`}

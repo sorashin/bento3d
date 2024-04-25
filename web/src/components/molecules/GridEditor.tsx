@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { boxConfigAtom, updateBoxConfigAtomsAction, gridAtoms, openAIAPIKeyAtom, screenModeAtom } from "../../store";
+import { boxConfigAtom, updateBoxConfigAtomsAction, gridAtoms, openAIAPIKeyAtom, screenModeAtom, updateGridAtomsAction } from "../../store";
 import { ButtonAddRow } from "../atoms/ButtonAddRow";
 import { ButtonAddColumn } from "../atoms/ButtonAddColumn";
 import { DimElement } from "../atoms/DimElement";
@@ -9,7 +9,8 @@ import { DimElement } from "../atoms/DimElement";
 export const GridEditor: React.FC = () => {
   const [gridState, setGridState] = useAtom(gridAtoms);
   const [{totalWidth, mm2pixel,totalDepth, fillet, partitionThickness}, calculateSize] = useAtom(updateBoxConfigAtomsAction);
-  const [,setScreenMode] = useAtom(screenModeAtom);
+  const boxConfig = useAtomValue(boxConfigAtom);
+  const [, calculateGridSize] = useAtom(updateGridAtomsAction);
   const apiKey = useAtomValue(openAIAPIKeyAtom);
   const outerElement = useRef<HTMLDivElement>(null);
   // gridAtomsのn番目の要素のwidthを変更する関数
@@ -95,12 +96,12 @@ export const GridEditor: React.FC = () => {
     return(
         <motion.div 
           layout 
-          className={`relative flex flex-row gap-4 p-4 ${totalWidth-totalDepth>0?'w-full h-fit':'w-fit h-full'} rounded-md bg-content-extra-light-a border-[1px] border-content-dark`} 
+          className={`relative flex flex-row gap-4 p-4 ${totalWidth-totalDepth>0?'w-full h-fit':'w-fit h-full'} rounded-md bg-white border-content-middle border-[0.5px] grid-shadow-outer`} 
           ref={outerElement}
           style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
-          <p className="absolute left-1/2 -top-8 text-content-light text-xs">{`totalWidth:${totalWidth}mm`}</p>
-          <p className="absolute -left-8 top-1/2 text-content-light text-xs">{`totalDepth:${totalDepth}mm`}</p>
+          <p className="absolute left-1/2 -top-16 text-content-light-a text-xs -translate-x-1/2">{`totalWidth:${totalWidth}mm`}</p>
+          <p className="absolute -left-32 top-1/2 text-content-light-a text-xs transform -rotate-90 -translate-y-1/2">{`totalDepth:${totalDepth}mm`}</p>
           <DimElement 
                     value={totalDepth-partitionThickness*2} 
                     onChange={function (e: any): void {
@@ -134,7 +135,7 @@ export const GridEditor: React.FC = () => {
                       key={i} 
                       initial={false}
                       animate={{ height: (totalDepth-(2+row.division-1)*partitionThickness)/row.division*mm2pixel,borderRadius: fillet*mm2pixel} }
-                      className="group w-full flex flex-col justify-center items-center border-[1px] border-content-dark"
+                      className="group w-full flex flex-col justify-center items-center grid-bottom-layer border-content-light border-[0.5px] grid-shadow-inner"
                     >
                       {/* <input
                         type="text"
@@ -156,6 +157,7 @@ export const GridEditor: React.FC = () => {
                                 updatedGrid.splice(index, 1);
                                 return updatedGrid;
                               })
+                              calculateGridSize(boxConfig);
                               }else if(row.division > 1){
                                 setGridState((prevGridState) => {
                                   const updatedGrid = [...prevGridState];
@@ -165,6 +167,7 @@ export const GridEditor: React.FC = () => {
                                   };
                                   return updatedGrid;
                                 });
+                                calculateGridSize(boxConfig);
                               };
                             }
                           }
@@ -175,7 +178,7 @@ export const GridEditor: React.FC = () => {
                     </motion.div>
                   ))}
               </motion.div>
-              <ButtonAddRow/>
+              {(index===gridState.length-1)&&<ButtonAddRow/>}
               <ButtonAddColumn index={index}/>
             </div>
           );

@@ -168,7 +168,7 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   
   
   return (
-    <div className={`fixed  top-0 left-0 ${boxConfig.viewMode===2?'inset-y-0 w-2/3':'inset-0'}`}>
+    <div className={`fixed  top-0 lg:left-0 ${boxConfig.viewMode===2?' lg:inset-y-0 lg:w-2/3 lg:h-full w-full h-2/3':'inset-0'}`}>
       <Canvas orthographic camera={{ fov: 50, position: [cameraX.get(), cameraY.get(), cameraZ.get()] }}  >
         <CameraPositionUpdater x={cameraX} y={cameraY} z={cameraZ}  />
         <CanvasSetup/>

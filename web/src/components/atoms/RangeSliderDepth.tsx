@@ -82,8 +82,8 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
     <>
       
         
-        <div className={'group fixed top-1/2 left-16 -translate-y-1/2 h-14 transition'}>
-          <div className={'fixed inset-y-0 flex flex-col justify-center z-10 w-4 -left-16 -translate-x-[500%] group-hover:translate-x-0 transition-all'}//
+        <div className={'group fixed top-3/4 lg:top-1/2 lg:left-16 left-8 -translate-y-1/2 h-14 transition'}>
+          <div className={'fixed inset-y-0 flex flex-col justify-center z-10 w-4 lg:-left-16 -left-8 -translate-x-[500%] group-hover:translate-x-0 transition-all'}//
       >
         <div 
             className={`w-4 flex flex-col items-start`}
