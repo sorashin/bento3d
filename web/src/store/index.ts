@@ -50,13 +50,22 @@ export const gridAtoms = atom<Grid[]>([
 export type PhantomSize = {
     width:number,
     height:number,
-    depth:number
-
+    depth:number,
+    hover:{
+      w:boolean,
+      h:boolean,
+      d:boolean
+    }
 }
 export const phantomSizeAtom = atom<PhantomSize>({
     width: 100,
     height:60,
-    depth: 100
+    depth: 100,
+    hover:{
+      w:false,
+      h:false,
+      d:false
+    }
 })
 
 

@@ -95,6 +95,26 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
           <input
           type='range'
             className='range-slider'
+            onMouseEnter={()=>{
+              setPhantomSize((prevPhantomSize) => {
+                //set true 
+                return {
+                    ...prevPhantomSize,
+                    hover:{
+                      ...prevPhantomSize.hover,
+                      h:true
+                    }}})
+            }}
+            onMouseLeave={()=>{
+              setPhantomSize((prevPhantomSize) => {
+                //set true 
+                return {
+                    ...prevPhantomSize,
+                    hover:{
+                      ...prevPhantomSize.hover,
+                      h:false
+                    }}})
+            }}
             onMouseDown={(e) => {
               setIsDragging(true);
               setStartY(e.clientY); // ドラッグ開始時のY座標を設定

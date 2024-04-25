@@ -106,10 +106,38 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
           <input
           type='range'
             className='range-slider'
+            //show ruler on hover
+            onMouseEnter={()=>{
+              setPhantomSize((prevPhantomSize) => {
+                //set true 
+                return {
+                    ...prevPhantomSize,
+                    hover:{
+                      ...prevPhantomSize.hover,
+                      d:true
+                    }}})
+            }}
+            onMouseLeave={()=>{
+              setPhantomSize((prevPhantomSize) => {
+                //set true 
+                return {
+                    ...prevPhantomSize,
+                    hover:{
+                      ...prevPhantomSize.hover,
+                      d:false
+                    }}})
+            }}
             onMouseDown={(e) => {
               setIsDragging(true);
               setStartY(e.clientY); // ドラッグ開始時のY座標を設定
-              
+              setPhantomSize((prevPhantomSize) => {
+                //set true 
+                return {
+                    ...prevPhantomSize,
+                    hover:{
+                      ...prevPhantomSize.hover,
+                      d:true
+                    }}})
               setCameraMode(2)
             }}
             onMouseMove={(e) => {
@@ -140,6 +168,7 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
               setIsDragging(false)
               updateGrid(value)
           }}
+          
           />
           <div className='absolute inset-0 flex flex-col justify-center text-center h-full  pointer-events-none text-white '>
             <p className='text-sm'>{label}</p>

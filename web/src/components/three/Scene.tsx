@@ -1,6 +1,6 @@
 
 import { useThree, Canvas, useFrame } from '@react-three/fiber'
-import {   Box, Edges, GizmoHelper, GizmoViewport, Html, OrbitControls, PresentationControls, Stage } from '@react-three/drei'
+import {   Box, Edges, GizmoHelper, GizmoViewport, Html, Line, OrbitControls, PresentationControls, Stage } from '@react-three/drei'
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { atom, useAtom, useAtomValue } from 'jotai';
@@ -58,6 +58,12 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   
   return(
   <>
+    {/* X Axis */}
+    {phantomSize.hover.d&&<Line points={[[-1000, 0, 0], [1000,0,0]]} color="#FD5B5D" lineWidth={1}/>}
+    {/* Y Axis */}
+    {phantomSize.hover.w&&<Line points={[[0, -1000, 0], [0,1000,0]]} color="#2db992" lineWidth={1}/>}
+    {/* Z Axis */}
+    {phantomSize.hover.h&&<Line points={[[0, 0, -1000], [0,0,1000]]} color="#2B99FF" lineWidth={1}/>}
     {(boxConfig.viewMode===0)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height}/>}
     {boxConfig.viewMode===2&&(
       <group ref={contentRef} position={[0,0,-50]}>

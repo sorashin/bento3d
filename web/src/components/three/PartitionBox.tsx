@@ -7,6 +7,7 @@ import { RoundedBox } from "./geometry/RoundedBox";
 import * as THREE from "three";
 import { group } from "console";
 import { HingeGeometry } from "./geometry/Hinge";
+import { RoundedLine } from "./geometry/RoundedLine";
 import { BoundingBox } from "./BoundingBox";
 
 type PartitionBoxProps = {
@@ -28,6 +29,10 @@ export const PartitionBox: React.FC<PartitionBoxProps> = ({ width,height,depth }
                     <RoundedBox width={depth} height={width} depth={height} radius={boxConfig.fillet}/>
                     <meshStandardMaterial color={'#ffffff'}/>
                 </mesh>
+                {/* <mesh position={[100,0,0]}>
+                    <RoundedLine width={depth} height={width} depth={height} radius={boxConfig.fillet}></RoundedLine>
+                    <meshStandardMaterial color={'#ffffff'}/>
+                </mesh> */}
                 {
                 // outer
                 showCase&&(<>
