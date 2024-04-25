@@ -18,7 +18,7 @@ const NavButton: React.FC<{ label: string,step:number }> = ({ label,step }) => {
 
 export const Header = () => {
     return(
-        <header className="absolute inset-x-0 top-0 py-8 z-20 flex justify-center items-center gap-2">
+        <header className="absolute inset-x-0 top-0 pt-8 z-20 flex justify-center items-center gap-2">
             {/* <KeyManager/> */}
             <NavButton label={'Size'} step={0}/>
             <img src='/icons/chevron-right.svg' alt="" className="w-4 h-4"></img>

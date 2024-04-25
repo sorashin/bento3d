@@ -89,6 +89,7 @@ export const cameraModeAtom = atom<number>(0)
 // 1:Front View/高さ
 // 2:Top View/奥行き
 
+export const bomAtom = atom<number>(0)
 export const stepAtom=atom<number>(0)
 //set same value as stepAtom to boxconfig.viewMode when stepAtom changes
 // stepAtomの値が変更されたときにboxConfig.viewModeを更新するatom

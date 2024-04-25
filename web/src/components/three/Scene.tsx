@@ -4,10 +4,11 @@ import {   Box, Edges, GizmoHelper, GizmoViewport, Html, Line, OrbitControls, Pr
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { DLButtonElementsAtom, boxConfigAtom, cameraModeAtom, colorPaletteAtom, phantomSizeAtom, stepAtom } from '../../store';
+import { DLButtonElementsAtom, bomAtom, boxConfigAtom, cameraModeAtom, colorPaletteAtom, phantomSizeAtom, stepAtom } from '../../store';
 import { elementsAtom } from '../../store/scene';
 import { MotionValue, animate, useMotionValue } from 'framer-motion';
 import { PartitionBox } from './PartitionBox';
+import { max } from 'lodash';
 
 const CanvasSetup: React.FC = () => {
   const { camera } = useThree();
@@ -55,7 +56,13 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   const boxConfig = useAtomValue(boxConfigAtom);
   const colorPalette = useAtomValue(colorPaletteAtom);
   const phantomSize = useAtomValue(phantomSizeAtom);
-  
+  const bom = useAtomValue(bomAtom);
+  const bomConfig = [
+    {axis: 'z',min:0,max: 200,},//lid
+    {axis: 'z',min:0,max: -200,},//box
+    {axis: 'z',min:0,max: 0,},//shikiri
+    {axis: 'x',min:0,max: 200,},//latch
+  ]
   return(
   <>
     {/* X Axis */}
@@ -73,21 +80,22 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
         {group&&group.children.map((element, index) => {
           return(
             
-            <primitive object={element} key={element.uuid} >
-                {/* 0 : lid */}
-                {/* 1 : box */}
-                {/* 2 : shikiri */}
-                {/* 3 : latch */}
-                
-                {(index === 0||index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} />}
-                {(index === 2)&&<Edges
-                  // linewidth={4}
-                  scale={1.0}
-                  threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
-                  color="#aaaaaa"
-                />}
+              <primitive object={element} key={element.uuid} position={[bomConfig[index].axis==='x'?bomConfig[index].max*bom*0.01:0,bomConfig[index].axis==='y'?bomConfig[index].max*bom*0.01:0,bomConfig[index].axis==='z'?bomConfig[index].max*bom*0.01:0]}>
+                  {/* 0 : lid */}
+                  {/* 1 : box */}
+                  {/* 2 : shikiri */}
+                  {/* 3 : latch */}
+                  
+                  {(index === 0||index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} />}
+                  {(index === 2)&&<Edges
+                    // linewidth={4}
+                    scale={1.0}
+                    threshold={15} // Display edges only when the angle between two faces exceeds this value (default=15 degrees)
+                    color="#aaaaaa"
+                  />}
 
-              </primitive>
+                </primitive>
+            
           )
 
 
@@ -107,6 +115,7 @@ export const Scene: React.FC<SceneProps> = ({ group }) => {
   const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
   const [phantomSize, setPhantomSize] = useAtom(phantomSizeAtom);
   const [cameraMode, setCameraMode] = useAtom(cameraModeAtom);
+  
   // motionValueを作成
   const cameraX = useMotionValue(300);
   const cameraY = useMotionValue(300);

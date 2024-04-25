@@ -1,6 +1,6 @@
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
-import { useAtom } from 'jotai';
-import { ButtonElements, DLButtonElementsAtom, cameraModeAtom } from '../../store';
+import { useAtom, useAtomValue } from 'jotai';
+import { ButtonElements, DLButtonElementsAtom, bomAtom, boxConfigAtom, cameraModeAtom } from '../../store';
 import SupportButton from '../atoms/SupportButton';
 
 
@@ -10,27 +10,22 @@ interface DownloadViewProps {
 }
 
 export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) => {
-  
+  const boxConfig = useAtomValue(boxConfigAtom);
   const [DLButtonElements,setDLButtonElements] = useAtom(DLButtonElementsAtom)
-  // useEffect(() => {
-  //   setDLButtonElements(elements)
-  // }, [elements])
-  // useEffect(()=>{
-  //   console.log(DLButtonElements)
-  // },[DLButtonElements])
+  const [bom,setBom] = useAtom(bomAtom);
   
-  const toggleVisible = (index:number) => {
-    setDLButtonElements((prevDLButtonElements) => {
-      return prevDLButtonElements.map((element,i) => {
-          return {
-              ...element,
-              visible: i===index? !element.visible : element.visible
-          }
-      })
-    })
-  }
   return (
     <>
+      {/* <div className='absolute inset-y-0 left-0 w-2/3'>
+      {boxConfig.viewMode===2&&<input type="range" min={0} max={100} step={1}
+        className='range w-32 z-10 absolute left-1/2 bottom-16 -translate-x-1/2'
+        onChange={(e) => {
+          // update bomAtom with new value
+          setBom(parseInt(e.target.value));
+        }}
+      />
+      }
+      </div> */}
       <div className='absolute inset-y-0 right-0 w-1/2 flex flex-col justify-center px-16 z-10'>
         <div className='flex flex-col items-center justify-center w-full h-fit rounded-lg bg-surface-sheet pt-4 px-4 pb-8 shadow-lg'>
           <div
