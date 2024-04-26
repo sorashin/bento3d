@@ -275,6 +275,13 @@ function AppOnboard() {
         page: `/00${boxConfig.viewMode}`,
       });
     }, []);
+    useEffect(() => {
+      ReactGA.send({
+        hitType: "pageview",
+        // アクセスしたパス (pathname) とクエリ文字列 (search) を送付する (必要に応じて編集する)
+        page: `/00${boxConfig.viewMode}`,
+      })}
+    ,[boxConfig.viewMode])
 
     return (
         <> 
