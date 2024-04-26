@@ -86,7 +86,8 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
                   {/* 2 : shikiri */}
                   {/* 3 : latch */}
                   
-                  {(index === 0||index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} />}
+                  {(index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} />}
+                  {(index === 0)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} transparent opacity={.0}/>}
                   {(index === 2)&&<Edges
                     // linewidth={4}
                     scale={1.0}

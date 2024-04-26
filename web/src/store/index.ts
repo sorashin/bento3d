@@ -82,7 +82,7 @@ export const showCaseAtom = atom<boolean>(true)
 export const openAIAPIKeyAtom = atom<string>('')
 export const selectedColorAtom = atom<string>('')
 export const screenModeAtom = atom<number>(0)
-export const isDebugAtom = atom<boolean>(true)
+export const isDebugAtom = atom<boolean>(false)
 export const isDownloadDialogOpenAtom = atom<boolean>(false)
 export const cameraModeAtom = atom<number>(0)
 // 0:default

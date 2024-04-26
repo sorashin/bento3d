@@ -3,7 +3,9 @@
     src: url('../public/fonts/F5.6-Regular.woff') format('woff');
 }
 
-
+*{
+  overscroll-behavior: none;
+}
 body {
   margin: 0;
   font-family: 'F5.6', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
