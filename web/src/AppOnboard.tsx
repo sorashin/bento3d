@@ -14,6 +14,7 @@ import { getProject } from './firebase/firebase';
 import Viewer from './assets/scripts/viewer/Viewer';
 import { BoxConfig, Grid, boxConfigAtom, cameraModeAtom, gridAtoms, isDebugAtom, phantomSizeAtom } from './store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './store/scene';
+import ReactGA from "react-ga4";
 
 
 function AppOnboard() {
@@ -259,11 +260,21 @@ function AppOnboard() {
       }
     }, [group]);
   
+
     useLayoutEffect(()=>{
       console.log("GRID",grid)
       console.log("boxConfig",boxConfig)
     },[grid, boxConfig])
     
+    useEffect(() => {
+      // Google Analytics 測定 ID を入力して設定
+      ReactGA.initialize("G-J10ZQ1VRW8");
+      ReactGA.send({
+        hitType: "pageview",
+        // アクセスしたパス (pathname) とクエリ文字列 (search) を送付する (必要に応じて編集する)
+        page: `/00${boxConfig.viewMode}`,
+      });
+    }, []);
 
     return (
         <> 

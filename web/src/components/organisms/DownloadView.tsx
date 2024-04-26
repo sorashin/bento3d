@@ -2,6 +2,7 @@ import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { ButtonElements, DLButtonElementsAtom, bomAtom, boxConfigAtom, cameraModeAtom } from '../../store';
 import SupportButton from '../atoms/SupportButton';
+import ReactGA from "react-ga4";
 
 
 interface DownloadViewProps {
@@ -14,6 +15,14 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
   const [DLButtonElements,setDLButtonElements] = useAtom(DLButtonElementsAtom)
   const [bom,setBom] = useAtom(bomAtom);
   const [isShow, setIsShow] = useState(true);
+  const handleClick =(label: string)=>{
+      ReactGA.event({
+          category: 'Download Button',
+          action: 'Click',
+          label: label,
+      });
+    
+  }
   
   return (
     <>
@@ -48,7 +57,10 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
                   />
                 <p className="grow ml-2 lg:text-base text-sm">{element.label}</p>
                 
-                <span className="w-8 h-8 flex items-center justify-center rounded-sm bg-content-dark-a shadow-sm transition hover:scale-[0.98]">
+                <span 
+                  className="w-8 h-8 flex items-center justify-center rounded-sm bg-content-dark-a shadow-sm transition hover:scale-[0.98]"
+                  onClick={handleClick.bind(this,element.label)}
+                  >
                   <img className='w-6 h-6' src="/icons/download.svg" alt="" />
                 </span>
                 {/* span + button */}
@@ -57,7 +69,7 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
             ))}
           </div>
             <a href='https://buymeacoffee.com/lodgefabq' target='_blank' rel="noreferrer"
-              className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-extra-light-a text-content-middle font-sans shadow-md transition hover:scale-[0.98]'
+              className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-extra-light-a text-content-middle font-sans transition hover:scale-[0.98]'
             ><img src="/icons/coffee-dark.svg" alt="" />開発を支援する</a>
             <p className='mt-4 font-sans text-xs text-content-light'>Created by <a href="https://twitter.com/52shinNaka" target='_blank' className='transition hover:scale-[0.98]' rel="noreferrer">@52shinNaka</a></p>
         </div>
