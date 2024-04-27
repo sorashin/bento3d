@@ -15,6 +15,7 @@ import Viewer from './assets/scripts/viewer/Viewer';
 import { BoxConfig, Grid, boxConfigAtom, cameraModeAtom, gridAtoms, isDebugAtom, phantomSizeAtom } from './store';
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './store/scene';
 import ReactGA from "react-ga4";
+import { DialogSettings } from './components/molecules/DialogSettings';
 
 
 function AppOnboard() {
@@ -301,7 +302,7 @@ function AppOnboard() {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group}></SceneComponent>
         </Suspense>
-        
+        <DialogSettings />
         </>
     );
 }

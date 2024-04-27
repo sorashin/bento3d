@@ -98,7 +98,7 @@ export const GridEditor: React.FC = () => {
           layout 
           className={`relative flex flex-row gap-4 p-4 ${totalWidth-totalDepth>0?'w-full h-fit':'w-fit h-full'} rounded-md bg-white border-content-middle border-[0.5px] grid-shadow-outer`} 
           ref={outerElement}
-          style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
+          style={{ padding: boxConfig.partitionThickness*mm2pixel, gap: boxConfig.partitionThickness*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
           <p className="absolute left-1/2 -top-16 text-content-light-a text-xs -translate-x-1/2">{`totalWidth:${totalWidth}mm`}</p>
           <p className="absolute -left-32 top-1/2 text-content-light-a text-xs transform -rotate-90 -translate-y-1/2">{`totalDepth:${totalDepth}mm`}</p>
@@ -121,7 +121,7 @@ export const GridEditor: React.FC = () => {
                 layout
                 initial={false}
                 animate={{ width: row.width*mm2pixel, height: (totalDepth-2*partitionThickness)*mm2pixel}}
-                style={{ borderRadius: fillet*mm2pixel, gap: 2*mm2pixel}} 
+                style={{ borderRadius: fillet*mm2pixel, gap: boxConfig.partitionThickness*mm2pixel}} 
               >
                   <DimElement 
                     value={row.width} 
