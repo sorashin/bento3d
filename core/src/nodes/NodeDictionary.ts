@@ -150,6 +150,7 @@ import { Boolean } from './params/primitives/Boolean';
 import { UIGraphMapper } from './params/ui/UIGraphMapper';
 import { UIMDSlider } from './params/ui/UIMDSlider';
 import { UINumber } from './params/ui/UINumber';
+import { UIText } from './params/ui/UIText';
 import { UINumberSlider } from './params/ui/UINumberSlider';
 import { UIToggle } from './params/ui/UIToggle';
 import { UIValueList } from './params/ui/UIValueList';
@@ -408,6 +409,7 @@ const Nodes = {
   UIGraphMapper,
   UIMDSlider,
   UINumber,
+  UIText,
   UINumberSlider,
   UIToggle,
   UIValueList,
@@ -668,6 +670,7 @@ const NodeDictionary: { [index: string]: { name:string; entity: NodeConstructorT
   'params/ui/UIGraphMapper': { name: 'UIGraphMapper', entity: UIGraphMapper },
   'params/ui/UIMDSlider': { name: 'UIMDSlider', entity: UIMDSlider },
   'params/ui/UINumber': { name: 'UINumber', entity: UINumber },
+  'params/ui/UIText': { name: 'UIText', entity: UIText },
   'params/ui/UINumberSlider': { name: 'UINumberSlider', entity: UINumberSlider },
   'params/ui/UIToggle': { name: 'UIToggle', entity: UIToggle },
   'params/ui/UIValueList': { name: 'UIValueList', entity: UIValueList },

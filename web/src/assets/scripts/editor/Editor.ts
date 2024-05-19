@@ -1,5 +1,5 @@
 
-import { Vector2 } from 'three';
+import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
 import { v4 } from 'uuid';
 import {
@@ -45,8 +45,8 @@ type GraphHierarchy = {
 export class EditorMouseInput {
   public event: MouseEvent;
   public rect: DOMRect;
-  public position: Vector2;
-  public world: Vector2;
+  public position: THREE.Vector2;
+  public world: THREE.Vector2;
   public which: number;
 
   constructor (context: Editor, e: MouseEvent) {
@@ -55,7 +55,7 @@ export class EditorMouseInput {
     this.which = InputUtils.getMouseWhich(e);
     const x = e.clientX - this.rect.x;
     const y = e.clientY - this.rect.y;
-    this.position = new Vector2(x, y);
+    this.position = new THREE.Vector2(x, y);
     this.world = context.getWorld(x, y);
   }
 }
@@ -84,9 +84,9 @@ export default class Editor implements IDisposable {
   view: HTMLDivElement;
   grid: HTMLDivElement;
 
-  position: Vector2 = new Vector2(0, 0);
+  position: THREE.Vector2 = new THREE.Vector2(0, 0);
   scale: number = 1;
-  prevMousePosition: Vector2 = new Vector2(0, 0);
+  prevMousePosition: THREE.Vector2 = new THREE.Vector2(0, 0);
 
   history: Operation[] = [];
   current: number = 0;
@@ -339,7 +339,7 @@ export default class Editor implements IDisposable {
     }
   }
 
-  public selectNodeConstructor (nodeConstructor: NodeConstructorType, position: Vector2): void {
+  public selectNodeConstructor (nodeConstructor: NodeConstructorType, position: THREE.Vector2): void {
     const name = getNodeConstructorName(nodeConstructor);
 
     // validate nodes in hierarchy
@@ -585,7 +585,7 @@ export default class Editor implements IDisposable {
     this.transform(this.position.x, this.position.y, this.scale);
   }
 
-  private getDocumentPosition (node: NodeBase): Vector2 {
+  private getDocumentPosition (node: NodeBase): THREE.Vector2 {
     const vr = this.el.getBoundingClientRect();
     const view = this.graphView.findNodeView(node);
     if (view !== undefined) {
@@ -593,9 +593,9 @@ export default class Editor implements IDisposable {
       const p = view.getPosition();
       const nx = -(p.x * this.scale - vr.width * 0.5 + nr.width * 0.5);
       const ny = -(p.y * this.scale - vr.height * 0.5 + nr.height * 0.5);
-      return new Vector2(nx, ny);
+      return new THREE.Vector2(nx, ny);
     }
-    return new Vector2();
+    return new THREE.Vector2();
   }
 
   public focus (uuid: string): void {
@@ -627,8 +627,8 @@ export default class Editor implements IDisposable {
     this.grid.style.opacity = `${Math.min(1, s * s)}`;
   }
 
-  getWorld (domX: number, domY: number): Vector2 {
-    return new Vector2(
+  getWorld (domX: number, domY: number): THREE.Vector2 {
+    return new THREE.Vector2(
       (domX - this.position.x) / this.scale,
       (domY - this.position.y) / this.scale
     );
@@ -954,7 +954,7 @@ export default class Editor implements IDisposable {
     this.state = this.state.keyUp(this, e);
   };
 
-  public prepareMousePosition (p: Vector2): void {
+  public prepareMousePosition (p: THREE.Vector2): void {
     this.prevMousePosition.copy(p);
   }
 

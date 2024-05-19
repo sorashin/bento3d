@@ -1,6 +1,5 @@
 
-import { Vector2 } from 'three';
-
+import * as THREE from 'three';
 import { NodeBase, IO, IndicatorElement } from '@nodi/core';
 import InputUtils from '../misc/InputUtils';
 import { NodeIOViewEvent, NodeViewEvent } from '../misc/Events';
@@ -133,7 +132,7 @@ export default class NodeView extends View {
     return this.getNode().selected;
   }
 
-  public getPosition (): Vector2 {
+  public getPosition (): THREE.Vector2 {
     return this.getNode().getPosition().clone();
   }
 

@@ -1,6 +1,5 @@
 
-import { Vector2 } from 'three';
-import {
+import * as THREE from 'three';import {
   DataTypeColors, DataTypes, getTypeNames,
   Input, IO, IODisplayTypes,
   Output,
@@ -55,7 +54,7 @@ export default class IOView extends View {
     return (this.entity.deref() instanceof Output);
   }
 
-  public distanceTo (p: Vector2): number {
+  public distanceTo (p: THREE.Vector2): number {
     const wp = this.getWorldPosition();
     const dx = wp.x - p.x;
     const dy = wp.y - p.y;
@@ -109,14 +108,14 @@ export default class IOView extends View {
     this.dom.classList.remove('nearest');
   }
 
-  public getWorldPosition (): Vector2 {
+  public getWorldPosition (): THREE.Vector2 {
     let x = this.dom.offsetLeft + this.dom.offsetWidth * 0.5;
     let y = this.dom.offsetTop + this.dom.offsetHeight * 0.5;
     const parent = this.dom.parentElement;
     const matrix = new DOMMatrixReadOnly(parent?.style.transform);
     x += matrix.m41;
     y += matrix.m42;
-    return new Vector2(x, y);
+    return new THREE.Vector2(x, y);
   }
 
   protected createSvg (type: DataTypes): SVGSVGElement {
@@ -187,7 +186,7 @@ export default class IOView extends View {
     const angle = (hpi - offset);
     const c1 = Math.cos(-angle) * r * sign;
     const s1 = Math.sin(-angle) * r;
-    const p = new Vector2(r * 0.5, 0);
+    const p = new THREE.Vector2(r * 0.5, 0);
     const x1 = p.x + c1;
     const y1 = p.y + s1;
     const c2 = Math.cos(angle) * r * sign;

@@ -1,5 +1,4 @@
-import { Vector2 } from 'three';
-import { NodeConstructorType } from '@nodi/core';
+import * as THREE from 'three';import { NodeConstructorType } from '@nodi/core';
 import { KeyCodeStrings } from '../misc/KeyCodes';
 import Editor, { EditorMouseInput } from '../Editor';
 import AddNodeOperation from '../operations/AddNodeOperation';
@@ -11,7 +10,7 @@ export default class NewNodeState extends DragOutScreenStateBase {
   protected nodeConstructor: NodeConstructorType;
   protected interval: NodeJS.Timeout | null = null;
 
-  constructor (context: Editor, nodeConstructor: NodeConstructorType, position: Vector2) {
+  constructor (context: Editor, nodeConstructor: NodeConstructorType, position: THREE.Vector2) {
     super(context);
 
     this.nodeConstructor = nodeConstructor;
@@ -48,7 +47,7 @@ export default class NewNodeState extends DragOutScreenStateBase {
     return this;
   }
 
-  protected onDragOut (context: Editor, input: EditorMouseInput, delta: Vector2): void {
+  protected onDragOut (context: Editor, input: EditorMouseInput, delta: THREE.Vector2): void {
     /*
     context.selectedNodes.forEach((node) => {
       node.move(delta.x, delta.y);

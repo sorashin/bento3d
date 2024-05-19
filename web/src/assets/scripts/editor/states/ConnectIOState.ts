@@ -1,5 +1,4 @@
-import { Vector2 } from 'three';
-import { Output } from '@nodi/core';
+import * as THREE from 'three';import { Output } from '@nodi/core';
 import Editor, { EditorMouseInput } from '../Editor';
 import { DisconnectOperation, SequentialOperation } from '../operations';
 import ConnectOperation, { ConnectOperationArg } from '../operations/ConnectOperation';
@@ -48,7 +47,7 @@ export default class ConnectIOState extends DragOutScreenStateBase {
     return new IdleState(context);
   }
 
-  protected onDragOut (context: Editor, input: EditorMouseInput, delta: Vector2): void {
+  protected onDragOut (context: Editor, input: EditorMouseInput, delta: THREE.Vector2): void {
     const world = context.getWorld(input.position.x, input.position.y);
     context.graphView.updateConnectingEdge(world);
   }

@@ -1,11 +1,11 @@
 
-import { Vector2 } from 'three';
+import * as THREE from 'three';
 
 const InputUtils = {
-  getTouchPosition (e: TouchEvent, prev: Vector2 = new Vector2()): Vector2 {
+  getTouchPosition (e: TouchEvent, prev: THREE.Vector2 = new THREE.Vector2()): THREE.Vector2 {
     if (e.touches.length > 0) {
       const touch = e.touches[0];
-      return new Vector2(touch.clientX, touch.clientY);
+      return new THREE.Vector2(touch.clientX, touch.clientY);
     }
     return prev;
   },

@@ -8,8 +8,10 @@ export type UserState = {
   email?: string;
   imageUrl?: string;
 };
-export const projectPathAtom = atom<string>('hjLz9tMi2I3vDCpSKDk5');
+export const projectPathAtom = atom<string>('RwilFBZCXqe6LmaTFovO');
 // Box Configrator：`hjLz9tMi2I3vDCpSKDk5`
+//New Box Configrator : `Delz6yGjgzEzEbRyBT4h`
+// Box Configurator_A : `RwilFBZCXqe6LmaTFovO`
 
 // MountainSample： `TtmQukE3aczIe31dTMbE`
 

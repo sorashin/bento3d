@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import BoxApp from './BoxApp';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AppOnboard from './AppOnboard';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BoxApp />
+    {/* <App /> */}
+    <AppOnboard />
   </React.StrictMode>
 );
 
