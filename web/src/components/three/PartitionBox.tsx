@@ -14,8 +14,9 @@ type PartitionBoxProps = {
     width:number,
     height:number,
     depth:number,
+    thickness:number
 }
-export const PartitionBox: React.FC<PartitionBoxProps> = ({ width,height,depth }) => {
+export const PartitionBox: React.FC<PartitionBoxProps> = ({ width,height,depth,thickness }) => {
     const boxRef = useRef<THREE.Group>(null);
     const partitionRef = useRef<THREE.Mesh>(null);
     const boxConfig = useAtomValue(boxConfigAtom);
@@ -27,8 +28,13 @@ export const PartitionBox: React.FC<PartitionBoxProps> = ({ width,height,depth }
             <group position={[0,0,phantomSize.height/2-50]} ref={boxRef}>
                 <mesh ref={partitionRef} >
                     <RoundedBox width={depth} height={width} depth={height} radius={boxConfig.fillet}/>
-                    <meshStandardMaterial color={'#ffffff'}/>
+                    <meshStandardMaterial color={'#ffffff'} transparent opacity={0.8}/>
                 </mesh>
+                {/* stack部分 */}
+                {boxConfig.isStack&&<mesh  position={[0,0,-height/2-thickness/2]}>
+                    <RoundedBox width={depth-thickness*2} height={width-thickness*2} depth={thickness} radius={boxConfig.fillet}/>
+                    <meshStandardMaterial color={'#ffffff'} transparent opacity={0.8}/>
+                </mesh>}
                 {/* <mesh position={[100,0,0]}>
                     <RoundedLine width={depth} height={width} depth={height} radius={boxConfig.fillet}></RoundedLine>
                     <meshStandardMaterial color={'#ffffff'}/>

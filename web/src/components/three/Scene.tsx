@@ -54,6 +54,7 @@ const Annotation: React.FC<{ children: React.ReactNode, position: [number, numbe
 const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
   const contentRef = useRef<THREE.Group>(null);
   const boxConfig = useAtomValue(boxConfigAtom);
+
   const colorPalette = useAtomValue(colorPaletteAtom);
   const phantomSize = useAtomValue(phantomSizeAtom);
   const bom = useAtomValue(bomAtom);
@@ -71,13 +72,17 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
     {phantomSize.hover.w&&<Line points={[[0, -1000, 0], [0,1000,0]]} color="#2db992" lineWidth={1}/>}
     {/* Z Axis */}
     {phantomSize.hover.h&&<Line points={[[0, 0, -1000], [0,0,1000]]} color="#2B99FF" lineWidth={1}/>}
-    {(boxConfig.viewMode===0)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height}/>}
+    {(boxConfig.viewMode===0)&&<PartitionBox depth={phantomSize.depth} width={phantomSize.width} height={phantomSize.height} thickness={boxConfig.partitionThickness}/>}
     {boxConfig.viewMode===2&&(
       <group ref={contentRef} position={[0,0,-50]}>
       
       {/* <Annotation position={[0, 0, totalHeight]} onClick={()=>setScreenMode(1)}>グリッド</Annotation> */}
       {/* <Annotation position={[totalWidth/2, 0, totalHeight/2]} onClick={()=>setScreenMode(2)}>高さ</Annotation> */}
         {group&&group.children.map((element, index) => {
+          const config = bomConfig[index];
+          if (!config) {
+            return null;
+          }
           return(
             
               <primitive object={element} key={element.uuid} position={[bomConfig[index].axis==='x'?bomConfig[index].max*bom*0.01:0,bomConfig[index].axis==='y'?bomConfig[index].max*bom*0.01:0,bomConfig[index].axis==='z'?bomConfig[index].max*bom*0.01:0]}>
@@ -85,8 +90,8 @@ const Content: React.FC<{ group: THREE.Group }> = ({ group }) => {
                   {/* 1 : box */}
                   {/* 2 : shikiri */}
                   {/* 3 : latch */}
-                  
-                  {(index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} />}
+
+                  {(index === 0||index === 1||index === 3)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} />}
                   {(index === 0)&&<meshStandardMaterial color={`${colorPalette[boxConfig.colorMode].primary}`} transparent opacity={.0}/>}
                   {(index === 2)&&<Edges
                     // linewidth={4}

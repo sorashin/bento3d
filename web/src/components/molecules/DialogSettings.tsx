@@ -2,7 +2,7 @@
 import { UINodeBase } from "@nodi/core";
 import { Dialog } from "../atoms/Dialog";
 import { useAtom } from "jotai";
-import { boxConfigAtom, isSettingDialogOpenAtom, showCaseAtom } from "../../store";
+import { boxConfigAtom, isSettingDialogOpenAtom, showCaseAtom, updateIsStackAtom } from "../../store";
 import { FC } from "react";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
@@ -17,11 +17,14 @@ export const DialogSettings:FC<DialogSettingsProps>=({})=>{
 
   const [isOpen, setIsOpen] = useAtom(isSettingDialogOpenAtom);
   const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
-  const [showCase, setShowCase] = useAtom(showCaseAtom);
+  const [showCase, setShowCase] = useAtom(updateIsStackAtom);
 
   const updateThickness = (thickness: number) => {
     if(thickness<0) return;
     setBoxConfig({ ...boxConfig, partitionThickness: Math.round(thickness*10)/10});
+  }
+  const toggleStack = () =>{
+    setBoxConfig({ ...boxConfig, isStack: !boxConfig.isStack});
   }
   return (
     <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -38,9 +41,17 @@ export const DialogSettings:FC<DialogSettingsProps>=({})=>{
         <div className="flex items-center justify-between">
           <p className="flex gap-2 items-center text-sm text-content-dark"><img className="w-6 h-6" src='/icons/case.svg' alt=''/>Case Preview</p>
           <div className="flex items-center gap-4">
-          <input type="checkbox" className="toggle h-10 w-16 rounded-sm [--tglbg:#eeeeee] hover:[--tglbg:#dddddd] bg-white border-content-middle" 
+          <input type="checkbox" className={`toggle h-10 w-16 rounded-sm bg-white border-content-middle ${showCase?'[--tglbg:#333333] hover:[--tglbg:#666666]':'[--tglbg:#eeeeee] hover:[--tglbg:#dddddd]'}`} 
             checked={showCase} 
             onClick={()=> setShowCase(!showCase)}/>
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <p className="flex gap-2 items-center text-sm text-content-dark"><img className="w-6 h-6" src='/icons/stack.svg' alt=''/>Stackable</p>
+          <div className="flex items-center gap-4">
+          <input type="checkbox" className={`toggle h-10 w-16 rounded-sm bg-white border-content-middle ${boxConfig.isStack?'[--tglbg:#333333] hover:[--tglbg:#666666]':'[--tglbg:#eeeeee] hover:[--tglbg:#dddddd]'}` }
+            checked={boxConfig.isStack} 
+            onClick={()=> toggleStack()}/>
           </div>
         </div>
       </div>

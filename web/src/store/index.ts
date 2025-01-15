@@ -1,6 +1,5 @@
 // import { getAccessorType, getterTree, mutationTree, actionTree } from 'typed-vuex';
 
-import { View } from '@react-three/drei'
 import { atom } from 'jotai'
 export type BoxConfig = {
     totalWidth:number,
@@ -12,6 +11,7 @@ export type BoxConfig = {
 	partitionThickness:number,
     mm2pixel:number,
     fillet:number
+    isStack:boolean
 }
 
 export const boxConfigAtom = atom<BoxConfig>({
@@ -24,6 +24,7 @@ export const boxConfigAtom = atom<BoxConfig>({
     partitionThickness: 2,
     mm2pixel:3,
     fillet:2,
+    isStack:false
 })
 
 
@@ -189,3 +190,14 @@ export const updateBoxConfigAtomsAction = atom(//グリッドを変更したと�
       }
     },
   );
+
+export const updateIsStackAtom = atom(
+  (get) => get(showCaseAtom),
+  (get, set, update: boolean) => {
+    set(showCaseAtom, update);
+    if (update) {
+      set(boxConfigAtom, { ...get(boxConfigAtom), isStack: false });
+    }
+  }
+);
+

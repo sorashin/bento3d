@@ -15,7 +15,6 @@ export const SizeView = () => {
           <RangeSliderWidth max={300} min={30} label='Width' />
           <RangeSliderHeight max={300} min={10} label='Height' />
           <RangeSliderDepth max={300} min={30} label='Depth'/>
-          
         </div>
     </>
         
