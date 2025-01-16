@@ -12,10 +12,9 @@ export const SizeView = () => {
   return (
     <>  
         <div className='z-10 absolute'>
-          <RangeSliderWidth max={200} min={30} label='Width' />
-          <RangeSliderHeight max={250} min={10} label='Height' />
-          <RangeSliderDepth max={250} min={30} label='Depth'/>
-          
+          <RangeSliderWidth max={300} min={30} label='Width' />
+          <RangeSliderHeight max={300} min={10} label='Height' />
+          <RangeSliderDepth max={300} min={30} label='Depth'/>
         </div>
     </>
         

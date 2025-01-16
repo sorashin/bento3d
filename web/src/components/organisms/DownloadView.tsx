@@ -1,7 +1,6 @@
 import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { ButtonElements, DLButtonElementsAtom, bomAtom, boxConfigAtom, cameraModeAtom } from '../../store';
-import SupportButton from '../atoms/SupportButton';
 import ReactGA from "react-ga4";
 
 
@@ -75,7 +74,7 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
           </div>
             <a href='https://buymeacoffee.com/lodgefabq' target='_blank' rel="noreferrer"
               className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-extra-light-a text-content-middle font-sans transition hover:scale-[0.98]'
-            ><img src="/icons/coffee-dark.svg" alt="" />開発を支援する</a>
+            ><img src="/icons/coffee-dark.svg" alt="" />Donate</a>
             <p className='mt-4 font-sans text-xs text-content-light'>Created by <a href="https://twitter.com/52shinNaka" target='_blank' className='transition hover:scale-[0.98]' rel="noreferrer">@52shinNaka</a></p>
         </div>
         
