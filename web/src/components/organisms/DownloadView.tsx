@@ -41,13 +41,7 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
         
       >
         <div className='flex flex-col items-center justify-center w-full h-fit rounded-lg bg-surface-sheet pt-4 px-4 pb-8 shadow-lg'>
-          <div
-            className='flex flex-row gap-2 w-full mb-4 p-4 text-xs text-content-middle-a rounded-md bg-surface-base '
-            onClick={()=>handleClick('hoge')}
-          >
-            <img src="/icons/lightbulb.svg" alt="" />
-            <p className='h-fill'>仕切り部分はサポート不要です。<br/>ケース部分のプリントのコツや注意事項に関しては、<a href='https://www.notion.so/Bento3D-e40483712b304d389d7c2da26196e113' className='text-primary' target='_blank' rel="noreferrer">こちらのガイド</a>をご覧ください</p>
-          </div>
+          
           <p className='w-full mb-4 py-2 text-center text-xs text-content-dark bg-content-extra-light-a rounded-sm'>Download STLs</p>
           <div className='grid grid-cols-2 w-full'>
           {elements.map((element, index) => (
@@ -71,6 +65,13 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
                 {element.jsx}
               </div>
             ))}
+          </div>
+          <div
+            className='flex flex-row gap-2 w-full mb-4 p-4 text-xs text-content-middle-a rounded-md bg-surface-base items-center'
+            onClick={()=>handleClick('hoge')}
+          >
+            <img src="/icons/lightbulb.svg" alt="" className='size-6'/>
+            <p className='h-fill'>3D Printing Tips are available in <a href='https://www.notion.so/Bento3D-e40483712b304d389d7c2da26196e113' className='text-primary' target='_blank' rel="noreferrer">Docs</a> page</p>
           </div>
             <a href='https://buymeacoffee.com/lodgefabq' target='_blank' rel="noreferrer"
               className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-extra-light-a text-content-middle font-sans transition hover:scale-[0.98]'

@@ -1,5 +1,4 @@
 import { useAtom } from "jotai";
-import { KeyManager } from "./KeyManager";
 import { isSettingDialogOpenAtom, stepSyncAtom } from "../../store";
 
 
