@@ -86,6 +86,7 @@ export const screenModeAtom = atom<number>(0)
 export const isDebugAtom = atom<boolean>(false)
 export const isDownloadDialogOpenAtom = atom<boolean>(false)
 export const isSettingDialogOpenAtom = atom<boolean>(false)
+export const isFeedbackDialogOpenAtom = atom<boolean>(false)
 export const cameraModeAtom = atom<number>(0)
 // 0:default
 // 1:Front View/高さ
@@ -190,7 +191,7 @@ export const updateBoxConfigAtomsAction = atom(//グリッドを変更したと�
       }
     },
   );
-
+//showCaseAtomが更新されたときにtrueであれば、isStackをfalseにする
 export const updateIsStackAtom = atom(
   (get) => get(showCaseAtom),
   (get, set, update: boolean) => {

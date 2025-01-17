@@ -16,6 +16,7 @@ import { BoxConfig, Grid, boxConfigAtom, cameraModeAtom, gridAtoms, isDebugAtom,
 import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './store/scene';
 import ReactGA from "react-ga4";
 import { DialogSettings } from './components/molecules/DialogSettings';
+import { DialogFeedback } from './components/molecules/DialogFeedback';
 
 
 function AppOnboard() {
@@ -303,6 +304,7 @@ function AppOnboard() {
           <SceneComponent group={group}></SceneComponent>
         </Suspense>
         <DialogSettings />
+        <DialogFeedback/>
         </>
     );
 }
