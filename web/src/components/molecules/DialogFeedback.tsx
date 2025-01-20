@@ -128,7 +128,9 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
         >
           Submit
         </button>
-        
+        <div className="size-8 flex items-center justify-center absolute top-4 right-4 cursor-pointer bg-content-extra-light-a rounded-full hover:scale-110" onClick={() => setIsOpen(false)}>
+          <img src="/icons/close.svg" alt="" />
+        </div>
       </form>
     </Dialog>
   );
