@@ -17,6 +17,7 @@ import { UIsAtom, elementsAtom, groupAtom, nodesAtom, projectPathAtom } from './
 import ReactGA from "react-ga4";
 import { DialogSettings } from './components/molecules/DialogSettings';
 import { DialogFeedback } from './components/molecules/DialogFeedback';
+import { Toast } from './components/atoms/Toast';
 
 
 function AppOnboard() {
@@ -305,6 +306,7 @@ function AppOnboard() {
         </Suspense>
         <DialogSettings />
         <DialogFeedback/>
+        <Toast/>
         </>
     );
 }

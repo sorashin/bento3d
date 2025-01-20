@@ -2,8 +2,6 @@ import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import React, { useState, useEffect, useRef } from 'react';
 import { boxConfigAtom, cameraModeAtom, phantomSizeAtom } from '../../store';
-import { set } from 'lodash';
-import { Toast } from './Toaster';
 
 type RangeSliderHeightProps = {
     max: number;

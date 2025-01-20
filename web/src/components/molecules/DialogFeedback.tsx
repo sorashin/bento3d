@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { Dialog } from "../atoms/Dialog";
 import { useAtom } from "jotai";
-import { isFeedbackDialogOpenAtom } from "../../store/index";
+import { isFeedbackDialogOpenAtom, Toast, toastAtom, updateToastAtom } from "../../store/index";
 
 
 interface DialogFeedbackProps {
@@ -14,6 +14,7 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
   const [rating, setRating] = useState<number|undefined>(undefined);
   const [message, setMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [toast, setToast] = useAtom(updateToastAtom);//derivedAtom
 
   const handleReset = () => {
     setFeedback("");
@@ -27,6 +28,15 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
     }else{
       setDisabled(false);
     }
+  }
+
+  const handleToast = () => {
+    const i:Toast = {
+      content: "Thank you for your feedback !",
+      type: "default",
+      isOpen: true,
+    };
+    setToast([...toast,i]);
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -53,6 +63,7 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
       if (response.status === 200) {
         handleReset();
         setIsOpen(false);
+        handleToast();
       } else {
         setMessage("Failed to send feedback. Please try again.");
       }
@@ -109,6 +120,7 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
           />
         </div>
         
+        {message && <p className="text-sm text-system-error">{message}</p>}
         <button
           type="submit"
           className={`w-full py-2 rounded-full text-white font-semibold ${disabled ? "bg-content-light-a text-content-middle-a cursor-not-allowed" : "bg-content-dark-a"}`}
@@ -116,8 +128,8 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
         >
           Submit
         </button>
+        
       </form>
-      {message && <p>{message}</p>}
     </Dialog>
   );
 };
