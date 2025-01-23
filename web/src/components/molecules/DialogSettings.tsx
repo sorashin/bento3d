@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { boxConfigAtom, isSettingDialogOpenAtom, showCaseAtom, updateIsStackAtom } from "../../store";
 import { FC } from "react";
 import { PrimaryButton } from "../atoms/PrimaryButton";
+import { Tooltip } from "react-tooltip";
 
 
 interface DialogSettingsProps {
@@ -49,12 +50,32 @@ export const DialogSettings:FC<DialogSettingsProps>=({})=>{
         <div className="flex items-center justify-between">
           <p className="flex gap-2 items-center text-sm text-content-dark"><img className="w-6 h-6" src='/icons/stack.svg' alt=''/>Stackable</p>
           <div className="flex items-center gap-4">
-          <input type="checkbox" className={`toggle h-10 w-16 rounded-sm bg-white border-content-middle ${boxConfig.isStack?'[--tglbg:#333333] hover:[--tglbg:#666666]':'[--tglbg:#eeeeee] hover:[--tglbg:#dddddd]'}` }
+          <input type="checkbox" className={`toggle h-10 w-16 rounded-sm bg-white border-content-middle ${boxConfig.isStack?'[--tglbg:#333333] hover:[--tglbg:#666666]':'[--tglbg:#eeeeee] hover:[--tglbg:#dddddd]'} font-sans` }
             checked={boxConfig.isStack} 
-            onClick={()=> toggleStack()}/>
+            onClick={()=> toggleStack()}
+            disabled={showCase}
+            data-tooltip-id={showCase?"hint-tooltip":''}
+            data-tooltip-content={
+              "stacking is disabled when case preview is enabled"
+            }
+            />
           </div>
         </div>
       </div>
+      <Tooltip
+        id="hint-tooltip"
+        place="right"
+        className="font-sans"
+        style={{
+          backgroundColor: "#1C1C1C",
+          color: "#ffffff",
+          fontSize: "11px",
+          padding: "2px 4px 2px 4px",
+          borderRadius: "4px",
+          userSelect: "none",
+        }}
+        noArrow
+      />
     </Dialog>
   );
 };
