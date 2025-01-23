@@ -3,7 +3,8 @@ name: deploy
 on:
   push:
     branches:
-      - main
+      - main         # production用
+      - develop  # develop用
 
 jobs:
   deploy:
@@ -11,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@main
+      uses: actions/checkout@v3
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with: 
         node-version: 16.x
         registry-url: 'https://registry.npmjs.org'
@@ -55,5 +56,13 @@ jobs:
 #      run: yarn test
     - name: Deploy to Firebase
       working-directory: ./web
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: |
-        yarn firebase:deploy --token=${{ secrets.FIREBASE_TOKEN }}
+        if [[ "${{ github.ref_name }}" == "main" ]]; then
+          firebase use production
+          yarn firebase:deploy --only hosting:production
+        elif [[ "${{ github.ref_name }}" == "develop" ]]; then
+          firebase use stagung
+          yarn firebase:deploy --only hosting:staging
+        fi

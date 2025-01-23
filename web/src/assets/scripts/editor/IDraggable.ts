@@ -1,10 +1,9 @@
 
-import { Vector2 } from 'three';
-
+import * as THREE from 'three';
 export interface IDraggable {
-  position: Vector2;
-  prevPosition: Vector2;
-  prevMousePosition: Vector2;
+  position: THREE.Vector2;
+  prevPosition: THREE.Vector2;
+  prevMousePosition: THREE.Vector2;
 
   prepareDrag(e: MouseEvent): void;
   drag(e: MouseEvent, scale: number): void;

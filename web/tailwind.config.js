@@ -34,13 +34,22 @@ const config = {
         base: "#E7E7E7",
         ev1: "#35383B",
         ev2: "#000000",
-        sheet: "rgba(255,255,255,.86)",
+        sheet: "rgba(255,255,255,.64)",
       },
     },
     fontFamily: {
       sans: ["Inter", "sans-serif"],
+      'display': ['"F5.6"','sans-serif'],
     },
     fontSize: {
+      "overline": [
+        ".625rem",
+        {
+          //12px
+          letterSpacing: "0em",
+          lineHeight: "120%",
+        },
+      ],
       xs: [
         ".75rem",
         {

@@ -1,6 +1,5 @@
 import { NodeBase } from '@nodi/core';
-import { Vector2 } from 'three';
-import Editor, { EditorMouseInput } from '../Editor';
+import * as THREE from 'three';import Editor, { EditorMouseInput } from '../Editor';
 import GroupView from '../views/GroupView';
 import { MoveNodesOperation } from '../operations';
 import StateBase from './StateBase';
@@ -9,7 +8,7 @@ import DragOutScreenStateBase from './DragOutScreenStateBase';
 
 export default class SelectGroupState extends DragOutScreenStateBase {
   private view: GroupView;
-  private prevMousePosition?: Vector2;
+  private prevMousePosition?: THREE.Vector2;
 
   constructor (context: Editor, view: GroupView) {
     super(context);
@@ -45,7 +44,7 @@ export default class SelectGroupState extends DragOutScreenStateBase {
     return new IdleState(context);
   }
 
-  protected onDragOut (context: Editor, _input: EditorMouseInput, delta: Vector2): void {
+  protected onDragOut (context: Editor, _input: EditorMouseInput, delta: THREE.Vector2): void {
     this.getNodes(context).forEach(n => n.move(delta.x, delta.y));
   }
 

@@ -1,10 +1,10 @@
 
-import { Vector2 } from 'three';
+import * as THREE from 'three';
 import { NodeConstructorType } from '@nodi/core';
 
 export default class NodePlaceholder {
   el: HTMLDivElement;
-  position: Vector2 = new Vector2(0, 0);
+  position: THREE.Vector2 = new THREE.Vector2(0, 0);
   nodeConstructor: NodeConstructorType | null = null;
 
   constructor () {
