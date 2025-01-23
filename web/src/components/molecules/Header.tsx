@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
-import { KeyManager } from "./KeyManager";
-import { isSettingDialogOpenAtom, stepSyncAtom } from "../../store";
+import { isFeedbackDialogOpenAtom, isSettingDialogOpenAtom, stepSyncAtom } from "../../store";
 
 
 const NavButton: React.FC<{ label: string,step:number }> = ({ label,step }) => {
@@ -18,6 +17,7 @@ const NavButton: React.FC<{ label: string,step:number }> = ({ label,step }) => {
 
 export const Header = () => {
     const [isSettingDialogOpen, setIsSettingDialogOpen] = useAtom(isSettingDialogOpenAtom)
+    const [isFeedbackDialogOpen,setIsFeedbackDialogOpen] = useAtom(isFeedbackDialogOpenAtom)
     return(
         <header className="absolute inset-x-0 top-0 pt-8 px-4 z-20 flex flex-col">
             {/* <KeyManager/> */}
@@ -40,6 +40,11 @@ export const Header = () => {
                     >
                         <img src="/icons/gear.svg" alt="" className="w-6 h-6"/>
                         Settings
+                    </button>
+                    <button className="flex gap-2 items-center px-2 py-2 text-sm text-content-dark-a rounded-sm hover:bg-content-extra-light-a transition"
+                        onClick={()=>setIsFeedbackDialogOpen(true)}
+                    >
+                        😀 Feedback
                     </button>
 
             </div>

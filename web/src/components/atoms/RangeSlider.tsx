@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import React, { useState, useEffect, useRef } from 'react';
 import { boxConfigAtom, cameraModeAtom, phantomSizeAtom } from '../../store';
 import { set } from 'lodash';
-import { Toast } from './Toaster';
+import { Toast } from './Toast'
 
 type RangeSliderProps = {
     max: number;
@@ -154,7 +154,7 @@ export const RangeSlider: React.FC<RangeSliderProps> = ({max,min,label}) => {
           />
           <p className='absolute inset-0 leading-[56px] text-center h-full text-white text-base pointer-events-none'>{label}</p>
         </div>
-        <Toast isOpen={isDragging} value={`${label} : ${value.toString()}`} />
+        {/* <Toast isOpen={isDragging} value={`${label} : ${value.toString()}`} /> */}
         {/* <div
             className="fixed right-24 bottom-24 z-10 bg-transparent"
         >

@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useRef, useState} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { gridAtoms, openAIAPIKeyAtom, updateBoxConfigAtomsAction, screenModeAtom, boxConfigAtom, isDownloadDialogOpenAtom } from '../../store';
-import { KeyManager } from '../molecules/KeyManager';
 
 import { GridEditorClassic } from '../molecules/GridEditorClassic';
 import { motion } from 'framer-motion';

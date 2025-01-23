@@ -3,7 +3,6 @@ import { useAtom } from 'jotai';
 import React, { useState, useEffect, useRef } from 'react';
 import { boxConfigAtom, cameraModeAtom, phantomSizeAtom, updateGridAtomsAction } from '../../store';
 import { set } from 'lodash';
-import { Toast } from './Toaster';
 
 type RangeSliderWidthProps = {
     max: number;

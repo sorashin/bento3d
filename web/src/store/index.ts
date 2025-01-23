@@ -86,7 +86,21 @@ export const screenModeAtom = atom<number>(0)
 export const isDebugAtom = atom<boolean>(false)
 export const isDownloadDialogOpenAtom = atom<boolean>(false)
 export const isSettingDialogOpenAtom = atom<boolean>(false)
+export const isFeedbackDialogOpenAtom = atom<boolean>(false)
+export type Toast = {
+  isOpen: boolean;
+  content: string;
+  type: "default" | "error" | "warn";
+  persistent?: boolean;
+};
+export const toastAtom = atom<Toast[]>([{
+  isOpen: false,
+  content: '',
+  type: 'default'
+}])
+
 export const cameraModeAtom = atom<number>(0)
+
 // 0:default
 // 1:Front View/高さ
 // 2:Top View/奥行き
@@ -190,13 +204,29 @@ export const updateBoxConfigAtomsAction = atom(//グリッドを変更したと�
       }
     },
   );
-
+//showCaseAtomが更新されたときにtrueであれば、isStackをfalseにする
 export const updateIsStackAtom = atom(
   (get) => get(showCaseAtom),
   (get, set, update: boolean) => {
     set(showCaseAtom, update);
     if (update) {
       set(boxConfigAtom, { ...get(boxConfigAtom), isStack: false });
+    }
+  }
+);
+
+
+//toastの更新時、persistentがfalseの場合、5秒後にtoastを空にする
+export const updateToastAtom = atom(
+  (get) => get(toastAtom),
+  (get, set, update: Toast[]) => {
+    set(toastAtom, update);
+    if (!update[update.length-1].persistent) {
+      setTimeout(() => {
+        //新たに追加されたtoastを削除する
+        set(toastAtom, get(toastAtom).filter((toast, i) => i !== get(toastAtom).length - 1));
+    }
+    , 5000);
     }
   }
 );
