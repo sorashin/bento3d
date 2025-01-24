@@ -29,6 +29,10 @@ jobs:
     - name: Test @nodi/core
       working-directory: ./core
       run: yarn test
+    - name: Set up Node.js 18 for /web
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.18.0'
     - name: Install Dependencies @nodi/web
       working-directory: ./web
       run: |
