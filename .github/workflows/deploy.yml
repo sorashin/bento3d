@@ -13,10 +13,10 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
-    - name: Setup Node
+    - name: Setup Node 12 for /core
       uses: actions/setup-node@v3
       with: 
-        node-version: 16.x
+        node-version: '12.20.1'
         registry-url: 'https://registry.npmjs.org'
     - name: Install Dependencies @nodi/core
       working-directory: ./core
@@ -33,6 +33,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18.18.0'
+        registry-url: 'https://registry.npmjs.org'
     - name: Install Dependencies @nodi/web
       working-directory: ./web
       run: |
