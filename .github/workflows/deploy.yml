@@ -18,6 +18,7 @@ jobs:
       with: 
         node-version: '12.20.1'
         registry-url: 'https://registry.npmjs.org'
+    # 事前にwasm-packをインストール
     - name: Install wasm-pack
       run: |
             curl -sSf https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
@@ -25,7 +26,6 @@ jobs:
       working-directory: ./core
       run: |
         yarn install
-      # 事前にwasm-packをインストール
       
     - name: Build @nodi/core
       working-directory: ./core
@@ -44,10 +44,7 @@ jobs:
         yarn add ../core
         npm install -g firebase-tools
         yarn install
-    - name: Verify Firebase Authentication  # ← ここに追加！
-      working-directory: ./web
-      run: |
-          firebase login:ci
+    
     - name: Create .firebase.env.js file
       working-directory: ./web
       env:
