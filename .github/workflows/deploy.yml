@@ -18,10 +18,14 @@ jobs:
       with: 
         node-version: '12.20.1'
         registry-url: 'https://registry.npmjs.org'
+    - name: Install wasm-pack
+      run: |
+            curl -sSf https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
     - name: Install Dependencies @nodi/core
       working-directory: ./core
       run: |
         yarn install
+      # 事前にwasm-packをインストール
       
     - name: Build @nodi/core
       working-directory: ./core
