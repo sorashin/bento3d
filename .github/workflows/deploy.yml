@@ -22,9 +22,6 @@ jobs:
       working-directory: ./core
       run: |
         yarn install
-      # 試しに入れてみる
-    - name: Build with wasm-pack
-      run: npx wasm-pack build
       
     - name: Build @nodi/core
       working-directory: ./core
