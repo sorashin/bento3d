@@ -37,9 +37,11 @@ jobs:
       with:
         node-version: '18.18.0'
         registry-url: 'https://registry.npmjs.org'
-    - name: Install Yarn v4.4.1
+        cache: 'yarn'  # Yarn のキャッシュを有効化
+    - name: Use specific Yarn version
       run: |
-          npm install -g yarn@4.4.1
+        corepack enable
+        yarn set version 4.4.1
   
     - name: Configure Yarn nodeLinker
       run: |
