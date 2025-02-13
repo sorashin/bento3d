@@ -37,6 +37,15 @@ jobs:
       with:
         node-version: '18.18.0'
         registry-url: 'https://registry.npmjs.org'
+    - name: Install Yarn v4.4
+      run: |
+          npm install -g yarn@4.4
+  
+    - name: Configure Yarn nodeLinker
+      run: |
+          yarn config set nodeLinker node-modules
+
+      
     - name: Install Dependencies @nodi/web
       working-directory: ./web
       run: |
