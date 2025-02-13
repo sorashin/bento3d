@@ -48,7 +48,7 @@ jobs:
         yarn remove @nodi/core
         yarn add ../core
         npm install -g firebase-tools
-        yarn install
+        yarn install --frozen-lockfile
     - name: Use specific Yarn version
       run: |
           corepack enable
@@ -57,7 +57,7 @@ jobs:
     - name: Configure Yarn nodeLinker
       run: |
             yarn config set nodeLinker node-modules
-            yarn install
+            yarn install --immutable 
     
     # - name: Create .firebase.env.js file
     #   working-directory: ./web
