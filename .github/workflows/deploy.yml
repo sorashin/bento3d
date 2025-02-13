@@ -57,6 +57,7 @@ jobs:
     - name: Configure Yarn nodeLinker
       run: |
             yarn config set nodeLinker node-modules
+            yarn install
     
     # - name: Create .firebase.env.js file
     #   working-directory: ./web
