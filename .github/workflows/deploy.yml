@@ -47,6 +47,7 @@ jobs:
       run: |
         
         yarn remove @nodi/core
+        yarn add ../core
         npm install -g firebase-tools
         
     - name: Use specific Yarn version
@@ -57,7 +58,6 @@ jobs:
     - name: Configure Yarn nodeLinker
       run: |
             yarn config set nodeLinker node-modules
-            yarn add ../core
             yarn install --immutable 
     
     # - name: Create .firebase.env.js file
