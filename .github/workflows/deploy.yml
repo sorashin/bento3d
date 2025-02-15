@@ -65,21 +65,16 @@ jobs:
         echo $FIREBASE_RC_FILE | base64 --decode > .firebaserc
     - name: Create .env file
       working-directory: ./web
-      run: |       
-        if [[ "${{ github.ref_name }}" == "main" ]]; then
-          firebase use production
-          PROJECT_ID=$(firebase projects:list --json | jq -r '.[] | select(.projectId=="shintaro-s-private") | .projectId')
-        elif [[ "${{ github.ref_name }}" == "develop" ]]; then
-          firebase use staging
-          PROJECT_ID=$(firebase projects:list --json | jq -r '.[] | select(.projectId=="bento3d-dev") | .projectId')
-        fi
+      run: |        
         echo "REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}" >> .env
         echo "REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }}" >> .env
-        echo "REACT_APP_PROJECT_ID=$PROJECT_ID" >> .env
+        echo "REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }}" >> .env
         echo "REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }}" >> .env
         echo "REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }}" >> .env
         echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
-                
+    - name: Debug .env contents
+      working-directory: ./web
+      run: cat .env
     - name: Build @nodi/web
       working-directory: ./web
       run: |
