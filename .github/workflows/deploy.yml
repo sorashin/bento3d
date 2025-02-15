@@ -47,17 +47,18 @@ jobs:
           corepack enable
           yarn set version 4.4.1
 
-    # - name: Configure Yarn nodeLinker
-    #   working-directory: ./web
-    #   run: yarn config set nodeLinker node-modules
+    - name: Configure Yarn nodeLinker
+      working-directory: ./web
+      run: yarn config set nodeLinker node-modules
   
     - name: Install Dependencies @nodi/web
       working-directory: ./web
       run: |
+          yarn cache clean
           yarn remove @nodi/core
           yarn add ../core
           npm install -g firebase-tools
-          yarn install --immutable
+          yarn install --frozen-lockfile
   
   
     
