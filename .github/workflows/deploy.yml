@@ -88,8 +88,8 @@ jobs:
       run: |
         if [[ "${{ github.ref_name }}" == "main" ]]; then
           firebase use production
-          yarn firebase:deploy --only hosting:production
+          firebase deploy --only hosting:production
         elif [[ "${{ github.ref_name }}" == "develop" ]]; then
           firebase use staging
-          yarn firebase:deploy --only hosting:staging
+          firebase deploy --only hosting:staging
         fi
