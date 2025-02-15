@@ -90,6 +90,6 @@ jobs:
           firebase use production
           yarn firebase:deploy --only hosting:production
         elif [[ "${{ github.ref_name }}" == "develop" ]]; then
-          firebase use stagung
+          firebase use staging
           yarn firebase:deploy --only hosting:staging
         fi
