@@ -63,6 +63,23 @@ jobs:
         FIREBASE_RC_FILE: ${{ secrets.FIREBASE_RC_FILE }}
       run: |
         echo $FIREBASE_RC_FILE | base64 --decode > .firebaserc
+    - name: Create .env file
+      working-directory: ./web
+      run: |
+                if [[ "${{ github.ref_name }}" == "main" ]]; then
+                  echo "REACT_APP_API_KEY=${{ secrets.PROD_REACT_APP_API_KEY }}" >> .env
+                  echo "REACT_APP_AUTH_DOMAIN=${{ secrets.PROD_REACT_APP_AUTH_DOMAIN }}" >> .env
+                  echo "REACT_APP_PROJECT_ID=${{ secrets.PROD_REACT_APP_PROJECT_ID }}" >> .env
+                  echo "REACT_APP_STORAGE_BUCKET=${{ secrets.PROD_REACT_APP_STORAGE_BUCKET }}" >> .env
+                  echo "REACT_APP_MESSAGE_SENDER_ID=${{ secrets.PROD_REACT_APP_MESSAGE_SENDER_ID }}" >> .env
+                  echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.PROD_REACT_APP_FIREBASE_APP_ID }}" >> .env
+                elif [[ "${{ github.ref_name }}" == "develop" ]]; then
+                  echo "REACT_APP_API_KEY=${{ secrets.STG_REACT_APP_API_KEY }}" >> .env
+                  echo "REACT_APP_AUTH_DOMAIN=${{ secrets.STG_REACT_APP_AUTH_DOMAIN }}" >> .env
+                  echo "REACT_APP_PROJECT_ID=${{ secrets.STG_REACT_APP_PROJECT_ID }}" >> .env
+                  echo "REACT_APP_STORAGE_BUCKET=${{ secrets.STG_REACT_APP_STORAGE_BUCKET }}" >> .env
+                  echo "REACT_APP_MESSAGE_SENDER_ID=${{ secrets.STG_REACT_APP_MESSAGE_SENDER_ID }}" >> .env
+                  echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.STG_REACT_APP_FIREBASE_APP_ID }}" >> .env
     - name: Build @nodi/web
       working-directory: ./web
       run: |
@@ -81,4 +98,4 @@ jobs:
         elif [[ "${{ github.ref_name }}" == "develop" ]]; then
           firebase use staging
           firebase deploy --only hosting:staging
-        fi
+            fi
