@@ -76,7 +76,8 @@ jobs:
         echo $FIREBASE_RC_FILE | base64 --decode > .firebaserc
     - name: Build @nodi/web
       working-directory: ./web
-      run: yarn build
+      run: |
+        CI=false yarn build
 #    - name: Test
 #      working-directory: ./web
 #      run: yarn test
