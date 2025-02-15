@@ -72,9 +72,7 @@ jobs:
         echo "REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }}" >> .env
         echo "REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }}" >> .env
         echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
-    - name: Debug .env contents
-      working-directory: ./web
-      run: cat .env
+                
     - name: Build @nodi/web
       working-directory: ./web
       run: |
