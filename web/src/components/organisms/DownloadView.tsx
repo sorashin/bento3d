@@ -75,6 +75,8 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
               <p>For outer box assembly, you will need <br/>two <a href="https://amzn.to/412P6zk" target='_blank' className='hover:text-content-dark underline' rel="noreferrer">Parallel Pins M2 × 28mm</a> and <br/>two <a href="https://amzn.to/3XfHg3d" target='_blank' className='underline hover:text-content-dark' rel="noreferrer">M2 × 30mm bolts</a></p>
               <br/>
               <p>The print samples use <a href="https://amzn.to/3CD0ZTh" target='_blank' className='hover:text-content-dark underline' rel="noreferrer">OVERTURE PLA Matt filament</a></p>
+              <br/>
+              <p>When STLs are broken, <br/>repair them on free online tool such as <a href='https://www.formware.co/onlinestlrepair' className='hover:text-content-dark underline' target='_blank' rel="noreferrer">FormWare</a></p>
             </div>
             </div>}
             <a href='https://buymeacoffee.com/lodgefabq' target='_blank' rel="noreferrer"

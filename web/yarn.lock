@@ -4559,7 +4559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.135.0":
+"@types/three@npm:0.135.0":
   version: 0.135.0
   resolution: "@types/three@npm:0.135.0"
   checksum: 10c0/d30432de150017f400ba2ce0b634c76059c639a4b52db19f6c96bf28d999e4f37ff6482dcbcdc3e3b072fab6c7df6ec4dc9660d99035c8d9cf7e08f32d9afeee
@@ -14679,7 +14679,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.135.0":
+"three@npm:0.135.0":
   version: 0.135.0
   resolution: "three@npm:0.135.0"
   checksum: 10c0/4c5a7728354dc8f52959fefe81f0800f0808b11137b43a4d612cf535afc098207a4c8e5bb644505cad160177ca037dcde190b4b67df35d44c0fa422b3fc6c3a2
@@ -15305,7 +15305,7 @@ __metadata:
     "@types/node": "npm:^16.7.13"
     "@types/react": "npm:^18.0.0"
     "@types/react-dom": "npm:^18.0.0"
-    "@types/three": "npm:^0.135.0"
+    "@types/three": "npm:0.135.0"
     "@types/uuid": "npm:^8.3.4"
     autoprefixer: "npm:^10.4.16"
     axios: "npm:^1.7.9"
@@ -15322,7 +15322,7 @@ __metadata:
     react-scripts: "npm:5.0.1"
     react-tooltip: "npm:^5.28.0"
     tailwindcss: "npm:^3.4.0"
-    three: "npm:^0.135.0"
+    three: "npm:0.135.0"
     typescript: "npm:^4.4.2"
     uuid: "npm:^8.3.1"
     web-vitals: "npm:^2.1.0"
