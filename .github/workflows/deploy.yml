@@ -37,9 +37,6 @@ jobs:
       with:
         node-version: '18.18.0'
         registry-url: 'https://registry.npmjs.org'
-        # cache: 'yarn'  # Yarn のキャッシュを有効化
-    
-    
 
     - name: Use specific Yarn version
       working-directory: ./web
@@ -59,15 +56,7 @@ jobs:
           yarn add ../core
           npm install -g firebase-tools
           yarn install --frozen-lockfile
-  
-  
-    
-    # - name: Create .firebase.env.js file
-    #   working-directory: ./web
-    #   env:
-    #     FIREBASE_ENV_FILE: ${{ secrets.FIREBASE_ENV_FILE }}
-    #   run: |
-    #     echo $FIREBASE_ENV_FILE | base64 --decode > .firebase.env.js
+
     - name: Create .firebaserc file
       working-directory: ./web
       env:
