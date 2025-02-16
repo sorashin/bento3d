@@ -83,7 +83,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
             >
                 {/* create span as many as length */}
                 {[...Array(length+1)].map((_, index) => (
-                  <div key={index} className={`relative block min-w-[1px] ${index % 10 === 0 ?'h-6':index % 5 === 0 ? 'h-4' : 'h-2'} bg-content-dark-a`}
+                  <div key={index} className={`relative block min-w-[1px] ${index % 10 === 0 ?'h-6':index % 5 === 0 ? 'h-4' : 'h-2'} bg-content-h-a`}
                     style={{marginRight:`${(rulerRange*2-length)/(length-1)}px`}}
                     >
                       {index % 10 === 0&&<p className='absolute text-overline text-center left-1/2 -translate-x-1/2 -top-4'>{min+index}</p>}
@@ -93,7 +93,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
           </div>
           <img src="/icons/chevron-right.svg" alt="" className='absolute -right-6 h-full w-4 group-hover:-right-8 transition-all'/>
           <img src="/icons/chevron-left.svg" alt="" className='absolute -left-6 h-full w-4 group-hover:-left-8 transition-all'/>
-          <span className='absolute left-1/2 top-[100%] h-0 w-[1px] bg-content-dark group-hover:h-64 transition-all'></span>
+          <span className='absolute left-1/2 top-[100%] h-0 w-[1px] bg-content-h group-hover:h-64 transition-all'></span>
           <input
           type='range'
             className='range-slider'
@@ -155,7 +155,8 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
           <div className='absolute inset-0 flex flex-col justify-center text-center h-full  pointer-events-none text-white '>
             <p className='text-sm'>{label}</p>
             <p>
-            <span className='ml-[16px] text-lg'>{phantomSize.width}</span><span className='text-xs'>mm</span>
+            {/* <span className='ml-[16px] text-lg'>{phantomSize.width}</span><span className='text-xs'>mm</span> */}
+            <input type="text" className='text-lg w-fit text-content-h' value={phantomSize.width}/>
             </p>
           </div>
         </div>

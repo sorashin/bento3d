@@ -46,18 +46,18 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
           <p className='w-full mb-4 py-2 text-center text-xs text-white bg-surface-ev1 rounded-sm'>Download STLs</p>
           <div className='grid grid-cols-2 w-full'>
           {elements.map((element, index) => (
-              <div key={index} className='flex justify-between items-center w-full relative px-4 py-2 [&>div>div>span]:hidden [&>div>div>button]:absolute [&>div>div>button]:inset-0 [&>div>div>button]:rounded-sm [&>div>div>button]:text-[0px] [&>div>div>button]:bg-transparent [&>div>div>button]:hover:bg-content-extra-light-a [&>div>div>button]:transition'
+              <div key={index} className='flex justify-between items-center w-full relative px-4 py-2 [&>div>div>span]:hidden [&>div>div>button]:absolute [&>div>div>button]:inset-0 [&>div>div>button]:rounded-sm [&>div>div>button]:text-[0px] [&>div>div>button]:bg-transparent [&>div>div>button]:hover:bg-content-xl-a [&>div>div>button]:transition'
                 onClick={()=>handleClick(element.label)}
               >
                 {/* <input type="checkbox" defaultChecked className="checkbox" onClick={()=>toggleVisible(index)}/> */}
                 <img 
                   src={element.path} alt=''
-                  className="lg:w-12 lg:h-12 w-8 h-8 object-contain rounded-sm bg-content-extra-light"
+                  className="lg:w-12 lg:h-12 w-8 h-8 object-contain rounded-sm bg-content-xl"
                   />
                 <p className="grow ml-2 lg:text-base text-sm">{element.label}</p>
                 
                 <span 
-                  className="w-8 h-8 flex items-center justify-center rounded-sm bg-content-dark-a shadow-sm transition hover:scale-[0.98]"
+                  className="w-8 h-8 flex items-center justify-center rounded-sm bg-content-h-a shadow-sm transition hover:scale-[0.98]"
                   onClick={()=>handleClick(element.label)}
                   >
                   <img className='w-6 h-6' src="/icons/download.svg" alt="" />
@@ -68,21 +68,21 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
             ))}
           </div>          
           
-          {isShowCase&&<div className='flex flex-row gap-4 w-full mb-4 p-2 text-xs text-content-middle-a rounded-md bg-surface-base items-start font-sans mt-4'>
+          {isShowCase&&<div className='flex flex-row gap-4 w-full mb-4 p-2 text-xs text-content-m-a rounded-md bg-surface-base items-start font-sans mt-4'>
             <img src="/images/assembly.jpg" className='w-24 h-auto rounded-sm'/>
             <div>
               
-              <p>For outer box assembly, you will need <br/>two <a href="https://amzn.to/412P6zk" target='_blank' className='hover:text-content-dark underline' rel="noreferrer">Parallel Pins M2 × 28mm</a> and <br/>two <a href="https://amzn.to/3XfHg3d" target='_blank' className='underline hover:text-content-dark' rel="noreferrer">M2 × 30mm bolts</a></p>
+              <p>For outer box assembly, you will need <br/>two <a href="https://amzn.to/412P6zk" target='_blank' className='hover:text-content-h underline' rel="noreferrer">Parallel Pins M2 × 28mm</a> and <br/>two <a href="https://amzn.to/3XfHg3d" target='_blank' className='underline hover:text-content-h' rel="noreferrer">M2 × 30mm bolts</a></p>
               <br/>
-              <p>The print samples use <a href="https://amzn.to/3CD0ZTh" target='_blank' className='hover:text-content-dark underline' rel="noreferrer">OVERTURE PLA Matt filament</a></p>
+              <p>The print samples use <a href="https://amzn.to/3CD0ZTh" target='_blank' className='hover:text-content-h underline' rel="noreferrer">OVERTURE PLA Matt filament</a></p>
               <br/>
-              <p>When STLs are broken, <br/>repair them on free online tool such as <a href='https://www.formware.co/onlinestlrepair' className='hover:text-content-dark underline' target='_blank' rel="noreferrer">FormWare</a></p>
+              <p>When STLs are broken, <br/>repair them on free online tool such as <a href='https://www.formware.co/onlinestlrepair' className='hover:text-content-h underline' target='_blank' rel="noreferrer">FormWare</a></p>
             </div>
             </div>}
             <a href='https://buymeacoffee.com/lodgefabq' target='_blank' rel="noreferrer"
-              className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-extra-light-a text-content-middle font-sans transition hover:scale-[0.98]'
+              className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-xl-a text-content-middle font-sans transition hover:scale-[0.98]'
             ><img src="/icons/coffee-dark.svg" alt="" />Donate</a>
-            <p className='mt-4 font-sans text-xs text-content-light'>Created by <a href="https://twitter.com/52shinNaka" target='_blank' className='transition hover:scale-[0.98]' rel="noreferrer">@52shinNaka</a></p>
+            <p className='mt-4 font-sans text-xs text-content-l'>Created by <a href="https://twitter.com/52shinNaka" target='_blank' className='transition hover:scale-[0.98]' rel="noreferrer">@52shinNaka</a></p>
         </div>
         
       </div>

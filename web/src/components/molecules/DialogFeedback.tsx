@@ -86,7 +86,7 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
 
     
       <form onSubmit={handleSubmit} className="flex flex-col font-sans p-4 w-full gap-6">
-        <h3 className="text-content-dark text-xl font-medium px-2">Send feedback,<br/><span className="text-content-light">We read them all!</span></h3>
+        <h3 className="text-content-h text-xl font-medium px-2">Send feedback,<br/><span className="text-content-l">We read them all!</span></h3>
         
         <div className="grid grid-cols-5 gap-2 w-full max-w-[320px] mx-auto">
         {[...Array(5)].map((_, i) => (
@@ -98,7 +98,7 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
                 setRating(i)
               }}
               key={i}
-              className={`size-full rounded-full flex items-center justify-center ${rating === i ? "bg-content-light-a" : "bg-content-extra-light-a"}`}
+              className={`size-full rounded-full flex items-center justify-center ${rating === i ? "bg-content-l-a" : "bg-content-xl-a"}`}
               style={{ width: "100%", height: "100%", aspectRatio: "1 / 1" }}
             >
               <img src={`/images/ratings/0${i+1}.png`} alt="" className="size-1/2"/>
@@ -116,19 +116,19 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
             onChange={(e) => setFeedback(e.target.value)}
             required
             placeholder="Write your feedback here..."
-            className="rounded-md w-full min-h-32 bg-content-extra-light-a p-3 text-base focus:outline-none focus:ring-1 focus:ring-content-light-a"
+            className="rounded-md w-full min-h-32 bg-content-xl-a p-3 text-base focus:outline-none focus:ring-1 focus:ring-content-l-a"
           />
         </div>
         
         {message && <p className="text-sm text-system-error">{message}</p>}
         <button
           type="submit"
-          className={`w-full py-2 rounded-full text-white font-semibold ${disabled ? "bg-content-light-a text-content-middle-a cursor-not-allowed" : "bg-content-dark-a"}`}
+          className={`w-full py-2 rounded-full text-white font-semibold ${disabled ? "bg-content-l-a text-content-m-a cursor-not-allowed" : "bg-content-h-a"}`}
           disabled={disabled}
         >
           Submit
         </button>
-        <div className="size-8 flex items-center justify-center absolute top-4 right-4 cursor-pointer bg-content-extra-light-a rounded-full hover:scale-110" onClick={() => setIsOpen(false)}>
+        <div className="size-8 flex items-center justify-center absolute top-4 right-4 cursor-pointer bg-content-xl-a rounded-full hover:scale-110" onClick={() => setIsOpen(false)}>
           <img src="/icons/close.svg" alt="" />
         </div>
       </form>

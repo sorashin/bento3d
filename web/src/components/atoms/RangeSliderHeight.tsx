@@ -79,7 +79,7 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
         >
             {/* create span as many as length */}
             {[...Array(length+1)].map((_, index) => (
-              <div key={index} className={`relative block min-h-[1px] ${index % 10 === 0 ?'w-6':index % 5 === 0 ? 'w-4' : 'w-2'} bg-content-dark-a`}
+              <div key={index} className={`relative block min-h-[1px] ${index % 10 === 0 ?'w-6':index % 5 === 0 ? 'w-4' : 'w-2'} bg-content-h-a`}
                 style={{marginBottom:`${(rulerRange*2-length)/(length-1)}px`}}
                 >
                   {index % 10 === 0&&<p className='absolute text-overline text-right top-1/2 -translate-y-1/2 -left-6'>{min+index}</p>}
@@ -89,7 +89,7 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
       </div>
           <img src="/icons/chevron-up.svg" alt="" className='absolute -top-6 w-full h-4 group-hover:-top-8 transition-all'/>
           <img src="/icons/chevron-down.svg" alt="" className='absolute -bottom-6 w-full h-4 group-hover:-bottom-8 transition-all'/>
-          <span className='absolute top-1/2 left-[100%] w-0 h-[1px] bg-content-dark group-hover:w-64 transition-all'></span>
+          <span className='absolute top-1/2 left-[100%] w-0 h-[1px] bg-content-h group-hover:w-64 transition-all'></span>
           <input
           type='range'
             className='range-slider'

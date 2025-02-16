@@ -26,7 +26,7 @@
   appearance: none;
   width: 128px; /* ツマミの幅 */
   height: 56px; /* ツマミの高さ */
-  background:  theme('colors.content.dark');/* ツマミの背景色 */
+  background:  theme('colors.content.h');/* ツマミの背景色 */
   cursor: pointer; /* カーソルのスタイル */
   border-radius: 28px; /* ツマミを円形に */
   transform: translateY(-50%);
@@ -35,7 +35,7 @@
 .range-slider::-moz-range-thumb {
   width: 128px;
   height: 56px;
-  background: theme('colors.content.dark');
+  background: theme('colors.content.h');
   cursor: pointer;
   border-radius: 50%;
   transform: translateY(-50%);
@@ -44,7 +44,7 @@
 .range-slider::-ms-thumb {
   width: 128px;
   height: 56px;
-  background: theme('colors.content.dark');
+  background: theme('colors.content.h');
   cursor: pointer;
   border-radius: 50%;
   transform: translateY(-50%);

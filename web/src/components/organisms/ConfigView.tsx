@@ -13,9 +13,9 @@ const Menu: FC<{children:React.ReactNode, index:number, title:string, onClick:()
   
   
   return (
-    <div className='border-b-[1px] border-content-dark h-fit w-full'>
+    <div className='border-b-[1px] border-content-h h-fit w-full'>
       <div onClick={()=> onClick()} 
-      className={`${"accBlock__btn"} ${isOpen? "isClicked" :""} px-1 py-4 text-lg text-content-dark cursor-pointer`}
+      className={`${"accBlock__btn"} ${isOpen? "isClicked" :""} px-1 py-4 text-lg text-content-h cursor-pointer`}
       >{title}</div>
       <motion.div key="accordion" animate={{height:isOpen ? "auto": "0"}} transition={{duration:0.3}}
       className="overflow-y-clip h-0" layout>
@@ -50,7 +50,7 @@ export const ConfigView: FC<ConfigViewProps> = () => {
 
   return (
     <div className="absolute bottom-0 h-1/2 w-full lg:h-full lg:inset-y-0 lg:right-0 lg:w-1/2 px-4 py-4 flex flex-col items-center justify-end lg:justify-center">
-      <div className='border-t-[1px] border-content-dark mb-16 w-full'>
+      <div className='border-t-[1px] border-content-h mb-16 w-full'>
         <Menu title={title[0]} index={0} isOpen={openList[0]} onClick={()=> onClickHandler(0)}>
           <div className='px-2 py-8'>
             <ColorEditor/>
@@ -70,7 +70,7 @@ export const ConfigView: FC<ConfigViewProps> = () => {
       </div>
       <button
         onClick={()=>setIsDialogDownloadOpen(true)}
-        className='w-fit bg-content-dark text-white font-medium text-lg px-4 py-2 rounded-sm cursor-pointer hover:bg-content-dark-a transition'
+        className='w-fit bg-content-h text-white font-medium text-lg px-4 py-2 rounded-sm cursor-pointer hover:bg-content-h-a transition'
       >DOWNLOAD</button>
       
     </div>

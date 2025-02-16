@@ -17,7 +17,7 @@ export const Toast:FC<ToastProps> = ({ persistent = false }) => {
                 t.isOpen && (
                 <motion.div
                     key={i}
-                    className={`fixed flex justify-center inset-x-0 top-16 ${t.type === "error" ? "bg-red-500" : t.type === "warn" ? "bg-yellow-500" : "bg-content-dark"} rounded-full w-fit mx-auto`}
+                    className={`fixed flex justify-center inset-x-0 top-16 ${t.type === "error" ? "bg-red-500" : t.type === "warn" ? "bg-yellow-500" : "bg-content-h"} rounded-full w-fit mx-auto`}
                     initial="hidden"
                     exit="hidden"
                     variants={{
