@@ -20,6 +20,7 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
   const [,setCameraMode] = useAtom(cameraModeAtom);
 
   const unitRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const length = max - min;
 
 
@@ -54,11 +55,31 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
       }
   })
 }
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const newValue = e.target.value;
+  if (/^\d*$/.test(newValue)) { // 数字のみを許可
+    const numericValue = Math.floor(Number(newValue)); // 小数点以下を切り捨て
+    setPhantomSize((prevPhantomSize) => ({
+      ...prevPhantomSize,
+      height: numericValue,
+    }));
+    updateBoxConfig(numericValue);
+  }else{
+    inputRef.current!.value = String(phantomSize.height)
+  }
+};
 
   useEffect(() => {
     // change useTransform.translateY of unitRef
       unitRef.current!.style.transform = `translateY(${-yPos}px)`;
   }, [yPos]);
+
+  useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.value = String(phantomSize.height);
+      }
+    }, [phantomSize.height]);
+
   // initialization
   useEffect(() => {
     calculateYPos(0)
@@ -92,7 +113,7 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
           <span className='absolute top-1/2 left-[100%] w-0 h-[1px] bg-content-h group-hover:w-64 transition-all'></span>
           <input
           type='range'
-            className='range-slider'
+            className='range-slider vertical'
             onMouseEnter={()=>{
               setPhantomSize((prevPhantomSize) => {
                 //set true 
@@ -148,10 +169,19 @@ export const RangeSliderHeight: React.FC<RangeSliderHeightProps> = ({max,min,lab
               updateBoxConfig(value)
           }}
           />
-          <div className='absolute inset-0 flex flex-col justify-center text-center h-full  pointer-events-none text-white '>
-            <p className='text-sm'>{label}</p>
-            <p>
-            <span className='ml-[16px] text-lg'>{phantomSize.height}</span><span className='text-xs'>mm</span>
+          <div className='absolute flex flex-col gap-[2px] top-0 left-0 h-[56px] w-[128px] items-center justify-center text-center pointer-events-none  text-white '>
+          <p className='text-xs relative text-content-dark-m-a'>Height</p>
+            <p className='relative items-center flex'>
+
+            <input
+              type="text"
+              className="text-lg max-w-[50px] text-content-white pointer-events-auto bg-transparent hover:bg-content-dark-xl-a rounded-[4px] focus:bg-content-dark-xl-a text-center focus:ring-1 focus:ring-content-dark-l-a focus:outline-none"
+              defaultValue={String(phantomSize.height)}
+              ref={inputRef}
+              onFocus={(e) => e.target.select()}
+              onChange={handleInputChange}
+            />
+            <span className='absolute -right-5 text-overline text-content-dark-m-a'>mm</span>
             </p>
           </div>
         </div>

@@ -31,6 +31,12 @@
   border-radius: 28px; /* ツマミを円形に */
   transform: translateY(-50%);
 }
+.range-slider.horizontal::-webkit-slider-thumb {
+  cursor:ew-resize;
+}
+.range-slider.vertical::-webkit-slider-thumb {
+  cursor:ns-resize;
+}
 
 .range-slider::-moz-range-thumb {
   width: 128px;
