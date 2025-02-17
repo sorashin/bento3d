@@ -100,8 +100,8 @@ export const GridEditor: React.FC = () => {
           ref={outerElement}
           style={{ padding: boxConfig.partitionThickness*mm2pixel, gap: boxConfig.partitionThickness*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
-          <p className="absolute left-1/2 -top-16 text-content-light-a text-xs -translate-x-1/2">{`totalWidth:${totalWidth}mm`}</p>
-          <p className="absolute -left-32 top-1/2 text-content-light-a text-xs transform -rotate-90 -translate-y-1/2">{`totalDepth:${totalDepth}mm`}</p>
+          <p className="absolute left-1/2 -top-16 text-content-l-a text-xs -translate-x-1/2">{`totalWidth:${totalWidth}mm`}</p>
+          <p className="absolute -left-32 top-1/2 text-content-l-a text-xs transform -rotate-90 -translate-y-1/2">{`totalDepth:${totalDepth}mm`}</p>
           <DimElement 
                     value={totalDepth-partitionThickness*2} 
                     onChange={function (e: any): void {
@@ -135,7 +135,7 @@ export const GridEditor: React.FC = () => {
                       key={i} 
                       initial={false}
                       animate={{ height: (totalDepth-(2+row.division-1)*partitionThickness)/row.division*mm2pixel,borderRadius: fillet*mm2pixel} }
-                      className="group w-full flex flex-col justify-center items-center grid-bottom-layer border-content-light border-[0.5px] grid-shadow-inner"
+                      className="group w-full flex flex-col justify-center items-center grid-bottom-layer border-content-l border-[0.5px] grid-shadow-inner"
                     >
                       {/* <input
                         type="text"

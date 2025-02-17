@@ -144,7 +144,7 @@ function AppOnboard() {
       })
       return(
         <>
-          {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>button]:px-4 [&>div>div>span]:hidden [&>div>div>button]:py-2 [&>div>div>button]:bg-content-dark [&>div>div>button]:rounded-sm [&>div>div>button]:text-base [&>div>div>button]:text-white'>{ui}</span>)}
+          {buttonJSXs.map((ui, index) => <span key={index} className='[&>div>div>button]:px-4 [&>div>div>span]:hidden [&>div>div>button]:py-2 [&>div>div>button]:bg-content-h [&>div>div>button]:rounded-sm [&>div>div>button]:text-base [&>div>div>button]:text-white'>{ui}</span>)}
         </>
       )
       
@@ -180,7 +180,7 @@ function AppOnboard() {
       })
       return(
         <>
-          {sliderJSXs.map((ui, index) => <span key={index} className='block mb-4 [&>div>div]:inline-flex [&>div>div]:items-center [&>div>div>input]:range [&>div>div>input]:range-accent [&>div>div>span]:text-content-dark [&>div>div>input]:text-lg'>{ui}</span>)}
+          {sliderJSXs.map((ui, index) => <span key={index} className='block mb-4 [&>div>div]:inline-flex [&>div>div]:items-center [&>div>div>input]:range [&>div>div>input]:range-accent [&>div>div>span]:text-content-h [&>div>div>input]:text-lg'>{ui}</span>)}
         </>
   
       )

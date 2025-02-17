@@ -22,6 +22,7 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
   const [,setCameraMode] = useAtom(cameraModeAtom);
 
   const unitRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const length = max - min;
 
 
@@ -67,6 +68,27 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
   })
 }
 
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (/^\d*$/.test(newValue)) { // 数字のみを許可
+      const numericValue = Math.floor(Number(newValue)); // 小数点以下を切り捨て
+      setPhantomSize((prevPhantomSize) => ({
+        ...prevPhantomSize,
+        depth: numericValue,
+      }));
+      updateGrid(numericValue);
+    }else{
+      inputRef.current!.value = String(phantomSize.depth)
+    }
+  };
+  
+  // set input value to phantomSize.depth
+  useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.value = String(phantomSize.depth);
+      }
+    }, [phantomSize.depth]);
+
   useEffect(() => {
     // change useTransform.translateY of unitRef
       unitRef.current!.style.transform = `translateY(${-yPos}px)`;
@@ -91,7 +113,7 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
         >
             {/* create span as many as length */}
             {[...Array(length+1)].map((_, index) => (
-              <div key={index} className={`relative block min-h-[1px] ${index % 10 === 0 ?'w-6':index % 5 === 0 ? 'w-4' : 'w-2'} bg-content-dark-a`}
+              <div key={index} className={`relative block min-h-[1px] ${index % 10 === 0 ?'w-6':index % 5 === 0 ? 'w-4' : 'w-2'} bg-content-h-a`}
                 style={{marginBottom:`${(rulerRange*2-length)/(length-1)}px`}}
                 >
                   {index % 10 === 0&&<p className='absolute text-overline text-left top-1/2 -translate-y-1/2 -right-6'>{min+index}</p>}
@@ -101,10 +123,10 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
       </div>
           <img src="/icons/chevron-up.svg" alt="" className='absolute -top-6 w-full h-4 group-hover:-top-8 transition-all'/>
           <img src="/icons/chevron-down.svg" alt="" className='absolute -bottom-6 w-full h-4 group-hover:-bottom-8 transition-all'/>
-          <span className='absolute top-1/2 right-[100%] w-0 h-[1px] bg-content-dark group-hover:w-64 transition-all'></span>
+          <span className='absolute top-1/2 right-[100%] w-0 h-[1px] bg-content-h group-hover:w-64 transition-all'></span>
           <input
           type='range'
-            className='range-slider'
+            className='range-slider vertical'
             //show ruler on hover
             onMouseEnter={()=>{
               setPhantomSize((prevPhantomSize) => {
@@ -169,11 +191,20 @@ export const RangeSliderDepth: React.FC<RangeSliderDepthProps> = ({max,min,label
           }}
           
           />
-          <div className='absolute inset-0 flex flex-col justify-center text-center h-full  pointer-events-none text-white '>
-            <p className='text-sm'>{label}</p>
-            <p>
-            <span className='ml-[16px] text-lg'>{phantomSize.depth}</span><span className='text-xs'>mm</span>
-            </p>
+          <div className='absolute flex flex-col gap-[2px] top-0 left-0 h-[56px] w-[128px] items-center justify-center text-center pointer-events-none  text-white'>
+          <p className='text-xs relative text-content-dark-m-a'>Depth</p>
+          <p className='relative items-center flex'>
+
+<input
+  type="text"
+  className="text-lg max-w-[50px] text-content-white pointer-events-auto bg-transparent hover:bg-content-dark-xl-a rounded-[4px] focus:bg-content-dark-xl-a text-center focus:ring-1 focus:ring-content-dark-l-a focus:outline-none"
+  defaultValue={String(phantomSize.depth)}
+  ref={inputRef}
+  onFocus={(e) => e.target.select()}
+  onChange={handleInputChange}
+/>
+<span className='absolute -right-5 text-overline text-content-dark-m-a'>mm</span>
+</p>
           </div>
         </div>
         {/* <div

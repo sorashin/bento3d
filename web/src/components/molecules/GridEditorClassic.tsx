@@ -92,7 +92,7 @@ export const GridEditorClassic: React.FC = () => {
     return(
         <motion.div 
           layout 
-          className='relative flex flex-row gap-4 p-4 w-full rounded-md bg-content-extra-light-a border-[1px] border-content-dark' 
+          className='relative flex flex-row gap-4 p-4 w-full rounded-md bg-content-xl-a border-[1px] border-content-h' 
           ref={outerElement}
           style={{ padding: 2*mm2pixel, gap: 2*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >
@@ -131,7 +131,7 @@ export const GridEditorClassic: React.FC = () => {
                       key={i} 
                       initial={false}
                       animate={{ height: (totalDepth-(2+row.division-1)*partitionThickness)/row.division*mm2pixel,borderRadius: fillet*mm2pixel} }
-                      className="group w-full flex flex-col justify-center items-center border-[1px] border-content-dark"
+                      className="group w-full flex flex-col justify-center items-center border-[1px] border-content-h"
                     >
                       {/* <input
                         type="text"

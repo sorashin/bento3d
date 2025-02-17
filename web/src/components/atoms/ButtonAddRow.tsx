@@ -31,7 +31,7 @@ export const ButtonAddRow = () => {
         onClick={addRow}
     >
         <span 
-        className="absolute w-12 h-12 -right-6 flex justify-center items-center rounded-lg text-content-dark font-sans text-lg bg-white group-hover:scale-95 transition"
+        className="absolute w-12 h-12 -right-6 flex justify-center items-center rounded-lg text-content-h font-sans text-lg bg-white group-hover:scale-95 transition"
         >+</span>
           </button>
   );

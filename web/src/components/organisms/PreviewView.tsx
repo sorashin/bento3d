@@ -159,7 +159,7 @@ const createUIListItem = (ui: UINodeBase, order: number, length: number) => {
     })
     return(
       <>
-        {sliderJSXs.map((ui, index) => <span key={index} className='block mb-4 [&>div>div]:inline-flex [&>div>div]:items-center [&>div>div>input]:range [&>div>div>input]:range-accent [&>div>div>span]:text-content-dark [&>div>div>input]:text-lg'>{ui}</span>)}
+        {sliderJSXs.map((ui, index) => <span key={index} className='block mb-4 [&>div>div]:inline-flex [&>div>div]:items-center [&>div>div>input]:range [&>div>div>input]:range-accent [&>div>div>span]:text-content-h [&>div>div>input]:text-lg'>{ui}</span>)}
       </>
 
     )

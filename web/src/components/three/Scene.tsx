@@ -44,7 +44,7 @@ const Annotation: React.FC<{ children: React.ReactNode, position: [number, numbe
       scale={20}
       // occlude="blending"
     >
-      <div className="annotation px-4 py-2 rounded-lg text-white bg-content-dark cursor-pointer" onClick={onClick}>
+      <div className="annotation px-4 py-2 rounded-lg text-white bg-content-h cursor-pointer" onClick={onClick}>
         {children}
       </div>
     </Html>
