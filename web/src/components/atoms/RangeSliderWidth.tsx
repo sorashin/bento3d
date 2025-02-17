@@ -22,6 +22,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
   const [width, calculateSize] = useAtom(updateGridAtomsAction);
 
   const unitRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const length = max - min;
 
 
@@ -54,11 +55,34 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
       }
   })
 }
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const newValue = e.target.value;
+  if (/^\d*$/.test(newValue)) { // 数字のみを許可
+    const numericValue = Math.floor(Number(newValue)); // 小数点以下を切り捨て
+    setPhantomSize((prevPhantomSize) => ({
+      ...prevPhantomSize,
+      width: numericValue,
+    }));
+    updateBoxConfig(numericValue);
+  }else{
+    inputRef.current!.value = String(phantomSize.width)
+  }
+};
 
   useEffect(() => {
     // change useTransform.translateY of unitRef
       unitRef.current!.style.transform = `translateX(${-xPos}px)`;
   }, [xPos]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = String(phantomSize.width);
+    }
+  }, [phantomSize.width]);
+
+
+  
+
   // initialization
   useEffect(() => {
     calculatexPos(0)
@@ -83,7 +107,7 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
             >
                 {/* create span as many as length */}
                 {[...Array(length+1)].map((_, index) => (
-                  <div key={index} className={`relative block min-w-[1px] ${index % 10 === 0 ?'h-6':index % 5 === 0 ? 'h-4' : 'h-2'} bg-content-dark-a`}
+                  <div key={index} className={`relative block min-w-[1px] ${index % 10 === 0 ?'h-6':index % 5 === 0 ? 'h-4' : 'h-2'} bg-content-h-a`}
                     style={{marginRight:`${(rulerRange*2-length)/(length-1)}px`}}
                     >
                       {index % 10 === 0&&<p className='absolute text-overline text-center left-1/2 -translate-x-1/2 -top-4'>{min+index}</p>}
@@ -93,10 +117,10 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
           </div>
           <img src="/icons/chevron-right.svg" alt="" className='absolute -right-6 h-full w-4 group-hover:-right-8 transition-all'/>
           <img src="/icons/chevron-left.svg" alt="" className='absolute -left-6 h-full w-4 group-hover:-left-8 transition-all'/>
-          <span className='absolute left-1/2 top-[100%] h-0 w-[1px] bg-content-dark group-hover:h-64 transition-all'></span>
+          <span className='absolute left-1/2 top-[100%] h-0 w-[1px] bg-content-h group-hover:h-64 transition-all'></span>
           <input
           type='range'
-            className='range-slider'
+            className='range-slider horizontal'
             onMouseEnter={()=>{
               setPhantomSize((prevPhantomSize) => {
                 //set true 
@@ -152,10 +176,20 @@ export const RangeSliderWidth: React.FC<RangeSliderWidthProps> = ({max,min,label
               updateBoxConfig(value)
           }}
           />
-          <div className='absolute inset-0 flex flex-col justify-center text-center h-full  pointer-events-none text-white '>
-            <p className='text-sm'>{label}</p>
-            <p>
-            <span className='ml-[16px] text-lg'>{phantomSize.width}</span><span className='text-xs'>mm</span>
+          <div className='absolute flex flex-col gap-[2px] top-0 left-0 h-[56px] w-[128px] items-center justify-center text-center pointer-events-none  text-white '>
+            <p className='text-xs relative text-content-dark-m-a'>Width</p>
+            
+            <p className='relative items-center flex'>
+
+            <input
+              type="text"
+              className="text-lg max-w-[50px] text-content-white pointer-events-auto bg-transparent hover:bg-content-dark-xl-a rounded-[4px] focus:bg-content-dark-xl-a text-center focus:ring-1 focus:ring-content-dark-l-a focus:outline-none"
+              defaultValue={String(phantomSize.width)}
+              ref={inputRef}
+              onFocus={(e) => e.target.select()}
+              onChange={handleInputChange}
+            />
+            <span className='absolute -right-5 text-overline text-content-dark-m-a'>mm</span>
             </p>
           </div>
         </div>
