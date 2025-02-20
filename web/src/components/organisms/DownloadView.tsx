@@ -2,6 +2,7 @@ import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { ButtonElements, DLButtonElementsAtom, bomAtom, boxConfigAtom, cameraModeAtom, showCaseAtom } from '../../store';
 import ReactGA from "react-ga4";
+import { Icon } from '../atoms/Icon';
 
 
 interface DownloadViewProps {
@@ -60,7 +61,7 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
                   className="w-8 h-8 flex items-center justify-center rounded-sm bg-content-h-a shadow-sm transition hover:scale-[0.98]"
                   onClick={()=>handleClick(element.label)}
                   >
-                  <img className='w-6 h-6' src="/icons/download.svg" alt="" />
+                  <Icon className='w-6 h-6' name="download"/>
                 </span>
                 {/* span + button */}
                 {element.jsx}
@@ -81,7 +82,7 @@ export const DownloadView:React.FC<DownloadViewProps> = ({elements,children}) =>
             </div>}
             <a href='https://buymeacoffee.com/lodgefabq' target='_blank' rel="noreferrer"
               className='flex flex-row gap-2 w-fit mt-8 px-4 py-2 rounded-sm bg-content-xl-a text-content-middle font-sans transition hover:scale-[0.98]'
-            ><img src="/icons/coffee-dark.svg" alt="" />Donate</a>
+            ><Icon name="coffeeDark" className='size-6'/>Donate</a>
             <p className='mt-4 font-sans text-xs text-content-l'>Created by <a href="https://twitter.com/52shinNaka" target='_blank' className='transition hover:scale-[0.98]' rel="noreferrer">@52shinNaka</a></p>
         </div>
         

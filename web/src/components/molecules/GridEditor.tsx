@@ -5,6 +5,7 @@ import { boxConfigAtom, updateBoxConfigAtomsAction, gridAtoms, openAIAPIKeyAtom,
 import { ButtonAddRow } from "../atoms/ButtonAddRow";
 import { ButtonAddColumn } from "../atoms/ButtonAddColumn";
 import { DimElement } from "../atoms/DimElement";
+import { Icon } from "../atoms/Icon";
 
 export const GridEditor: React.FC = () => {
   const [gridState, setGridState] = useAtom(gridAtoms);
@@ -172,7 +173,7 @@ export const GridEditor: React.FC = () => {
                             }
                           }
                         >
-                          <img src="/icons/trash.svg" alt=''/>
+                          <Icon name="trash" />
                         </button>}
                       </div>
                     </motion.div>
