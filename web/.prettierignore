@@ -1,0 +1,12 @@
+node_modules/
+build/
+src/assets/scripts
+dist/
+lib/
+public/
+package-lock.json
+yarn.lock
+.vscode/
+.pnp.cjs
+.pnp.loader.mjs
+.prettierrc.js
