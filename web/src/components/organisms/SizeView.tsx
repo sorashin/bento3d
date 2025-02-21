@@ -1,7 +1,6 @@
 import { RangeSliderHeight } from "../atoms/RangeSliderHeight";
 import { RangeSliderWidth } from "../atoms/RangeSliderWidth";
 import { RangeSliderDepth } from "../atoms/RangeSliderDepth";
-import { showCaseAtom } from "../../store";
 import { useAtom, useAtomValue } from "jotai";
 
 export const SizeView = () => {

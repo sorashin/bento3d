@@ -4,7 +4,6 @@ import { useAtom } from "jotai";
 import {
   boxConfigAtom,
   isSettingDialogOpenAtom,
-  showCaseAtom,
   updateIsStackAtom,
 } from "../../store";
 import { FC } from "react";
@@ -76,8 +75,13 @@ export const DialogSettings: FC<DialogSettingsProps> = ({}) => {
             <input
               type="checkbox"
               className={`toggle h-10 w-16 rounded-sm bg-white border-content-middle ${showCase ? "[--tglbg:#333333] hover:[--tglbg:#666666]" : "[--tglbg:#eeeeee] hover:[--tglbg:#dddddd]"}`}
-              checked={showCase}
-              onClick={() => setShowCase(!showCase)}
+              checked={boxConfig.isOuterCase}
+              onClick={() =>
+                setShowCase({
+                  ...boxConfig,
+                  isOuterCase: !boxConfig.isOuterCase,
+                })
+              }
             />
           </div>
         </div>
@@ -92,7 +96,7 @@ export const DialogSettings: FC<DialogSettingsProps> = ({}) => {
               className={`toggle h-10 w-16 rounded-sm bg-white border-content-middle ${boxConfig.isStack ? "[--tglbg:#333333] hover:[--tglbg:#666666]" : "[--tglbg:#eeeeee] hover:[--tglbg:#dddddd]"} font-sans`}
               checked={boxConfig.isStack}
               onClick={() => toggleStack()}
-              disabled={showCase}
+              disabled={boxConfig.isOuterCase}
               data-tooltip-id={showCase ? "hint-tooltip" : ""}
               data-tooltip-content={
                 "stacking is disabled when case preview is enabled"

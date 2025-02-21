@@ -2,7 +2,7 @@ import { Edges, Html } from "@react-three/drei";
 import { useAtom, useAtomValue } from "jotai";
 import { FC, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { cameraModeAtom, phantomSizeAtom, showCaseAtom } from "../../store";
+import { boxConfigAtom, cameraModeAtom, phantomSizeAtom } from "../../store";
 
 interface SizeProps {
   label: string;
@@ -26,7 +26,7 @@ const Size: FC<SizeProps> = ({
   visible,
 }) => {
   const cameraMode = useAtomValue(cameraModeAtom);
-  const showCase = useAtomValue(showCaseAtom);
+  const boxConfig = useAtomValue(boxConfigAtom);
   // const typeを定義
   // labelに"W"が含まれれば0、"H"が含まれれば1、"D"が含まれれば2
   const type = label.includes("W") ? 0 : label.includes("H") ? 1 : 2;
@@ -55,7 +55,7 @@ const Size: FC<SizeProps> = ({
           className="flex flex-col items-center rounded-sm  px-2 text-center text-xs text-white text-nowrap"
           style={{ color: `${color2}` }}
         >
-          {showCase ? sublabel : label}
+          {boxConfig.isOuterCase ? sublabel : label}
         </p>
       </Html>
     </group>

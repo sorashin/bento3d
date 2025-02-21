@@ -6,7 +6,6 @@ import {
   bomAtom,
   boxConfigAtom,
   cameraModeAtom,
-  showCaseAtom,
 } from "../../store";
 import ReactGA from "react-ga4";
 import { Icon } from "../atoms/Icon";
@@ -24,7 +23,6 @@ export const DownloadView: React.FC<DownloadViewProps> = ({
   const [DLButtonElements, setDLButtonElements] = useAtom(DLButtonElementsAtom);
   const [bom, setBom] = useAtom(bomAtom);
   const [isShow, setIsShow] = useState(true);
-  const [isShowCase, setIsShowCase] = useAtom(showCaseAtom);
   const handleClick = (label: string) => {
     console.log("clicked!", label);
     ReactGA.event({
@@ -82,7 +80,7 @@ export const DownloadView: React.FC<DownloadViewProps> = ({
             ))}
           </div>
 
-          {isShowCase && (
+          {boxConfig.isOuterCase && (
             <div className="flex flex-row gap-4 w-full mb-4 p-2 text-xs text-content-m-a rounded-md bg-surface-base items-start font-sans mt-4">
               <img
                 src="/images/assembly.jpg"

@@ -1,6 +1,7 @@
 // import { getAccessorType, getterTree, mutationTree, actionTree } from 'typed-vuex';
 
 import { atom } from "jotai";
+
 export type BoxConfig = {
   totalWidth: number;
   totalDepth: number;
@@ -12,6 +13,7 @@ export type BoxConfig = {
   mm2pixel: number;
   fillet: number;
   isStack: boolean;
+  isOuterCase: boolean;
 };
 
 export const boxConfigAtom = atom<BoxConfig>({
@@ -25,6 +27,7 @@ export const boxConfigAtom = atom<BoxConfig>({
   mm2pixel: 3,
   fillet: 2,
   isStack: false,
+  isOuterCase: true,
 });
 
 export type Grid = {
@@ -75,7 +78,6 @@ export type ButtonElements = {
   visible: boolean;
 };
 export const DLButtonElementsAtom = atom<ButtonElements[]>([]);
-export const showCaseAtom = atom<boolean>(true);
 
 export const openAIAPIKeyAtom = atom<string>("");
 export const selectedColorAtom = atom<string>("");
@@ -237,9 +239,9 @@ export const updateGridAtomsAction = atom(
 );
 //showCaseAtomが更新されたときにtrueであれば、isStackをfalseにする
 export const updateIsStackAtom = atom(
-  (get) => get(showCaseAtom),
-  (get, set, update: boolean) => {
-    set(showCaseAtom, update);
+  (get) => get(boxConfigAtom).isOuterCase,
+  (get, set, update: BoxConfig) => {
+    set(boxConfigAtom, update);
     if (update) {
       set(boxConfigAtom, { ...get(boxConfigAtom), isStack: false });
     }

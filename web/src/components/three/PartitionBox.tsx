@@ -1,12 +1,7 @@
 import { Box, Edges } from "@react-three/drei";
 import { useAtomValue } from "jotai";
 import { useRef } from "react";
-import {
-  boxConfigAtom,
-  colorPaletteAtom,
-  phantomSizeAtom,
-  showCaseAtom,
-} from "../../store";
+import { boxConfigAtom, colorPaletteAtom, phantomSizeAtom } from "../../store";
 import { Addition, Base, Geometry, Subtraction } from "@react-three/csg";
 import { RoundedBox } from "./geometry/RoundedBox";
 import * as THREE from "three";
@@ -32,7 +27,6 @@ export const PartitionBox: React.FC<PartitionBoxProps> = ({
   const boxConfig = useAtomValue(boxConfigAtom);
   const colorPalette = useAtomValue(colorPaletteAtom);
   const phantomSize = useAtomValue(phantomSizeAtom);
-  const showCase = useAtomValue(showCaseAtom);
   return (
     <>
       <group position={[0, 0, phantomSize.height / 2 - 50]} ref={boxRef}>
@@ -63,7 +57,7 @@ export const PartitionBox: React.FC<PartitionBoxProps> = ({
                 </mesh> */}
         {
           // outer
-          showCase && (
+          boxConfig.isOuterCase && (
             <>
               {/* box */}
               <mesh position={[0, 0, 2]}>
