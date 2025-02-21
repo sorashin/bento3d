@@ -49,6 +49,7 @@ import { DialogSettings } from "./components/molecules/DialogSettings";
 import { DialogFeedback } from "./components/molecules/DialogFeedback";
 import { Toast } from "./components/atoms/Toast";
 import DrawerUpdates from "./components/molecules/DrawerUpdates";
+import { LeftMenu } from "./components/molecules/LeftMenu";
 
 function AppOnboard() {
   const step = useAtomValue(stepAtom);
@@ -383,6 +384,7 @@ function AppOnboard() {
       <div id="preview" className="hidden"></div>
       <div id="editor" className="hidden"></div>
       <Header />
+      <LeftMenu />
       {step === 0 ? (
         <SizeView />
       ) : step === 1 ? (

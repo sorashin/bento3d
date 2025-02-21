@@ -18,6 +18,9 @@ import { ReactComponent as grid } from "../../assets/icons/grid.svg";
 import { ReactComponent as gear } from "../../assets/icons/gear.svg";
 import { ReactComponent as download } from "../../assets/icons/download.svg";
 import { ReactComponent as trash } from "../../assets/icons/trash.svg";
+import { ReactComponent as bentoBox } from "../../assets/icons/bento-box.svg";
+import { ReactComponent as bentoPartition } from "../../assets/icons/bento-partition.svg";
+import { ReactComponent as config } from "../../assets/icons/config.svg";
 
 const icons = {
   arrowLeft,
@@ -40,12 +43,15 @@ const icons = {
   key,
   grid,
   gear,
+  bentoBox,
+  bentoPartition,
+  config,
 };
 
-type Name = keyof typeof icons;
+export type IconName = keyof typeof icons;
 
 type Props = {
-  name: Name;
+  name: IconName;
   size?: number;
   className?: string;
 };
