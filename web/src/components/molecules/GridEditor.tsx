@@ -97,7 +97,7 @@ export const GridEditor: React.FC = () => {
     return(
         <motion.div 
           layout 
-          className={`relative flex flex-row gap-4 p-4 ${totalWidth-totalDepth>0?'w-full h-fit':'w-fit h-full'} rounded-md bg-white border-content-middle border-[0.5px] grid-shadow-outer`} 
+          className={`relative flex flex-row gap-4 p-4 ${totalWidth-totalDepth>0?'w-full h-fit':'w-fit h-full'} rounded-md bg-white border-content-middle border-[0.5px] grid-shadow-outer font-display`} 
           ref={outerElement}
           style={{ padding: boxConfig.partitionThickness*mm2pixel, gap: boxConfig.partitionThickness*mm2pixel, borderRadius: fillet*mm2pixel}} 
         >

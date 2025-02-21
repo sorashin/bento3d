@@ -17,7 +17,7 @@ import { ReactComponent as key } from '../../assets/icons/key.svg'
 import { ReactComponent as grid } from '../../assets/icons/grid.svg'
 import { ReactComponent as gear } from '../../assets/icons/gear.svg'
 import { ReactComponent as download } from '../../assets/icons/download.svg'
-import { ReactComponent as trash } from '../../assets/icons/download.svg'
+import { ReactComponent as trash } from '../../assets/icons/trash.svg'
 
 const icons = { 
   arrowLeft, 

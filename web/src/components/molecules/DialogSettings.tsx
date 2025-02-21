@@ -30,7 +30,7 @@ export const DialogSettings:FC<DialogSettingsProps>=({})=>{
   }
   return (
     <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className='flex flex-col gap-4 px-8 py-8'>
+      <div className='flex flex-col gap-4 px-8 py-8 font-display'>
         <h3 className="mb-4 text-lg text-center">Settings</h3>
         <div className="flex items-center justify-between">
           <p className="flex gap-2 items-center text-sm text-content-h"><Icon className="w-6 h-6" name='thickness' />Thickness</p>
@@ -62,6 +62,9 @@ export const DialogSettings:FC<DialogSettingsProps>=({})=>{
             />
           </div>
         </div>
+        <div className="size-8 flex items-center justify-center absolute top-4 right-4 cursor-pointer bg-content-xl-a rounded-full hover:scale-110" onClick={() => setIsOpen(false)}>
+                  <Icon name="close" />
+                </div>
       </div>
       <Tooltip
         id="hint-tooltip"

@@ -91,7 +91,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     <>
       
         
-        <div className={'group fixed top-3/4 lg:top-1/2 lg:right-16 right-8 -translate-y-1/2 h-14 transition'}>
+        <div className={'group fixed top-3/4 lg:top-1/2 lg:right-16 right-8 -translate-y-1/2 h-14 transition font-display'}>
           <div className={'fixed inset-y-0 flex flex-col justify-center z-10 w-4 lg:-right-16 -right-8 translate-x-[500%] group-hover:translate-x-0 transition-all'}//
       >
         <div 

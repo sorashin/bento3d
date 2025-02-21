@@ -44,6 +44,15 @@ const config = {
         ev2: "#000000",
         sheet: "rgba(255,255,255,.64)",
       },
+      system: {
+        "error-h": "#F3785D",
+        "error-l": "#F3A493",
+        success: "#00FF00",
+        "warning-h": "rgba(254, 161, 41, 1.0)",
+        "warning-l": "rgba(254, 161, 41, .26)",
+        info: "#0000FF",
+      }
+
     },
     fontFamily: {
       sans: ["Inter", "sans-serif"],
