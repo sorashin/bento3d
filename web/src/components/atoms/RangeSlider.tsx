@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { boxConfigAtom, cameraModeAtom, phantomSizeAtom } from '../../store';
 import { set } from 'lodash';
 import { Toast } from './Toast'
+import { Icon } from './Icon';
 
 type RangeSliderProps = {
     max: number;
@@ -107,8 +108,8 @@ export const RangeSlider: React.FC<RangeSliderProps> = ({max,min,label}) => {
             ))}
         </div>
       </div>
-          <img src="/icons/chevron-up.svg" alt="" className='absolute -top-6 w-full h-4 group-hover:-top-8 transition-all'/>
-          <img src="/icons/chevron-down.svg" alt="" className='absolute -bottom-6 w-full h-4 group-hover:-bottom-8 transition-all'/>
+          <Icon name="chevronUp"  className='absolute -top-6 w-full h-4 group-hover:-top-8 transition-all'/>
+          <Icon name="chevronDown"  className='absolute -bottom-6 w-full h-4 group-hover:-bottom-8 transition-all'/>
           <span className='absolute top-1/2 left-[100%] w-0 h-[1px] bg-content-h group-hover:w-64 transition-all'></span>
           <input
           type='range'

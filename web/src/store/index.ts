@@ -87,6 +87,7 @@ export const isDebugAtom = atom<boolean>(false)
 export const isDownloadDialogOpenAtom = atom<boolean>(false)
 export const isSettingDialogOpenAtom = atom<boolean>(false)
 export const isFeedbackDialogOpenAtom = atom<boolean>(false)
+export const isUpdatesDrawerOpenAtom = atom<boolean>(false)
 export type Toast = {
   isOpen: boolean;
   content: string;

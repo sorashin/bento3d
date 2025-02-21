@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import React, { useState, useEffect, useRef } from 'react';
 import { boxConfigAtom, cameraModeAtom, phantomSizeAtom, updateGridAtomsAction } from '../../store';
 import { set } from 'lodash';
+import { Icon } from './Icon';
 
 type RangeSliderWidthProps = {
     max: number;
@@ -98,7 +99,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     <>
       
         
-        <div className={'group fixed left-1/2 bottom-16 -translate-x-1/2 w-[128px] transition'}>
+        <div className={'group fixed left-1/2 bottom-16 -translate-x-1/2 w-[128px] transition font-display'}>
           <div className={'fixed inset-x-0 flex flex-row justify-center h-4 -bottom-16 translate-y-[500%] group-hover:translate-y-0 transition-all'}>
             <div 
                 className={`h-4 flex flex-row items-end`}
@@ -115,8 +116,8 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 ))}
             </div>
           </div>
-          <img src="/icons/chevron-right.svg" alt="" className='absolute -right-6 h-full w-4 group-hover:-right-8 transition-all'/>
-          <img src="/icons/chevron-left.svg" alt="" className='absolute -left-6 h-full w-4 group-hover:-left-8 transition-all'/>
+          <Icon name="chevronRight" className='absolute -right-6 h-full w-4 group-hover:-right-8 transition-all'/>
+          <Icon name="chevronLeft" className='absolute -left-6 h-full w-4 group-hover:-left-8 transition-all'/>
           <span className='absolute left-1/2 top-[100%] h-0 w-[1px] bg-content-h group-hover:h-64 transition-all'></span>
           <input
           type='range'
