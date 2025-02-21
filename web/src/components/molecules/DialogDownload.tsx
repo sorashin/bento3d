@@ -4,6 +4,7 @@ import { Dialog } from "../atoms/Dialog";
 import { useAtom } from "jotai";
 import { ButtonElements, isDownloadDialogOpenAtom } from "../../store";
 import { FC } from "react";
+import { Icon } from "../atoms/Icon";
 
 interface DialogDownloadProps {
     elements: ButtonElements[];
@@ -26,7 +27,7 @@ export const DialogDownload:FC<DialogDownloadProps>=({elements})=>{
               />
             <p className="grow ml-2">{element.label}</p>
             <span className="w-12 h-12 flex items-center justify-center rounded-sm bg-content-h-a">
-              <img src="/icons/download.svg" alt="" />
+              <Icon name="download"  />
             </span>
             {/* span + button */}
             {element.jsx}

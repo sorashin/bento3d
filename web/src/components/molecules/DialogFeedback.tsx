@@ -3,6 +3,7 @@ import axios from "axios";
 import { Dialog } from "../atoms/Dialog";
 import { useAtom } from "jotai";
 import { isFeedbackDialogOpenAtom, Toast, toastAtom, updateToastAtom } from "../../store/index";
+import { Icon } from "../atoms/Icon";
 
 
 interface DialogFeedbackProps {
@@ -129,7 +130,7 @@ export const DialogFeedback:FC<DialogFeedbackProps>=({})=>{
           Submit
         </button>
         <div className="size-8 flex items-center justify-center absolute top-4 right-4 cursor-pointer bg-content-xl-a rounded-full hover:scale-110" onClick={() => setIsOpen(false)}>
-          <img src="/icons/close.svg" alt="" />
+          <Icon name="close" />
         </div>
       </form>
     </Dialog>

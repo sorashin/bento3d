@@ -18,6 +18,7 @@ import ReactGA from "react-ga4";
 import { DialogSettings } from './components/molecules/DialogSettings';
 import { DialogFeedback } from './components/molecules/DialogFeedback';
 import { Toast } from './components/atoms/Toast';
+import DrawerUpdates from './components/molecules/DrawerUpdates';
 
 
 function AppOnboard() {
@@ -304,8 +305,10 @@ function AppOnboard() {
         <Suspense fallback={"loading..."}>
           <SceneComponent group={group}></SceneComponent>
         </Suspense>
+        {/* <img src="/gradient-forestSunrise-wgom2.png" alt="" className='top-20 fixed inset-6 z-0'/> */}
         <DialogSettings />
         <DialogFeedback/>
+        <DrawerUpdates/>
         <Toast/>
         </>
     );
