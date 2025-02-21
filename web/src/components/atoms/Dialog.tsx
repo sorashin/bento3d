@@ -5,7 +5,6 @@ import { AnimatePresence, animate, motion, useAnimation } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import resolveConfig from "tailwindcss/resolveConfig";
 
-
 interface DialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,8 +12,12 @@ interface DialogProps {
   className?: string;
 }
 
-export const Dialog = ({ isOpen, onClose, children, className }: DialogProps) => {
-
+export const Dialog = ({
+  isOpen,
+  onClose,
+  children,
+  className,
+}: DialogProps) => {
   // OUTSIDE_CLICK
   const dialogRef = useRef<HTMLDivElement>(null);
 

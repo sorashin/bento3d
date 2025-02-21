@@ -5,7 +5,6 @@ import { AnimatePresence, animate, motion, useAnimation } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import resolveConfig from "tailwindcss/resolveConfig";
 
-
 interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,8 +12,12 @@ interface DrawerProps {
   className?: string;
 }
 
-export const Drawer = ({ isOpen, onClose, children, className }: DrawerProps) => {
-
+export const Drawer = ({
+  isOpen,
+  onClose,
+  children,
+  className,
+}: DrawerProps) => {
   // OUTSIDE_CLICK
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -50,9 +53,9 @@ export const Drawer = ({ isOpen, onClose, children, className }: DrawerProps) =>
           }}
           className={`fixed inset-0 z-20 left-0 flex h-full w-1/4 flex-col gap-4 lg:max-w-screen-sm ${className} backdrop-blur-md from-surface-base/80 to-surface-base/0 bg-gradient-to-r`}
         >
-            {/* <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/0 backdrop-blur-sm"> */}
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/0 backdrop-blur-sm"> */}
           {children}
-            {/* </div> */}
+          {/* </div> */}
         </motion.div>
       )}
     </AnimatePresence>
