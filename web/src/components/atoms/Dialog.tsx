@@ -51,7 +51,7 @@ export const Dialog = ({
             damping: 40,
             stiffness: 400,
           }}
-          className={`fixed inset-0 z-20 m-auto flex h-fit w-10/12 flex-col gap-4 rounded-md bg-surface-sheet shadow-lg lg:max-w-screen-sm ${className} backdrop-blur-sm`}
+          className={`fixed inset-0 z-20 m-auto flex h-fit w-10/12 flex-col gap-4 rounded-md bg-surface-sheet-m shadow-lg lg:max-w-screen-sm ${className} backdrop-blur-sm`}
         >
           {children}
         </motion.div>

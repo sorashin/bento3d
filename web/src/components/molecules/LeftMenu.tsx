@@ -11,12 +11,12 @@ import { Tooltip } from "react-tooltip";
 
 const modes = [
   {
-    label: "Tray",
+    label: "Partition",
     img: "bentoPartition",
-    sampleImg: ["/images/trays/000.jpg", "/images/trays/004.jpg"],
+    sampleImg: ["/images/partitions/000.jpg", "/images/partitions/004.jpg"],
   },
   {
-    label: "Tray & Box",
+    label: "Partition & Box",
     img: "bentoBox",
     sampleImg: [
       "/images/cases/000.jpg",
@@ -40,7 +40,7 @@ export const LeftMenu = () => {
     });
   }, [currentMode]);
   return (
-    <div className="absolute top-8 left-8 z-20 w-64 flex gap-2 items-center">
+    <div className="absolute top-8 left-8 z-20 w-64 flex gap-2 items-center font-display">
       {/* <h1 className="flex gap-1 items-center">
           <span className="-indent-96 absolute">Bento3d</span>
           <img src="/logo.svg" alt="bento3d" className="w-32 h-auto" />

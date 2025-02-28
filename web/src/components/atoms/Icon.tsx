@@ -21,6 +21,7 @@ import { ReactComponent as trash } from "../../assets/icons/trash.svg";
 import { ReactComponent as bentoBox } from "../../assets/icons/bento-box.svg";
 import { ReactComponent as bentoPartition } from "../../assets/icons/bento-partition.svg";
 import { ReactComponent as config } from "../../assets/icons/config.svg";
+import { ReactComponent as arrowUpRight } from "../../assets/icons/arrow-up-right.svg";
 
 const icons = {
   arrowLeft,
@@ -46,6 +47,7 @@ const icons = {
   bentoBox,
   bentoPartition,
   config,
+  arrowUpRight,
 };
 
 export type IconName = keyof typeof icons;

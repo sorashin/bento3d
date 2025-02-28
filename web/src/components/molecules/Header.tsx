@@ -1,14 +1,8 @@
 import { useAtom } from "jotai";
-import {
-  isFeedbackDialogOpenAtom,
-  isSettingDialogOpenAtom,
-  isUpdatesDrawerOpenAtom,
-  stepSyncAtom,
-} from "../../store";
+import { stepSyncAtom } from "../../store";
 import { Icon } from "../atoms/Icon";
 import { useMemo } from "react";
 import { Tooltip } from "react-tooltip";
-import updates from "../../assets/jsons/updates.json";
 
 const NavButton: React.FC<{ label: string; step: number }> = ({
   label,
@@ -41,21 +35,8 @@ const NavButton: React.FC<{ label: string; step: number }> = ({
 };
 
 export const Header = () => {
-  const [isFeedbackDialogOpen, setIsFeedbackDialogOpen] = useAtom(
-    isFeedbackDialogOpenAtom,
-  );
-  const [isUpdatesDrawerOpen, setIsUpdatesDrawerOpen] = useAtom(
-    isUpdatesDrawerOpenAtom,
-  );
-  const latestUpdate = updates.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  )[0];
-  const isNew =
-    new Date().getTime() - new Date(latestUpdate.date).getTime() <=
-    7 * 24 * 60 * 60 * 1000;
-
   return (
-    <header className="absolute inset-x-0 top-0 pt-8 px-4 z-20 flex flex-col justify-between">
+    <header className="absolute inset-x-0 top-0 pt-8 px-4 flex flex-col justify-between z-20">
       {/* <KeyManager/> */}
 
       <div className="flex justify-between md:justify-center items-center gap-2 w-full font-display">
@@ -65,51 +46,6 @@ export const Header = () => {
         <Icon name="chevronRight" className="w-4 h-4"></Icon>
         <NavButton label={"Download"} step={2} />
       </div>
-      <div className="flex justify-end mt-4 md:mt-0 md:absolute md:top-8 md:right-8 font-display">
-        <button
-          className="b-button bg-transparent"
-          onClick={() => setIsFeedbackDialogOpen(true)}
-          data-tooltip-content={"Feedback"}
-          data-tooltip-id={"hint-tooltip"}
-        >
-          💬
-        </button>
-        <button
-          className="b-button bg-transparent relative"
-          onClick={() => setIsUpdatesDrawerOpen(true)}
-          data-tooltip-content={"Updates"}
-          data-tooltip-id={"hint-tooltip"}
-        >
-          📣
-          {isNew && (
-            <span className="size-2 rounded-full bg-system-error-h absolute bottom-1.5 right-1.5 border-spacing-1 border-system-error-l"></span>
-          )}
-        </button>
-        <a
-          className="b-button bg-transparent"
-          href="https://polar-tadpole-97b.notion.site/Bento3D-e40483712b304d389d7c2da26196e113?pvs=4"
-          target="_blank"
-          rel="noreferrer"
-          data-tooltip-content={"Document"}
-          data-tooltip-id={"hint-tooltip"}
-        >
-          📖
-        </a>
-      </div>
-      <Tooltip
-        id="hint-tooltip"
-        place="bottom"
-        className="text-xs"
-        style={{
-          backgroundColor: "#1C1C1C",
-          color: "#ffffff",
-          fontSize: "12px",
-          padding: "2px 4px 2px 4px",
-          borderRadius: "4px",
-          userSelect: "none",
-        }}
-        noArrow
-      />
     </header>
   );
 };

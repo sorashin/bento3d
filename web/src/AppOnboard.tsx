@@ -1,7 +1,7 @@
 import "./App.css";
 import { SizeView } from "./components/organisms/SizeView";
 import { GridView } from "./components/organisms/GridView";
-import { DownloadView } from "./components/organisms/DownloadView";
+import { RightMenu } from "./components/molecules/RightMenu";
 import { Header } from "./components/molecules/Header";
 import { ButtonElements, DLButtonElementsAtom, stepAtom } from "./store";
 import React, {
@@ -223,10 +223,10 @@ function AppOnboard() {
             : ui.label === "留め具"
               ? "latch"
               : "partition";
-      const path = "/images/parts/" + pname + ".png";
+      const path = "/images/parts/" + pname + ".svg";
       const b: ButtonElements = {
         jsx: createUIListItem(ui, index, uis.length),
-        label: ui.label,
+        label: pname,
         path: path,
         visible: true,
       };
@@ -385,22 +385,18 @@ function AppOnboard() {
       <div id="editor" className="hidden"></div>
       <Header />
       <LeftMenu />
-      {step === 0 ? (
-        <SizeView />
-      ) : step === 1 ? (
-        <GridView />
-      ) : step === 2 ? (
-        <DownloadView elements={CreateButtonElements(UIs)}>
-          <div className="fixed z-15 left-0 bottom-8 flex flex-cols gap-4">
-            <UISlider uis={UIs} />
-            <UIGraph uis={UIs} />
-            <UIText uis={UIs} label={"config"} object={boxConfig} />
-            <UIText uis={UIs} label={"gridConfig"} object={grid} />
-            {/* <UINumber uis={UIs} label={'fillet'}/> */}
-            <UINumber uis={UIs} label={"depth"} />
-          </div>
-        </DownloadView>
-      ) : null}
+
+      {step === 0 ? <SizeView /> : step === 1 ? <GridView /> : null}
+      <RightMenu elements={CreateButtonElements(UIs)} step={step}>
+        <div className="fixed z-15 left-0 bottom-8 flex flex-cols gap-4">
+          <UISlider uis={UIs} />
+          <UIGraph uis={UIs} />
+          <UIText uis={UIs} label={"config"} object={boxConfig} />
+          <UIText uis={UIs} label={"gridConfig"} object={grid} />
+          {/* <UINumber uis={UIs} label={'fillet'}/> */}
+          <UINumber uis={UIs} label={"depth"} />
+        </div>
+      </RightMenu>
       <Suspense fallback={"loading..."}>
         <SceneComponent group={group}></SceneComponent>
       </Suspense>

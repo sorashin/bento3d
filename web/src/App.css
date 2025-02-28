@@ -94,7 +94,7 @@
     cursor: pointer;
     transition: all 0.3s;
     &:hover {
-      background: theme("colors.content.xl-a");
+      background: theme("colors.surface.sheet-l");
     }
   }
   .b-dropdown {
