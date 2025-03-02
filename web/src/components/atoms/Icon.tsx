@@ -22,6 +22,10 @@ import { ReactComponent as bentoBox } from "../../assets/icons/bento-box.svg";
 import { ReactComponent as bentoPartition } from "../../assets/icons/bento-partition.svg";
 import { ReactComponent as config } from "../../assets/icons/config.svg";
 import { ReactComponent as arrowUpRight } from "../../assets/icons/arrow-up-right.svg";
+import { ReactComponent as analytics } from "../../assets/icons/analytics.svg";
+import { ReactComponent as nozzle } from "../../assets/icons/nozzle.svg";
+import { ReactComponent as pen } from "../../assets/icons/pen.svg";
+import { ReactComponent as mail } from "../../assets/icons/mail.svg";
 
 const icons = {
   arrowLeft,
@@ -48,6 +52,10 @@ const icons = {
   bentoPartition,
   config,
   arrowUpRight,
+  analytics,
+  nozzle,
+  pen,
+  mail,
 };
 
 export type IconName = keyof typeof icons;

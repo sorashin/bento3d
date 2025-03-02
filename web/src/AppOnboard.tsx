@@ -50,6 +50,7 @@ import { DialogFeedback } from "./components/molecules/DialogFeedback";
 import { Toast } from "./components/atoms/Toast";
 import DrawerUpdates from "./components/molecules/DrawerUpdates";
 import { LeftMenu } from "./components/molecules/LeftMenu";
+import DialogAd from "./components/molecules/DialogAd";
 
 function AppOnboard() {
   const step = useAtomValue(stepAtom);
@@ -403,6 +404,7 @@ function AppOnboard() {
       {/* <img src="/gradient-forestSunrise-wgom2.png" alt="" className='top-20 fixed inset-6 z-0'/> */}
       <DialogSettings />
       <DialogFeedback />
+      <DialogAd />
       <DrawerUpdates />
       <Toast />
     </>

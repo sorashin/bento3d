@@ -13,6 +13,7 @@ import { Icon } from "../atoms/Icon";
 import updates from "../../assets/jsons/updates.json";
 import { Tooltip } from "react-tooltip";
 import { AnimatePresence, motion } from "framer-motion";
+import { Ad } from "../atoms/Ad";
 
 interface RightMenuProps {
   elements: ButtonElements[];
@@ -34,7 +35,6 @@ export const RightMenu: React.FC<RightMenuProps> = ({
   const [isUpdatesDrawerOpen, setIsUpdatesDrawerOpen] = useAtom(
     isUpdatesDrawerOpenAtom,
   );
-  const [showAds, setShowAds] = useState(true);
   const latestUpdate = updates.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   )[0];
@@ -150,37 +150,27 @@ export const RightMenu: React.FC<RightMenuProps> = ({
             </div>
             <div className="flex w-full flex-col items-end px-2">
               <p className="flex flex-row items-center gap-1 text-sm relative group py-0.5 text-content-m w-fit">
-                <a href="">Assembly Tips</a>
+                <a
+                  href="https://polar-tadpole-97b.notion.site/Bento3D-e40483712b304d389d7c2da26196e113#9d32764885c746438fa229644e0149f9"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Assembly Tips
+                </a>
                 <Icon name="arrowUpRight" className="size-5" />
                 <span className="absolute left-0 bottom-0 w-0 border-b-[1px] border-content-l group-hover:w-full transition-all"></span>
               </p>
               <p className="flex flex-row items-center gap-1 text-sm relative group py-0.5 mb-2 text-content-m w-fit">
-                <a href="">How to fix broken STLs</a>
+                <a href="https://polar-tadpole-97b.notion.site/Bento3D-e40483712b304d389d7c2da26196e113#d826cb9d4d844200a0fbd5f7df783f14">
+                  How to fix broken STLs
+                </a>
                 <Icon name="arrowUpRight" className="size-5" />
                 <span className="absolute left-0 bottom-0 w-0 border-b-[1px] border-content-l group-hover:w-full transition-all"></span>
               </p>
             </div>
           </motion.div>
         )}
-        {showAds && (
-          <div className="mx-2 relative md:block hidden">
-            <button
-              onClick={() => setShowAds(false)}
-              className="absolute top-2 right-2 rounded-full bg-content-l hover:scale-105 transition-all p-1"
-            >
-              <Icon
-                name="close"
-                className="size-3 stroke-[4px] text-content-m"
-              />
-            </button>
-            <a
-              href="https://www.notion.so/Advertise-on-Bento3D-1a883eba018d8099b457ebdf6f64c293"
-              className="rounded-sm overflow-hidden block"
-            >
-              <img src="/images/ads/ad001.png" alt="" />
-            </a>
-          </div>
-        )}
+        <Ad />
 
         <Tooltip
           id="hint-tooltip"
