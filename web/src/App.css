@@ -2,87 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-
-  .grid-shadow-inner{
-    box-shadow: inset 113px 114px 45px rgba(48, 48, 48, 0.01), inset 73px 73px 41px rgba(48, 48, 48, 0.02), inset 41px 41px 35px rgba(48, 48, 48, 0.08), inset 18px 18px 26px rgba(48, 48, 48, 0.16), inset 5px 5px 14px rgba(48, 48, 48, 0.2);
+@layer components {
+  .grid-shadow-inner {
+    box-shadow:
+      inset 113px 114px 45px rgba(48, 48, 48, 0.01),
+      inset 73px 73px 41px rgba(48, 48, 48, 0.02),
+      inset 41px 41px 35px rgba(48, 48, 48, 0.08),
+      inset 18px 18px 26px rgba(48, 48, 48, 0.16),
+      inset 5px 5px 14px rgba(48, 48, 48, 0.2);
   }
-  .grid-shadow-outer{
-    box-shadow: 0px 324px 130px rgba(0, 0, 0, 0.01), 0px 182px 109px rgba(0, 0, 0, 0.05), 0px 81px 81px rgba(0, 0, 0, 0.09), 0px 20px 45px rgba(0, 0, 0, 0.1);
+  .grid-shadow-outer {
+    box-shadow:
+      0px 324px 130px rgba(0, 0, 0, 0.01),
+      0px 182px 109px rgba(0, 0, 0, 0.05),
+      0px 81px 81px rgba(0, 0, 0, 0.09),
+      0px 20px 45px rgba(0, 0, 0, 0.1);
   }
-  .grid-bottom-layer{  
-    background: radial-gradient(398.85% 398.85% at 54.68% -169.05%, #FFFFFF 0%, #E1E1E1 100%)
+  .grid-bottom-layer {
+    background: radial-gradient(
+      398.85% 398.85% at 54.68% -169.05%,
+      #ffffff 0%,
+      #e1e1e1 100%
+    );
   }
 
-.range-slider {
-  -webkit-appearance: none; /* デフォルトのスタイルをリセット */
-  width: 128px; /* 必要に応じて調整 */
-  height:56px; 
-  background: transparent; /* スライダートラックの背景を透明に設定 */
-}
+  .range-slider {
+    -webkit-appearance: none; /* デフォルトのスタイルをリセット */
+    width: 128px; /* 必要に応じて調整 */
+    height: 56px;
+    background: transparent; /* スライダートラックの背景を透明に設定 */
+  }
 
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 128px; /* ツマミの幅 */
-  height: 56px; /* ツマミの高さ */
-  background:  theme('colors.content.h');/* ツマミの背景色 */
-  cursor: pointer; /* カーソルのスタイル */
-  border-radius: 28px; /* ツマミを円形に */
-  transform: translateY(-50%);
-}
-.range-slider.horizontal::-webkit-slider-thumb {
-  cursor:ew-resize;
-}
-.range-slider.vertical::-webkit-slider-thumb {
-  cursor:ns-resize;
-}
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 128px; /* ツマミの幅 */
+    height: 56px; /* ツマミの高さ */
+    background: theme("colors.content.h"); /* ツマミの背景色 */
+    cursor: pointer; /* カーソルのスタイル */
+    border-radius: 28px; /* ツマミを円形に */
+    transform: translateY(-50%);
+  }
+  .range-slider.horizontal::-webkit-slider-thumb {
+    cursor: ew-resize;
+  }
+  .range-slider.vertical::-webkit-slider-thumb {
+    cursor: ns-resize;
+  }
 
-.range-slider::-moz-range-thumb {
-  width: 128px;
-  height: 56px;
-  background: theme('colors.content.h');
-  cursor: pointer;
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
+  .range-slider::-moz-range-thumb {
+    width: 128px;
+    height: 56px;
+    background: theme("colors.content.h");
+    cursor: pointer;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
 
-.range-slider::-ms-thumb {
-  width: 128px;
-  height: 56px;
-  background: theme('colors.content.h');
-  cursor: pointer;
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
+  .range-slider::-ms-thumb {
+    width: 128px;
+    height: 56px;
+    background: theme("colors.content.h");
+    cursor: pointer;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
 
-.range-slider::-webkit-slider-runnable-track {
-  width: 1px;
-  height: 1px;
-  background: transparent; /* トラックの背景色 */
-}
-
-.range-slider::-moz-range-track {
+  .range-slider::-webkit-slider-runnable-track {
     width: 1px;
-  height: 1px;
-  background: transparent; /* トラックの背景色 */
-}
-
-.range-slider::-ms-track {
-    width: 1px;
-  height: 1px;
-  background: transparent; /* トラックの背景色 */
-}
-.b-button{
-  background: theme('colors.content.xxl-a');
-  color: theme('colors.content.h');
-  border-radius: 4px;
-  padding: 0.5rem;
-  font-size:theme(fontSize.sm) ;
-  cursor: pointer;
-  transition: all 0.3s;
-  &:hover{
-    background: theme('colors.content.xl-a');
+    height: 1px;
+    background: transparent; /* トラックの背景色 */
   }
-}
+
+  .range-slider::-moz-range-track {
+    width: 1px;
+    height: 1px;
+    background: transparent; /* トラックの背景色 */
+  }
+
+  .range-slider::-ms-track {
+    width: 1px;
+    height: 1px;
+    background: transparent; /* トラックの背景色 */
+  }
+  .b-button {
+    background: theme("colors.content.xxl-a");
+    color: theme("colors.content.h");
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: theme(fontSize.sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: theme("colors.surface.sheet-l");
+    }
+  }
+  .b-dropdown {
+    @apply inline-block;
+  }
+  .b-dropdown-contents {
+    @apply absolute min-w-32 origin-top-left scale-0 transition-all duration-150 ease-in-out gap-1 p-1 rounded-sm opacity-0;
+  }
+  .b-dropdown:hover > .b-dropdown-contents {
+    @apply scale-100 opacity-100;
+  }
 }
