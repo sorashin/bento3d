@@ -3,7 +3,12 @@ import { SizeView } from "./components/organisms/SizeView";
 import { GridView } from "./components/organisms/GridView";
 import { RightMenu } from "./components/molecules/RightMenu";
 import { Header } from "./components/molecules/Header";
-import { ButtonElements, DLButtonElementsAtom, stepAtom } from "./store";
+import {
+  ButtonElements,
+  DLButtonElementsAtom,
+  isGAInitializedAtom,
+  stepAtom,
+} from "./store";
 import React, {
   ReactNode,
   Suspense,
@@ -67,6 +72,7 @@ function AppOnboard() {
   const [boxConfig, setBoxConfig] = useAtom(boxConfigAtom);
   const [grid, setGrid] = useAtom(gridAtoms);
   const [cameraMode, setCameraMode] = useAtom(cameraModeAtom);
+  const [isGAInitialized, setIsGAInitialized] = useAtom(isGAInitializedAtom);
 
   let viewer: Viewer;
   const initializeProject = async () => {
@@ -366,6 +372,7 @@ function AppOnboard() {
   useEffect(() => {
     // Google Analytics 測定 ID を入力して設定
     ReactGA.initialize("G-J10ZQ1VRW8");
+    setIsGAInitialized(true);
     ReactGA.send({
       hitType: "pageview",
       // アクセスしたパス (pathname) とクエリ文字列 (search) を送付する (必要に応じて編集する)

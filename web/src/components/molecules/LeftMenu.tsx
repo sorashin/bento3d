@@ -79,6 +79,7 @@ export const LeftMenu = () => {
                     <img
                       src={img}
                       className="size-full rounded-sm filter saturate-60 opacity-80 mix-blend-multiply child-group-hover:saturate-100 child-group-hover:opacity-100"
+                      key={index}
                     />
                   ))}
                 </div>
