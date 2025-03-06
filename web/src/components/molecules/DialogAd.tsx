@@ -42,7 +42,10 @@ export const DialogAd: FC<DialogAdProps> = ({}) => {
           Advertise on Bento3D
         </h2>
         {contents.map((content) => (
-          <div className="flex gap-2 items-center text-content-dark-h-a">
+          <div
+            className="flex gap-2 items-center text-content-dark-h-a"
+            key={content.title}
+          >
             <Icon name={content.icon} className="size-8" />
             <div className="flex flex-col gap-1">
               <h3 className="text-lg font-semibold">{content.title}</h3>
