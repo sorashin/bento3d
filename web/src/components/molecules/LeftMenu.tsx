@@ -13,7 +13,7 @@ const modes = [
   {
     label: "Partition",
     img: "bentoPartition",
-    sampleImg: ["/images/partitions/000.jpg", "/images/partitions/004.jpg"],
+    sampleImg: ["/images/partitions/000.png", "/images/partitions/004.jpg"],
   },
   {
     label: "Partition & Box",
@@ -21,7 +21,7 @@ const modes = [
     sampleImg: [
       "/images/cases/000.jpg",
       "/images/cases/001.jpg",
-      "/images/cases/002.jpg",
+      "/images/cases/002.png",
     ],
   },
 ];
@@ -79,6 +79,7 @@ export const LeftMenu = () => {
                     <img
                       src={img}
                       className="size-full rounded-sm filter saturate-60 opacity-80 mix-blend-multiply child-group-hover:saturate-100 child-group-hover:opacity-100"
+                      key={index}
                     />
                   ))}
                 </div>
