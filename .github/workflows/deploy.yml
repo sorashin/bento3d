@@ -3,92 +3,92 @@ name: deploy
 on:
   push:
     branches:
-      - main         # production用
-      - develop  # develop用
+      - main # production用
+      - develop # develop用
 
 jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v3
-    - name: Setup Node 12 for /core
-      uses: actions/setup-node@v3
-      with: 
-        node-version: '12.20.1'
-        registry-url: 'https://registry.npmjs.org'
-    # 事前にwasm-packをインストール
-    - name: Install wasm-pack
-      run: |
-            curl -sSf https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
-    - name: Install Dependencies @nodi/core
-      working-directory: ./core
-      run: |
-        yarn install
-      
-    - name: Build @nodi/core
-      working-directory: ./core
-      run: |
-        yarn build
-    
-    - name: Set up Node.js 18 for /web
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18.18.0'
-        registry-url: 'https://registry.npmjs.org'
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node 12 for /core
+        uses: actions/setup-node@v3
+        with:
+          node-version: "12.20.1"
+          registry-url: "https://registry.npmjs.org"
+      # 事前にwasm-packをインストール
+      - name: Install wasm-pack
+        run: |
+          curl -sSf https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
+      - name: Install Dependencies @nodi/core
+        working-directory: ./core
+        run: |
+          yarn install
 
-    - name: Use specific Yarn version
-      working-directory: ./web
-      run: |
+      - name: Build @nodi/core
+        working-directory: ./core
+        run: |
+          yarn build
+
+      - name: Set up Node.js 18 for /web
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.18.0"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Use specific Yarn version
+        working-directory: ./web
+        run: |
           corepack enable
           yarn set version 4.4.1
 
-    - name: Configure Yarn nodeLinker
-      working-directory: ./web
-      run: yarn config set nodeLinker node-modules
-  
-    - name: Install Dependencies @nodi/web
-      working-directory: ./web
-      run: |
+      - name: Configure Yarn nodeLinker
+        working-directory: ./web
+        run: yarn config set nodeLinker node-modules
+
+      - name: Install Dependencies @nodi/web
+        working-directory: ./web
+        run: |
           yarn cache clean
           yarn remove @nodi/core
           yarn add ../core
-          npm install -g firebase-tools
+          npm install -g firebase-tools@11.30.0
           yarn install --frozen-lockfile
 
-    - name: Create .firebaserc file
-      working-directory: ./web
-      env:
-        FIREBASE_RC_FILE: ${{ secrets.FIREBASE_RC_FILE }}
-      run: |
-        echo $FIREBASE_RC_FILE | base64 --decode > .firebaserc
-    - name: Create .env file
-      working-directory: ./web
-      run: |        
-        echo "REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}" >> .env
-        echo "REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }}" >> .env
-        echo "REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }}" >> .env
-        echo "REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }}" >> .env
-        echo "REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }}" >> .env
-        echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
-                
-    - name: Build @nodi/web
-      working-directory: ./web
-      run: |
-        CI=false yarn build
-#    - name: Test
-#      working-directory: ./web
-#      run: yarn test
-    - name: Deploy to Firebase
-      working-directory: ./web
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: |
-        if [[ "${{ github.ref_name }}" == "main" ]]; then
-          firebase use production
-          firebase deploy --only hosting:production
-        elif [[ "${{ github.ref_name }}" == "develop" ]]; then
-          firebase use staging
-          firebase deploy --only hosting:staging
-        fi
+      - name: Create .firebaserc file
+        working-directory: ./web
+        env:
+          FIREBASE_RC_FILE: ${{ secrets.FIREBASE_RC_FILE }}
+        run: |
+          echo $FIREBASE_RC_FILE | base64 --decode > .firebaserc
+      - name: Create .env file
+        working-directory: ./web
+        run: |
+          echo "REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}" >> .env
+          echo "REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }}" >> .env
+          echo "REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }}" >> .env
+          echo "REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }}" >> .env
+          echo "REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }}" >> .env
+          echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
+
+      - name: Build @nodi/web
+        working-directory: ./web
+        run: |
+          CI=false yarn build
+      #    - name: Test
+      #      working-directory: ./web
+      #      run: yarn test
+      - name: Deploy to Firebase
+        working-directory: ./web
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            firebase use production
+            firebase deploy --only hosting:production
+          elif [[ "${{ github.ref_name }}" == "develop" ]]; then
+            firebase use staging
+            firebase deploy --only hosting:staging
+          fi
