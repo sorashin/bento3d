@@ -66,10 +66,10 @@ export const DialogAd: FC<DialogAdProps> = ({}) => {
           <p className="text-sm text-content-dark-m-a text-center">
             You can reach us at{" "}
             <a
-              href="mailto:info@bento3d.com?subject=Advertise on Bento3D"
+              href="mailto:inbox.toaster@gmail.com?subject=Advertise on Bento3D"
               className="font-semibold underline hover:text-content-dark-h-a"
             >
-              contact@bento3d.design
+              inbox.toaster@gmail.com
             </a>
           </p>
         </div>
